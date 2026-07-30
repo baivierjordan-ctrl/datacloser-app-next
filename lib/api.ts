@@ -8,6 +8,10 @@ import type {
   NouveauScan,
   OptionsRadar,
   Qualification,
+  Boutique,
+  Partenariat,
+  ProfilEntreprise,
+  ReponseProfil,
   ScanRadar,
 } from "./types";
 import { effacerSession, lireSession } from "./session";
@@ -274,4 +278,40 @@ export async function validerReset(
     throw new Error(detail?.detail ?? "Lien invalide ou expiré.");
   }
   return reponse.json();
+}
+
+/** Profil enregistré, options de saisie et modes métier. */
+export function recupererProfil(): Promise<ReponseProfil> {
+  return appeler<ReponseProfil>("/entreprise/profil");
+}
+
+/** Enregistre le profil entreprise. */
+export function enregistrerProfil(
+  profil: ProfilEntreprise,
+): Promise<{ enregistre: boolean; completion: number }> {
+  return envoyer("/entreprise/profil", profil);
+}
+
+/** Propose un profil déduit du site indiqué. Rien n'est enregistré. */
+export function analyserSite(
+  url: string,
+): Promise<{ profil: Partial<ProfilEntreprise> }> {
+  return envoyer("/entreprise/analyser-url", { url });
+}
+
+/** Offres et liens de paiement, déjà personnalisés. */
+export function recupererBoutique(): Promise<Boutique> {
+  return appeler<Boutique>("/boutique");
+}
+
+/** Vérifie un code promotionnel. */
+export function verifierPromo(
+  code: string,
+): Promise<{ libelle: string; message: string; lien: string }> {
+  return envoyer("/boutique/promo", { code });
+}
+
+/** Lien de parrainage et conditions des programmes. */
+export function recupererPartenariat(): Promise<Partenariat> {
+  return appeler<Partenariat>("/partenariat");
 }

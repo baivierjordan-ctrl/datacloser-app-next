@@ -179,3 +179,65 @@ export const LIBELLES_SCAN: Record<string, string> = {
   termine: "Terminée",
   erreur: "Échec",
 };
+
+/** Profil entreprise : il nourrit le scoring et les accroches du moteur. */
+export interface ProfilEntreprise {
+  company_name: string;
+  website: string;
+  sector: string;
+  offer_description: string;
+  icp_sectors: string;
+  icp_company_size: string;
+  icp_geography: string;
+  differentiator: string;
+  keywords: string;
+}
+
+export interface ModeMetier {
+  cle: string;
+  libelle: string;
+  description: string;
+  profil: Partial<ProfilEntreprise>;
+}
+
+export interface ReponseProfil {
+  profil: ProfilEntreprise;
+  completion: number;
+  tailles: string[];
+  modes: ModeMetier[];
+}
+
+export interface Offre {
+  cle: string;
+  nom: string;
+  prix: string;
+  periode: string;
+  credits: number;
+  lien: string;
+  avantages: string[];
+}
+
+export interface Boutique {
+  credits: number;
+  abonnements: Offre[];
+  packs: Offre[];
+}
+
+export interface Partenariat {
+  lien_parrainage: string;
+  parrainage: { gain_parrain: string; gain_filleul: string };
+  affiliation: { commission: string; paiement: string; contact: string };
+}
+
+/** Libellés des champs du profil, utilisés à l'affichage. */
+export const LIBELLES_PROFIL: Record<keyof ProfilEntreprise, string> = {
+  company_name: "Nom de votre entreprise",
+  website: "Site web",
+  sector: "Votre secteur d'activité",
+  offer_description: "Ce que vous vendez",
+  icp_sectors: "Secteurs de vos clients idéaux",
+  icp_company_size: "Taille des clients visés",
+  icp_geography: "Zones géographiques prioritaires",
+  differentiator: "Votre différenciateur clé",
+  keywords: "Mots-clés de votre métier",
+};
