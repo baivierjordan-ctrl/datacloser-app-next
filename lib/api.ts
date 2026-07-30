@@ -227,3 +227,51 @@ export function recupererLogsScan(
     `/radar/scan/${encodeURIComponent(id)}/logs?depuis=${depuis}`,
   );
 }
+
+/** Crée un compte et ouvre directement la session. */
+export async function sInscrire(donnees: {
+  email: string;
+  mot_de_passe: string;
+  societe: string;
+  adresse?: string;
+  tva?: string;
+}): Promise<{ jeton: string; email: string; credits: number }> {
+  const reponse = await fetch(`${BASE}/auth/inscription`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(donnees),
+  });
+  if (!reponse.ok) {
+    const detail = await reponse.json().catch(() => null);
+    throw new Error(detail?.detail ?? "Inscription impossible. Réessayez.");
+  }
+  return reponse.json();
+}
+
+/** Demande l'envoi d'un lien de réinitialisation. */
+export async function demanderReset(email: string): Promise<{ message: string }> {
+  const reponse = await fetch(`${BASE}/auth/reset/demande`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  if (!reponse.ok) throw new Error("Envoi impossible pour le moment. Réessayez.");
+  return reponse.json();
+}
+
+/** Applique un nouveau mot de passe à partir du jeton reçu par email. */
+export async function validerReset(
+  token: string,
+  motDePasse: string,
+): Promise<{ message: string }> {
+  const reponse = await fetch(`${BASE}/auth/reset/valider`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token, mot_de_passe: motDePasse }),
+  });
+  if (!reponse.ok) {
+    const detail = await reponse.json().catch(() => null);
+    throw new Error(detail?.detail ?? "Lien invalide ou expiré.");
+  }
+  return reponse.json();
+}

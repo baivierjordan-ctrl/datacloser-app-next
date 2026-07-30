@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { LogIn } from "lucide-react";
 import { seConnecter } from "@/lib/api";
 import { ecrireSession } from "@/lib/session";
@@ -83,8 +84,20 @@ export default function PageConnexion() {
           </button>
         </div>
 
-        <p className="mt-6 text-center text-xs text-muted">
-          Pas encore de compte ? Créez-le sur app.datacloser.com
+        <p className="mt-5 text-center text-xs">
+          <Link
+            href="/mot-de-passe-oublie"
+            className="text-muted transition hover:text-content"
+          >
+            Mot de passe oublié ?
+          </Link>
+        </p>
+
+        <p className="mt-3 text-center text-xs text-muted">
+          Pas encore de compte ?{" "}
+          <Link href="/inscription" className="text-teal hover:underline">
+            Créez-en un
+          </Link>
         </p>
       </div>
     </main>
