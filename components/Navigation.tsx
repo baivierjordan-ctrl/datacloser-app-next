@@ -8,6 +8,7 @@ import { Marque } from "@/components/Marque";
 import { effacerSession, lireSession } from "@/lib/session";
 
 const ONGLETS = [
+  { href: "/accueil", libelle: "Accueil" },
   { href: "/radar", libelle: "Radar" },
   { href: "/outreach", libelle: "Outreach" },
   { href: "/exports", libelle: "Exports" },
@@ -38,7 +39,7 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-20 -mx-6 mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-line bg-ink/85 px-6 py-3 backdrop-blur-md">
       <div className="flex min-w-0 flex-1 items-center gap-5">
-        <Link href="/radar" className="shrink-0" aria-label="DataCloser, accueil">
+        <Link href="/accueil" className="shrink-0" aria-label="DataCloser, tableau de bord">
           <Marque />
         </Link>
 

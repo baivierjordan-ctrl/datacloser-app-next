@@ -257,3 +257,25 @@ export interface ApercuEmail {
   raison: string;
   langue: string;
 }
+
+/** Chiffres de synthèse de l'écran d'accueil, en un seul appel. */
+export interface Accueil {
+  email: string;
+  credits: number;
+  entreprises_analysees: number;
+  chasses: number;
+  chasse_en_cours: boolean;
+  derniere_chasse: {
+    nom_fichier: string;
+    created_at: string | null;
+    leads_analyses: number;
+  } | null;
+  campagnes: number;
+  campagnes_actives: number;
+  emails_envoyes: number;
+  emails_echoues: number;
+  profil_completion: number;
+  smtp_configure: boolean;
+  /** Une seule suggestion à la fois, calculée d'après l'obstacle réel. */
+  action: { titre: string; detail: string; lien: string; bouton: string };
+}

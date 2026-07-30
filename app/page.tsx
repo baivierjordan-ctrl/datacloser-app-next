@@ -27,7 +27,7 @@ function Racine() {
   const [erreur, setErreur] = useState("");
 
   useEffect(() => {
-    if (!jeton) router.replace(lireSession() ? "/radar" : "/connexion");
+    if (!jeton) router.replace(lireSession() ? "/accueil" : "/connexion");
   }, [jeton, router]);
 
   if (!jeton) return null;

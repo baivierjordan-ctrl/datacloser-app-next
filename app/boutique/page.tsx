@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Coins, Ticket } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
+import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererBoutique, verifierPromo } from "@/lib/api";
 import { lireSession } from "@/lib/session";
 import type { Boutique, Offre } from "@/lib/types";
@@ -219,6 +220,7 @@ export default function PageBoutique() {
           Le paiement est traité par Stripe. Nous n&apos;avons accès à aucune
           donnée bancaire.
         </p>
+        <PiedDePage />
       </div>
     </main>
   );

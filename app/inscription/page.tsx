@@ -37,7 +37,7 @@ export default function PageInscription() {
         tva: tva.trim(),
       });
       ecrireSession(session);
-      router.replace("/radar");
+      router.replace("/accueil");
     } catch (e) {
       setErreur((e as Error).message);
       setEnCours(false);

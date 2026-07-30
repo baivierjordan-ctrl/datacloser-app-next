@@ -1,4 +1,5 @@
 import type {
+  Accueil,
   ApercuEmail,
   Campagne,
   ConfigSmtp,
@@ -359,4 +360,9 @@ export async function supprimerCampagne(id: string): Promise<void> {
     throw new SessionExpiree();
   }
   if (!reponse.ok) throw new Error("Suppression impossible. Réessayez.");
+}
+
+/** Chiffres de synthèse et prochaine action suggérée. */
+export function recupererAccueil(): Promise<Accueil> {
+  return appeler<Accueil>("/accueil");
 }

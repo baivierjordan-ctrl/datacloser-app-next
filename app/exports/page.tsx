@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Download, FileSpreadsheet } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
+import { PiedDePage } from "@/components/PiedDePage";
 import {
   SessionExpiree,
   recupererScansDetails,
@@ -149,6 +150,7 @@ export default function PageExports() {
             )}
           </>
         )}
+        <PiedDePage />
       </div>
     </main>
   );

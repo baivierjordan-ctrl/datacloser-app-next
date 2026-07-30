@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Copy, Handshake, Mail } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
+import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererPartenariat } from "@/lib/api";
 import { lireSession } from "@/lib/session";
 import type { Partenariat } from "@/lib/types";
@@ -158,6 +159,7 @@ export default function PagePartenariat() {
             ))}
           </div>
         )}
+        <PiedDePage />
       </div>
     </main>
   );

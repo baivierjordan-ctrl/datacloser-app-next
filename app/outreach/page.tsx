@@ -7,6 +7,7 @@ import { CreationCampagne } from "@/components/CreationCampagne";
 import { FormulaireSmtp } from "@/components/FormulaireSmtp";
 import { ListeCampagnes } from "@/components/ListeCampagnes";
 import { Navigation } from "@/components/Navigation";
+import { PiedDePage } from "@/components/PiedDePage";
 import {
   SessionExpiree,
   ecrireConfigSmtp,
@@ -158,6 +159,7 @@ function Outreach() {
             onEnregistrer={enregistrer}
           />
         )}
+        <PiedDePage />
       </div>
     </main>
   );

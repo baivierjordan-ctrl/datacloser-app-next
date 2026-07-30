@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { LancementScan } from "@/components/LancementScan";
 import { Navigation } from "@/components/Navigation";
+import { PiedDePage } from "@/components/PiedDePage";
 import { BarreActions } from "@/components/BarreActions";
 import { BarreFiltres } from "@/components/BarreFiltres";
 import { LigneLead } from "@/components/LigneLead";
@@ -217,6 +218,7 @@ export default function PageRadar() {
             {notification}
           </p>
         )}
+        <PiedDePage />
       </div>
     </main>
   );

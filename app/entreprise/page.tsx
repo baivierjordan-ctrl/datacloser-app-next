@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Building2, Check, Loader2, Sparkles, Wand2 } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
+import { PiedDePage } from "@/components/PiedDePage";
 import {
   SessionExpiree,
   analyserSite,
@@ -331,6 +332,7 @@ export default function PageEntreprise() {
             </div>
           </div>
         )}
+        <PiedDePage />
       </div>
     </main>
   );
