@@ -289,3 +289,9 @@ export interface Accueil {
   /** Une seule suggestion à la fois, calculée d'après l'obstacle réel. */
   action: { titre: string; detail: string; lien: string; bouton: string };
 }
+
+/** Un tour de conversation avec l'assistant. */
+export interface TourConversation {
+  role: "utilisateur" | "assistant";
+  contenu: string;
+}

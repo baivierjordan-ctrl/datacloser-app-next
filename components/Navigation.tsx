@@ -12,6 +12,7 @@ const ONGLETS = [
   { href: "/radar", libelle: "Radar" },
   { href: "/outreach", libelle: "Outreach" },
   { href: "/exports", libelle: "Exports" },
+  { href: "/assistant", libelle: "Assistant" },
   { href: "/entreprise", libelle: "Mon entreprise" },
   { href: "/boutique", libelle: "Boutique" },
   { href: "/partenariat", libelle: "Partenariat" },

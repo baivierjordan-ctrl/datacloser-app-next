@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  TourConversation,
   ApercuEmail,
   Campagne,
   ConfigSmtp,
@@ -365,4 +366,18 @@ export async function supprimerCampagne(id: string): Promise<void> {
 /** Chiffres de synthèse et prochaine action suggérée. */
 export function recupererAccueil(): Promise<Accueil> {
   return appeler<Accueil>("/accueil");
+}
+
+/** Pose une question à l'assistant, historique joint pour garder le fil. */
+export function interrogerAssistant(
+  question: string,
+  historique: TourConversation[],
+): Promise<{ reponse: string }> {
+  return envoyer("/assistant", { question, historique });
+}
+
+/** Questions de départ, adaptées à l'avancement du compte. */
+export async function recupererSuggestions(): Promise<string[]> {
+  const d = await appeler<{ suggestions: string[] }>("/assistant/suggestions");
+  return d.suggestions ?? [];
 }

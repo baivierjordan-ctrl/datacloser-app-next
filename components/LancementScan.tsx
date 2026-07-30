@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader2, Plus, Radar, X } from "lucide-react";
 import { ConsoleScan } from "@/components/ConsoleScan";
+import { HistoriqueChasses } from "@/components/HistoriqueChasses";
 import {
   annulerScan,
   lancerScan,
@@ -75,6 +76,17 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
       clearInterval(minuterie);
     };
   }, [onTermine]);
+
+  /** Recharge le formulaire avec les réglages d'une chasse passée. */
+  function reprendre(scan: ScanRadar) {
+    setMotsCles(scan.mots_cles ?? []);
+    if (scan.pays) setPays(scan.pays);
+    setVilles(new Set(scan.lieux ?? []));
+    setZones("");
+    if (scan.mode_recherche) setMode(scan.mode_recherche);
+    setErreur("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   function ajouterMot() {
     const propre = saisieMot.trim();
@@ -362,7 +374,7 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
         </p>
       )}
 
-      <div className="sticky bottom-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface/95 px-5 py-3.5 backdrop-blur">
+      <div className="sticky bottom-6 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface/95 px-5 py-3.5 backdrop-blur">
         <span className="text-sm text-muted">
           {motsCles.length === 0 || lieux.length === 0 ? (
             "Ajoutez au moins un mot-clé et un lieu"
@@ -387,6 +399,11 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
           {actif ? "Une chasse est en cours" : "Lancer la chasse"}
         </button>
       </div>
+
+      <section className="mt-4">
+        <h2 className="mb-3 text-sm font-medium">Vos chasses</h2>
+        <HistoriqueChasses onRelancer={reprendre} />
+      </section>
     </div>
   );
 }
