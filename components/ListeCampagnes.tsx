@@ -5,6 +5,9 @@ import { ChevronDown } from "lucide-react";
 import { recupererLogs } from "@/lib/api";
 import { LIBELLES_CAMPAGNE, type Campagne, type LogEnvoi } from "@/lib/types";
 
+// Un envoi n'est pas un destinataire : les relances J+4, J+9 et J+14
+// incrementent le compteur d'envois sans ajouter personne a la campagne.
+// Les deux chiffres sont donc presentes separement, jamais en fraction.
 const COULEUR_STATUT: Record<string, string> = {
   active: "text-ok",
   pausee: "text-warn",
@@ -83,13 +86,15 @@ export function ListeCampagnes({ campagnes }: { campagnes: Campagne[] }) {
                   </span>
                   <span>
                     <span className="font-mono tabular-nums">
+                      {campagne.total_leads}
+                    </span>
+                    {" destinataires"}
+                  </span>
+                  <span>
+                    <span className="font-mono tabular-nums">
                       {campagne.envoyes}
                     </span>
-                    {" / "}
-                    <span className="font-mono tabular-nums">
-                      {campagne.total_leads}
-                    </span>{" "}
-                    envoyés
+                    {campagne.envoyes > 1 ? " envois" : " envoi"}
                   </span>
                   {campagne.echecs > 0 && (
                     <span className="text-danger">

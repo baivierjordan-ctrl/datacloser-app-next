@@ -91,8 +91,8 @@ export default function PageRadar() {
           ) : (
             <p className="mt-2 text-sm text-muted">
               {visibles.length} entreprises · {contactables} contactables ·{" "}
-              <span className="text-content">{contactables} crédits</span> à
-              l&apos;envoi
+              <span className="text-content">{contactables} crédits</span>
+              {" à l'envoi"}
             </p>
           )}
 
