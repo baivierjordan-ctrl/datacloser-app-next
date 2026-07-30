@@ -46,10 +46,10 @@ export default function PageInscription() {
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
-        <p className="mb-1.5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-teal">
+        <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
           <UserPlus size={13} aria-hidden="true" /> Inscription
         </p>
-        <h1 className="mb-1 text-[26px] font-semibold leading-tight">
+        <h1 className="mb-1 text-[28px] font-semibold leading-[1.12] sm:text-[32px]">
           Créez votre compte
         </h1>
         <p className="mb-6 text-sm text-muted">

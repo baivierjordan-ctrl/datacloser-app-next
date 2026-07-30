@@ -131,8 +131,8 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
   return (
     <div className="flex flex-col gap-5">
       {scanEnCours && (
-        <section className="rounded-xl border border-teal/30 bg-teal/5 p-5">
-          <div className="flex items-start justify-between gap-4">
+        <section className="balayage relative overflow-hidden rounded-xl border border-teal/30 bg-teal/5 p-5">
+          <div className="relative z-10 flex items-start justify-between gap-4">
             <div className="min-w-0">
               <p className="flex items-center gap-2 text-sm font-medium text-teal">
                 <Loader2 size={14} className="animate-spin" aria-hidden="true" />
@@ -141,11 +141,11 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
               <p className="mt-1 truncate text-xs text-muted">
                 {scanEnCours.mots_cles.join(", ")} — {scanEnCours.lieux.join(", ")}
               </p>
-              <p className="mt-2 text-xs text-muted">
-                <span className="font-mono tabular-nums text-content">
+              <p className="mt-3 flex items-baseline gap-2">
+                <span className="font-display text-[32px] font-semibold leading-none tabular-nums text-content">
                   {scanEnCours.leads_analyses}
-                </span>{" "}
-                entreprises analysées
+                </span>
+                <span className="text-xs text-muted">entreprises analysées</span>
               </p>
             </div>
             {scanEnCours.statut !== "annulation_demandee" && (
@@ -158,9 +158,11 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
               </button>
             )}
           </div>
-          <ConsoleScan id={scanEnCours.id} actif />
+          <div className="relative z-10">
+            <ConsoleScan id={scanEnCours.id} actif />
+          </div>
 
-          <p className="mt-3 text-xs text-muted">
+          <p className="relative z-10 mt-3 text-xs text-muted">
             Vous pouvez fermer cette page : la chasse continue sur nos serveurs.
           </p>
         </section>

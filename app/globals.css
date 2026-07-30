@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
-/* Charte DataCloser — source unique de vérité pour les couleurs.
-   Déclarées comme variables Tailwind v4 : utilisables en bg-ink,
-   text-teal, border-line, etc. */
+/* ═══════════════════════════════════════════════════════════════
+   Charte DataCloser — source unique de vérité.
+
+   Direction « Signal » : l'application est un instrument de
+   détection, pas un tableau de bord. La palette est celle de la
+   marque et ne bouge pas ; le caractère vient de la typographie,
+   de la profondeur et d'un unique geste — le balayage radar.
+   ═══════════════════════════════════════════════════════════════ */
+
 @theme {
   --color-ink: #0a0d12;
   --color-surface: #0d1117;
@@ -19,6 +25,10 @@
   --color-warn: #fbbf24;
   --color-danger: #f43f5e;
 
+  /* Space Grotesk porte les titres : c'est la police de la marque,
+     et ses formes légèrement mécaniques conviennent à un instrument.
+     Inter reste au texte courant, plus lisible en petit corps. */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-sans: Inter, system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -36,7 +46,102 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Focus visible au clavier — accessibilité de base, non négociable. */
+/* Halo d'origine du balayage, ancré en haut à gauche. Très faible :
+   il donne une source de lumière à la page sans se faire remarquer. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      42rem 32rem at 12% -8%,
+      color-mix(in oklab, var(--color-teal) 7%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36rem 28rem at 92% 4%,
+      color-mix(in oklab, var(--color-blue) 5%, transparent),
+      transparent 70%
+    );
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Titres ──────────────────────────────────────────────────── */
+h1 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.012em;
+}
+
+/* Les chiffres ne doivent jamais danser quand ils s'incrémentent. */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Profondeur ──────────────────────────────────────────────── */
+/* Un liseré clair sur l'arête haute : la carte capte la lumière du
+   halo au lieu de flotter à plat sur le fond. */
+.bg-surface {
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.035),
+    0 1px 2px 0 rgb(0 0 0 / 0.3);
+}
+
+/* ── Entrée en scène ─────────────────────────────────────────── */
+/* Décalage court entre les éléments d'une liste : la page se pose
+   au lieu de surgir d'un bloc. Volontairement bref — au-delà de
+   quelques dixièmes de seconde, l'attente devient perceptible. */
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.apparition {
+  animation: apparition 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Balayage radar ──────────────────────────────────────────── */
+/* Le geste signature, réservé à la chasse en cours : c'est le seul
+   endroit où l'utilisateur attend, et le seul où l'animation dit
+   quelque chose de vrai sur ce qui se passe. */
+@keyframes balayage {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.balayage::after {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in oklab, var(--color-teal) 16%, transparent) 22deg,
+    transparent 48deg
+  );
+  animation: balayage 3.6s linear infinite;
+}
+
+/* ── Accessibilité ───────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-teal);
   outline-offset: 2px;
@@ -48,6 +153,12 @@ body {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Le balayage disparaît plutôt que de se figer à mi-course. */
+  .balayage::after {
+    display: none;
   }
 }

@@ -95,15 +95,15 @@ export default function PageBoutique() {
     : [];
 
   return (
-    <main className="min-h-screen px-6 py-8">
-      <div className="mx-auto max-w-4xl">
+    <main className="min-h-screen px-6 pb-16 pt-6">
+      <div className="mx-auto max-w-5xl">
         <Navigation />
 
         <header className="mb-6">
-          <p className="mb-1.5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
             <Coins size={13} aria-hidden="true" /> Boutique
           </p>
-          <h1 className="text-[28px] font-semibold leading-tight">
+          <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
             Recharger vos crédits
           </h1>
           {donnees && (

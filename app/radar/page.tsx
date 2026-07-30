@@ -83,16 +83,16 @@ export default function PageRadar() {
   const contactables = visibles.filter(estContactable).length;
 
   return (
-    <main className="min-h-screen px-6 py-8">
-      <div className="mx-auto max-w-4xl">
+    <main className="min-h-screen px-6 pb-16 pt-6">
+      <div className="mx-auto max-w-5xl">
         <Navigation />
 
         <header className="mb-8">
-          <p className="mb-1.5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
             <Search size={13} aria-hidden="true" /> Radar
           </p>
 
-          <h1 className="text-[28px] font-semibold leading-tight">
+          <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
             {fichier
               ? fichier.replace(/\.csv$/i, "").replace(/_/g, " ")
               : "Vos leads"}
@@ -168,9 +168,13 @@ export default function PageRadar() {
           </p>
         ) : (
           <div className="flex flex-col gap-2">
-            {visibles.map((lead) => (
-              <LigneLead
+            {visibles.map((lead, rang) => (
+              <div
                 key={lead.id}
+                className="apparition"
+                style={{ animationDelay: `${Math.min(rang, 12) * 28}ms` }}
+              >
+              <LigneLead
                 lead={lead}
                 selectionne={selection.has(lead.id)}
                 deplie={deplie === lead.id}
@@ -184,6 +188,7 @@ export default function PageRadar() {
                 }
                 onDeplier={(id) => setDeplie((p) => (p === id ? null : id))}
               />
+              </div>
             ))}
           </div>
         )}

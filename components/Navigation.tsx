@@ -35,8 +35,8 @@ export function Navigation() {
   }
 
   return (
-    <header className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4">
-      <nav className="flex gap-1" aria-label="Sections">
+    <header className="sticky top-0 z-20 -mx-6 mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-line bg-ink/85 px-6 py-3 backdrop-blur-md">
+      <nav className="-mb-3 flex gap-5 overflow-x-auto" aria-label="Sections">
         {ONGLETS.map((onglet) => {
           const actif = chemin === onglet.href;
           return (
@@ -44,13 +44,17 @@ export function Navigation() {
               key={onglet.href}
               href={onglet.href}
               aria-current={actif ? "page" : undefined}
-              className={`rounded-lg px-3 py-1.5 text-sm transition ${
-                actif
-                  ? "bg-surface text-content"
-                  : "text-muted hover:text-content"
+              className={`relative whitespace-nowrap pb-3 text-sm transition-colors ${
+                actif ? "text-content" : "text-muted hover:text-content"
               }`}
             >
               {onglet.libelle}
+              {actif && (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 -bottom-px h-px bg-teal"
+                />
+              )}
             </Link>
           );
         })}
@@ -58,8 +62,11 @@ export function Navigation() {
 
       <div className="flex items-center gap-4 text-xs text-muted">
         {credits !== null && (
-          <span className="flex items-center gap-1.5" title="Crédits restants">
-            <Coins size={12} aria-hidden="true" />
+          <span
+            className="flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1"
+            title="Crédits restants"
+          >
+            <Coins size={12} className="text-teal" aria-hidden="true" />
             <span className="font-mono tabular-nums text-content">{credits}</span>
           </span>
         )}

@@ -51,13 +51,13 @@ function Racine() {
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
-        <p className="mb-1.5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-teal">
+        <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
           <KeyRound size={13} aria-hidden="true" /> Réinitialisation
         </p>
 
         {fait ? (
           <>
-            <h1 className="mb-3 text-[26px] font-semibold leading-tight">
+            <h1 className="mb-3 text-[28px] font-semibold leading-[1.12] sm:text-[32px]">
               Mot de passe modifié
             </h1>
             <p className="mb-6 rounded-lg border border-ok/30 bg-ok/5 px-3 py-3 text-sm text-ok">
@@ -73,7 +73,7 @@ function Racine() {
           </>
         ) : (
           <>
-            <h1 className="mb-1 text-[26px] font-semibold leading-tight">
+            <h1 className="mb-1 text-[28px] font-semibold leading-[1.12] sm:text-[32px]">
               Choisissez un nouveau mot de passe
             </h1>
             <p className="mb-6 text-sm text-muted">
