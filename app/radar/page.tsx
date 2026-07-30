@@ -8,6 +8,7 @@ import { BarreActions } from "@/components/BarreActions";
 import { BarreFiltres } from "@/components/BarreFiltres";
 import { LigneLead } from "@/components/LigneLead";
 import { SessionExpiree, recupererLeads } from "@/lib/api";
+import { exporterSelection } from "@/lib/export-csv";
 import { lireSession } from "@/lib/session";
 import { estContactable, type FiltresRadar, type Lead } from "@/lib/types";
 
@@ -26,6 +27,7 @@ export default function PageRadar() {
   });
   const [selection, setSelection] = useState<Set<number>>(new Set());
   const [deplie, setDeplie] = useState<number | null>(null);
+  const [notification, setNotification] = useState("");
 
   useEffect(() => {
     const session = lireSession();
@@ -149,9 +151,25 @@ export default function PageRadar() {
 
         <BarreActions
           nombreSelectionnes={selection.size}
-          onExporter={() => console.log("export", [...selection])}
-          onLancerCampagne={() => console.log("campagne", [...selection])}
+          onExporter={() => {
+            const choisis = leads.filter((l) => selection.has(l.id));
+            const nombre = exporterSelection(choisis, fichier);
+            setNotification(
+              nombre === 0
+                ? "Sélectionnez au moins une entreprise à exporter."
+                : `${nombre} entreprise${nombre > 1 ? "s" : ""} exportée${nombre > 1 ? "s" : ""}.`,
+            );
+          }}
+          onLancerCampagne={() =>
+            router.push(`/outreach?source=${encodeURIComponent(fichier ?? "")}`)
+          }
         />
+
+        {notification && (
+          <p role="status" className="mt-3 text-center text-xs text-muted">
+            {notification}
+          </p>
+        )}
       </div>
     </main>
   );

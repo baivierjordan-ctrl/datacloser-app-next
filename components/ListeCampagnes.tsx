@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { recupererLogs } from "@/lib/api";
-import type { Campagne, LogEnvoi } from "@/lib/types";
+import { LIBELLES_CAMPAGNE, type Campagne, type LogEnvoi } from "@/lib/types";
 
 const COULEUR_STATUT: Record<string, string> = {
   active: "text-ok",
+  pausee: "text-warn",
   terminee: "text-muted",
-  brouillon: "text-warn",
+  brouillon: "text-muted",
   annulee: "text-danger",
 };
 
@@ -78,14 +79,26 @@ export function ListeCampagnes({ campagnes }: { campagnes: Campagne[] }) {
                 <h3 className="truncate text-[15px] font-medium">{campagne.nom}</h3>
                 <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
                   <span className={COULEUR_STATUT[campagne.statut] ?? "text-muted"}>
-                    {campagne.statut}
+                    {LIBELLES_CAMPAGNE[campagne.statut] ?? campagne.statut}
                   </span>
                   <span>
                     <span className="font-mono tabular-nums">
+                      {campagne.envoyes}
+                    </span>
+                    {" / "}
+                    <span className="font-mono tabular-nums">
                       {campagne.total_leads}
                     </span>{" "}
-                    destinataires
+                    envoyés
                   </span>
+                  {campagne.echecs > 0 && (
+                    <span className="text-danger">
+                      <span className="font-mono tabular-nums">
+                        {campagne.echecs}
+                      </span>{" "}
+                      en échec
+                    </span>
+                  )}
                   <span>Créée le {dateCourte(campagne.created_at)}</span>
                 </p>
               </div>

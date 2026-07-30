@@ -50,7 +50,21 @@ export interface ConfigSmtp {
   jours_actifs: number[];
 }
 
-export type StatutCampagne = "brouillon" | "active" | "terminee" | "annulee" | string;
+/** Statuts normalisés par l'API. La base stocke un vocabulaire historique. */
+export type StatutCampagne =
+  | "brouillon"
+  | "active"
+  | "pausee"
+  | "terminee"
+  | "annulee";
+
+export const LIBELLES_CAMPAGNE: Record<StatutCampagne, string> = {
+  brouillon: "Brouillon",
+  active: "Active",
+  pausee: "En pause",
+  terminee: "Terminée",
+  annulee: "Annulée",
+};
 
 export interface Campagne {
   id: string;
@@ -59,6 +73,8 @@ export interface Campagne {
   created_at: string | null;
   launched_at: string | null;
   total_leads: number;
+  envoyes: number;
+  echecs: number;
 }
 
 export interface LogEnvoi {
