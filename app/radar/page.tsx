@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
+import { ApercuExemple } from "@/components/ApercuExemple";
 import { LancementScan } from "@/components/LancementScan";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
@@ -158,10 +159,7 @@ export default function PageRadar() {
             ))}
           </div>
         ) : etat === "vide" ? (
-          <p className="rounded-xl border border-line bg-surface px-5 py-10 text-center text-sm text-muted">
-            Aucun scan enregistré. Lancez une recherche depuis l&apos;application
-            pour voir vos leads ici.
-          </p>
+          <ApercuExemple onCommencer={() => setVue("chasse")} />
         ) : visibles.length === 0 ? (
           <p className="rounded-xl border border-line bg-surface px-5 py-10 text-center text-sm text-muted">
             Aucune entreprise ne correspond à ces filtres. Baissez le score

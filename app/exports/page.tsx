@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Download, FileSpreadsheet } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Download, FileSpreadsheet } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import {
@@ -104,10 +105,20 @@ export default function PageExports() {
             ))}
           </div>
         ) : etat === "vide" ? (
-          <p className="rounded-xl border border-line bg-surface px-5 py-10 text-center text-sm text-muted">
-            Aucun export pour le moment. Lancez une recherche pour créer votre
-            premier fichier.
-          </p>
+          <div className="rounded-xl border border-line bg-surface px-5 py-10 text-center">
+            <p className="text-sm text-content">Aucun fichier pour l&apos;instant.</p>
+            <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-muted">
+              Chaque chasse produit un fichier téléchargeable, à ouvrir dans un
+              tableur ou à verser dans votre CRM.
+            </p>
+            <Link
+              href="/radar"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+            >
+              Lancer une chasse
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
         ) : (
           <>
             <div className="flex flex-col gap-2">

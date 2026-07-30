@@ -23,7 +23,12 @@ function Outreach() {
   const router = useRouter();
   const parametres = useSearchParams();
   const source = parametres.get("source") ?? undefined;
-  const [vue, setVue] = useState<Vue>(source ? "creation" : "campagnes");
+  // Deux chemins mènent à la création : arriver du Radar avec un scan,
+  // ou suivre un lien explicite depuis un écran vide.
+  const vueDemandee = parametres.get("vue");
+  const [vue, setVue] = useState<Vue>(
+    source || vueDemandee === "creation" ? "creation" : "campagnes",
+  );
   const [message, setMessage] = useState("");
   const [campagnes, setCampagnes] = useState<Campagne[]>([]);
   const [config, setConfig] = useState<ConfigSmtp | null>(null);

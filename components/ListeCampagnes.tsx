@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Pause, Play, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ChevronDown, Pause, Play, Trash2 } from "lucide-react";
 import {
   changerStatutCampagne,
   recupererLogs,
@@ -79,10 +80,21 @@ export function ListeCampagnes({
 
   if (campagnes.length === 0) {
     return (
-      <p className="rounded-xl border border-line bg-surface px-5 py-10 text-center text-sm text-muted">
-        Aucune campagne pour le moment. Sélectionnez des leads depuis le Radar
-        pour en créer une.
-      </p>
+      <div className="rounded-xl border border-line bg-surface px-5 py-10 text-center">
+        <p className="text-sm text-content">Aucune campagne pour l&apos;instant.</p>
+        <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-muted">
+          Une campagne écrit un message pour chaque destinataire à partir de son
+          site, puis l&apos;envoie depuis votre adresse, en respectant un délai
+          entre chaque envoi.
+        </p>
+        <Link
+          href="/outreach?vue=creation"
+          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+        >
+          Créer une campagne
+          <ArrowRight size={14} aria-hidden="true" />
+        </Link>
+      </div>
     );
   }
 

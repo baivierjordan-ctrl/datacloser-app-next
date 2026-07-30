@@ -259,9 +259,19 @@ export interface ApercuEmail {
 }
 
 /** Chiffres de synthèse de l'écran d'accueil, en un seul appel. */
+export interface EtapeDemarrage {
+  cle: string;
+  titre: string;
+  detail: string;
+  lien: string;
+  faite: boolean;
+}
+
 export interface Accueil {
   email: string;
   credits: number;
+  etapes: EtapeDemarrage[];
+  demarrage_termine: boolean;
   entreprises_analysees: number;
   chasses: number;
   chasse_en_cours: boolean;

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Radar } from "lucide-react";
+import { ArrowRight, Check, Radar } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererAccueil } from "@/lib/api";
@@ -109,6 +109,60 @@ export default function PageAccueil() {
 
         {donnees ? (
           <>
+            {!donnees.demarrage_termine && (
+              <section
+                className="apparition mb-5 rounded-xl border border-line bg-surface p-5"
+                aria-labelledby="premiers-pas"
+              >
+                <div className="mb-4 flex items-baseline justify-between gap-4">
+                  <h2 id="premiers-pas" className="text-sm font-medium">
+                    Premiers pas
+                  </h2>
+                  <span className="font-mono text-xs text-muted">
+                    {donnees.etapes.filter((e) => e.faite).length} / {donnees.etapes.length}
+                  </span>
+                </div>
+
+                <ol className="flex flex-col gap-1">
+                  {donnees.etapes.map((etape) => (
+                    <li key={etape.cle}>
+                      <Link
+                        href={etape.lien}
+                        className={`flex items-start gap-3 rounded-lg px-3 py-2.5 transition ${
+                          etape.faite ? "opacity-45" : "hover:bg-ink"
+                        }`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`mt-px flex size-[18px] shrink-0 items-center justify-center rounded-full border ${
+                            etape.faite
+                              ? "border-teal bg-teal text-ink"
+                              : "border-line-hover"
+                          }`}
+                        >
+                          {etape.faite && <Check size={11} strokeWidth={3} />}
+                        </span>
+                        <span className="min-w-0">
+                          <span
+                            className={`block text-sm ${
+                              etape.faite ? "line-through" : "text-content"
+                            }`}
+                          >
+                            {etape.titre}
+                          </span>
+                          {!etape.faite && (
+                            <span className="mt-0.5 block text-xs text-muted">
+                              {etape.detail}
+                            </span>
+                          )}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
+
             <section
               className="apparition mb-5 rounded-xl border border-teal/30 bg-teal/5 p-5"
               aria-labelledby="prochaine-action"
