@@ -211,3 +211,19 @@ export function lancerScan(
 export function annulerScan(id: string): Promise<{ annulation_demandee: boolean }> {
   return envoyer(`/radar/scan/${encodeURIComponent(id)}/annuler`, {});
 }
+
+/** Journal d'une chasse, en flux : seules les lignes nouvelles sont renvoyées. */
+export function recupererLogsScan(
+  id: string,
+  depuis: number,
+): Promise<{
+  total: number;
+  depuis: number;
+  lignes: string[];
+  statut: string;
+  termine: boolean;
+}> {
+  return appeler(
+    `/radar/scan/${encodeURIComponent(id)}/logs?depuis=${depuis}`,
+  );
+}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Loader2, Plus, Radar, X } from "lucide-react";
+import { ConsoleScan } from "@/components/ConsoleScan";
 import {
   annulerScan,
   lancerScan,
@@ -157,6 +158,8 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
               </button>
             )}
           </div>
+          <ConsoleScan id={scanEnCours.id} actif />
+
           <p className="mt-3 text-xs text-muted">
             Vous pouvez fermer cette page : la chasse continue sur nos serveurs.
           </p>
