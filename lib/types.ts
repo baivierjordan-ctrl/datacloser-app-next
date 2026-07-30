@@ -36,3 +36,43 @@ export const LIBELLES_STATUT: Record<StatutEmail, string> = {
 export function estContactable(lead: Lead): boolean {
   return lead.statut !== "introuvable";
 }
+
+/** Configuration d'envoi SMTP. Le mot de passe n'est jamais relu depuis le serveur. */
+export interface ConfigSmtp {
+  smtp_host: string;
+  smtp_port: number;
+  smtp_user: string;
+  smtp_password?: string;
+  signature: string;
+  delai_min_secondes: number;
+  plage_debut: number;
+  plage_fin: number;
+  jours_actifs: number[];
+}
+
+export type StatutCampagne = "brouillon" | "active" | "terminee" | "annulee" | string;
+
+export interface Campagne {
+  id: string;
+  nom: string;
+  statut: StatutCampagne;
+  created_at: string | null;
+  launched_at: string | null;
+  total_leads: number;
+}
+
+export interface LogEnvoi {
+  destinataire: string;
+  statut: string;
+  erreur: string | null;
+  created_at: string | null;
+}
+
+export const JOURS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+
+/** Fournisseurs courants, pour pré-remplir hôte et port. */
+export const FOURNISSEURS: Record<string, { host: string; port: number }> = {
+  Gmail: { host: "smtp.gmail.com", port: 587 },
+  "Outlook / Hotmail": { host: "smtp-mail.outlook.com", port: 587 },
+  OVH: { host: "ssl0.ovh.net", port: 587 },
+};
