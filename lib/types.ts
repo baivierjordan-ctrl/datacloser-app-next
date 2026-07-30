@@ -241,3 +241,19 @@ export const LIBELLES_PROFIL: Record<keyof ProfilEntreprise, string> = {
   differentiator: "Votre différenciateur clé",
   keywords: "Mots-clés de votre métier",
 };
+
+/** Email tel qu'il partira, construit pour un destinataire réel. */
+export interface ApercuEmail {
+  index: number;
+  total: number;
+  entreprise: string;
+  decideur: string;
+  destinataire: string;
+  qualification: string;
+  sujet: string;
+  corps: string;
+  /** Faux quand le moteur écarte ce lead : la raison explique pourquoi. */
+  valide: boolean;
+  raison: string;
+  langue: string;
+}

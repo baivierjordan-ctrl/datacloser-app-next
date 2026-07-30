@@ -1,4 +1,5 @@
 import type {
+  ApercuEmail,
   Campagne,
   ConfigSmtp,
   Lead,
@@ -314,4 +315,48 @@ export function verifierPromo(
 /** Lien de parrainage et conditions des programmes. */
 export function recupererPartenariat(): Promise<Partenariat> {
   return appeler<Partenariat>("/partenariat");
+}
+
+/** Construit l'email tel qu'il partira, sans rien envoyer. */
+export function genererApercu(demande: {
+  fichier: string;
+  sujet: string;
+  corps: string;
+  index?: number;
+}): Promise<ApercuEmail> {
+  return envoyer("/outreach/apercu", demande);
+}
+
+/** Mémorise le modèle : il servira de base aux prochaines campagnes. */
+export function enregistrerModele(
+  sujet: string,
+  corps: string,
+): Promise<{ enregistre: boolean }> {
+  return envoyer("/outreach/modeles", { sujet, corps });
+}
+
+/** Met une campagne en pause ou la relance. */
+export function changerStatutCampagne(
+  id: string,
+  statut: "active" | "pausee",
+): Promise<{ statut: string }> {
+  return envoyer(`/outreach/campagnes/${encodeURIComponent(id)}/statut`, {
+    statut,
+  });
+}
+
+/** Supprime une campagne, sa file d'envoi et son journal. */
+export async function supprimerCampagne(id: string): Promise<void> {
+  const session = lireSession();
+  if (!session) throw new SessionExpiree();
+
+  const reponse = await fetch(
+    `${BASE}/outreach/campagnes/${encodeURIComponent(id)}`,
+    { method: "DELETE", headers: { Authorization: `Bearer ${session.jeton}` } },
+  );
+  if (reponse.status === 401) {
+    effacerSession();
+    throw new SessionExpiree();
+  }
+  if (!reponse.ok) throw new Error("Suppression impossible. Réessayez.");
 }

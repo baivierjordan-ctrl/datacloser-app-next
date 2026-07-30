@@ -133,7 +133,12 @@ function Outreach() {
             ))}
           </div>
         ) : vue === "campagnes" ? (
-          <ListeCampagnes campagnes={campagnes} />
+          <ListeCampagnes
+            campagnes={campagnes}
+            onChangement={() =>
+              recupererCampagnes().then(setCampagnes).catch(() => {})
+            }
+          />
         ) : vue === "creation" ? (
           <CreationCampagne
             sourceInitiale={source}

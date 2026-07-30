@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { recupererLogs } from "@/lib/api";
+import { ChevronDown, Pause, Play, Trash2 } from "lucide-react";
+import {
+  changerStatutCampagne,
+  recupererLogs,
+  supprimerCampagne,
+} from "@/lib/api";
 import { LIBELLES_CAMPAGNE, type Campagne, type LogEnvoi } from "@/lib/types";
 
 // Un envoi n'est pas un destinataire : les relances J+4, J+9 et J+14
@@ -24,11 +28,34 @@ function dateCourte(iso: string | null): string {
     : d.toLocaleDateString("fr-BE", { day: "2-digit", month: "short", year: "numeric" });
 }
 
-export function ListeCampagnes({ campagnes }: { campagnes: Campagne[] }) {
+export function ListeCampagnes({
+  campagnes,
+  onChangement,
+}: {
+  campagnes: Campagne[];
+  onChangement?: () => void;
+}) {
   const [ouverte, setOuverte] = useState<string | null>(null);
   const [logs, setLogs] = useState<Record<string, LogEnvoi[]>>({});
   const [chargement, setChargement] = useState<string | null>(null);
   const [erreur, setErreur] = useState("");
+  const [aSupprimer, setASupprimer] = useState<string | null>(null);
+  const [occupee, setOccupee] = useState<string | null>(null);
+
+  /** Exécute une action sur une campagne et prévient le parent de rafraîchir. */
+  async function agir(id: string, action: () => Promise<unknown>) {
+    setOccupee(id);
+    setErreur("");
+    try {
+      await action();
+      onChangement?.();
+    } catch (e) {
+      setErreur((e as Error).message);
+    } finally {
+      setOccupee(null);
+      setASupprimer(null);
+    }
+  }
 
   async function basculer(id: string) {
     if (ouverte === id) {
@@ -119,6 +146,68 @@ export function ListeCampagnes({ campagnes }: { campagnes: Campagne[] }) {
 
             {estOuverte && (
               <div className="border-t border-line bg-ink/60 px-5 py-4">
+                <div className="mb-4 flex flex-wrap items-center gap-2">
+                  {campagne.statut === "active" ? (
+                    <button
+                      type="button"
+                      disabled={occupee === campagne.id}
+                      onClick={() =>
+                        agir(campagne.id, () =>
+                          changerStatutCampagne(campagne.id, "pausee"),
+                        )
+                      }
+                      className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-warn/40 hover:text-warn disabled:opacity-40"
+                    >
+                      <Pause size={12} aria-hidden="true" /> Mettre en pause
+                    </button>
+                  ) : campagne.statut === "pausee" ? (
+                    <button
+                      type="button"
+                      disabled={occupee === campagne.id}
+                      onClick={() =>
+                        agir(campagne.id, () =>
+                          changerStatutCampagne(campagne.id, "active"),
+                        )
+                      }
+                      className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-teal/40 hover:text-teal disabled:opacity-40"
+                    >
+                      <Play size={12} aria-hidden="true" /> Reprendre les envois
+                    </button>
+                  ) : null}
+
+                  {aSupprimer === campagne.id ? (
+                    <span className="flex flex-wrap items-center gap-2 text-xs text-danger">
+                      Supprimer définitivement cette campagne, sa file
+                      d&apos;envoi et son journal ?
+                      <button
+                        type="button"
+                        disabled={occupee === campagne.id}
+                        onClick={() =>
+                          agir(campagne.id, () => supprimerCampagne(campagne.id))
+                        }
+                        className="rounded-lg bg-danger px-3 py-1.5 font-medium text-ink transition hover:opacity-90 disabled:opacity-40"
+                      >
+                        {occupee === campagne.id ? "Suppression…" : "Confirmer"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setASupprimer(null)}
+                        className="rounded-lg border border-line px-3 py-1.5 text-muted transition hover:text-content"
+                      >
+                        Annuler
+                      </button>
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setASupprimer(campagne.id)}
+                      className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-danger/40 hover:text-danger"
+                    >
+                      <Trash2 size={12} aria-hidden="true" /> Supprimer
+                    </button>
+                  )}
+                </div>
+
                 {chargement === campagne.id ? (
                   <p className="text-xs text-muted">Chargement du journal…</p>
                 ) : erreur ? (

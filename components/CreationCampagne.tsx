@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AlertTriangle, Loader2, Send } from "lucide-react";
+import { AlertTriangle, Check, Loader2, Save, Send } from "lucide-react";
+import { ApercuOutreach } from "@/components/ApercuOutreach";
 import {
   creerCampagne,
+  enregistrerModele,
   recupererModeles,
   recupererQualifications,
   recupererScans,
@@ -45,6 +47,7 @@ export function CreationCampagne({
   const [chargementQualifs, setChargementQualifs] = useState(false);
   const [envoiEnCours, setEnvoiEnCours] = useState(false);
   const [erreur, setErreur] = useState("");
+  const [modeleEnregistre, setModeleEnregistre] = useState(false);
 
   // Modèles et liste des scans : une seule fois au montage.
   useEffect(() => {
@@ -259,9 +262,38 @@ export function CreationCampagne({
           rows={12}
           className={`${champ} resize-y font-mono text-[13px] leading-relaxed`}
           value={corps}
-          onChange={(e) => setCorps(e.target.value)}
+          onChange={(e) => {
+            setCorps(e.target.value);
+            setModeleEnregistre(false);
+          }}
         />
+
+        <button
+          type="button"
+          onClick={async () => {
+            try {
+              await enregistrerModele(sujet, corps);
+              setModeleEnregistre(true);
+            } catch (e) {
+              setErreur((e as Error).message);
+            }
+          }}
+          disabled={!sujet.trim() || !corps.trim()}
+          className="mt-3 flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-line-hover hover:text-content disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {modeleEnregistre ? (
+            <>
+              <Check size={13} aria-hidden="true" /> Modèle enregistré
+            </>
+          ) : (
+            <>
+              <Save size={13} aria-hidden="true" /> Enregistrer comme modèle par défaut
+            </>
+          )}
+        </button>
       </section>
+
+      <ApercuOutreach fichier={fichier} sujet={sujet} corps={corps} />
 
       <section className="rounded-xl border border-line bg-surface p-5">
         <label className="flex cursor-pointer items-center gap-3 text-sm">
