@@ -8,6 +8,7 @@ import { effacerSession, lireSession } from "@/lib/session";
 
 const ONGLETS = [
   { href: "/radar", libelle: "Radar" },
+  { href: "/outreach", libelle: "Outreach" },
   { href: "/exports", libelle: "Exports" },
 ];
 
