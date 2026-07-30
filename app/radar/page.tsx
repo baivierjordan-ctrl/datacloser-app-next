@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
+import { LancementScan } from "@/components/LancementScan";
 import { Navigation } from "@/components/Navigation";
 import { BarreActions } from "@/components/BarreActions";
 import { BarreFiltres } from "@/components/BarreFiltres";
@@ -28,6 +29,17 @@ export default function PageRadar() {
   const [selection, setSelection] = useState<Set<number>>(new Set());
   const [deplie, setDeplie] = useState<number | null>(null);
   const [notification, setNotification] = useState("");
+  const [vue, setVue] = useState<"resultats" | "chasse">("resultats");
+
+  function chargerLeads() {
+    recupererLeads()
+      .then((reponse) => {
+        setLeads(reponse.leads);
+        setFichier(reponse.fichier);
+        setEtat(reponse.leads.length ? "pret" : "vide");
+      })
+      .catch(() => {});
+  }
 
   useEffect(() => {
     const session = lireSession();
@@ -106,6 +118,33 @@ export default function PageRadar() {
           )}
         </header>
 
+        <div className="mb-5 flex gap-1">
+          {(["resultats", "chasse"] as const).map((cible) => (
+            <button
+              key={cible}
+              type="button"
+              onClick={() => setVue(cible)}
+              aria-current={vue === cible ? "true" : undefined}
+              className={`rounded-lg px-3 py-1.5 text-sm transition ${
+                vue === cible
+                  ? "bg-surface text-content"
+                  : "text-muted hover:text-content"
+              }`}
+            >
+              {cible === "resultats" ? "Résultats" : "Nouvelle chasse"}
+            </button>
+          ))}
+        </div>
+
+        {vue === "chasse" ? (
+          <LancementScan
+            onTermine={() => {
+              chargerLeads();
+              setNotification("Chasse terminée — les résultats sont à jour.");
+            }}
+          />
+        ) : (
+        <>
         <BarreFiltres filtres={filtres} onChange={setFiltres} />
 
         {etat === "chargement" ? (
@@ -164,6 +203,9 @@ export default function PageRadar() {
             router.push(`/outreach?source=${encodeURIComponent(fichier ?? "")}`)
           }
         />
+
+        </>
+        )}
 
         {notification && (
           <p role="status" className="mt-3 text-center text-xs text-muted">

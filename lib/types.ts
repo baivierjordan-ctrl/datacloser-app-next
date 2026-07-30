@@ -124,3 +124,58 @@ export interface NouvelleCampagne {
   relance_j9?: Relance | null;
   relance_j14?: Relance | null;
 }
+
+/** Options de recherche proposées au lancement d'une chasse. */
+export interface OptionsRadar {
+  pays: string[];
+  villes: Record<string, string[]>;
+  modes: string[];
+  plafond_maps: number;
+}
+
+export type StatutScan =
+  | "en_attente"
+  | "en_cours"
+  | "annulation_demandee"
+  | "termine"
+  | "erreur"
+  | string;
+
+export interface ScanRadar {
+  id: string;
+  nom_fichier: string;
+  statut: StatutScan;
+  mots_cles: string[];
+  lieux: string[];
+  pays: string | null;
+  mode_recherche: string | null;
+  leads_analyses: number;
+  created_at: string | null;
+  erreur: string | null;
+}
+
+export interface NouveauScan {
+  mots_cles: string[];
+  lieux: string[];
+  pays: string;
+  mode_recherche: string;
+  max_par_mot: number;
+  nom_export: string;
+  enrichir_tel: boolean;
+  verifier_absence_site: boolean;
+}
+
+/** Une chasse dans l'un de ces états interdit d'en lancer une autre. */
+export const SCAN_ACTIF: StatutScan[] = [
+  "en_attente",
+  "en_cours",
+  "annulation_demandee",
+];
+
+export const LIBELLES_SCAN: Record<string, string> = {
+  en_attente: "En attente",
+  en_cours: "En cours",
+  annulation_demandee: "Annulation demandée",
+  termine: "Terminée",
+  erreur: "Échec",
+};

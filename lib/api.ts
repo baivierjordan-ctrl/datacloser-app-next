@@ -5,7 +5,10 @@ import type {
   LogEnvoi,
   Modeles,
   NouvelleCampagne,
+  NouveauScan,
+  OptionsRadar,
   Qualification,
+  ScanRadar,
 } from "./types";
 import { effacerSession, lireSession } from "./session";
 
@@ -182,4 +185,29 @@ export function creerCampagne(
   campagne: NouvelleCampagne,
 ): Promise<{ id: string; nom: string; destinataires: number }> {
   return envoyer("/outreach/campagnes", campagne);
+}
+
+/** Pays, villes suggérées et modes de recherche. */
+export function recupererOptionsRadar(): Promise<OptionsRadar> {
+  return appeler<OptionsRadar>("/radar/options");
+}
+
+/** Historique des chasses et identifiant de celle en cours, s'il y en a une. */
+export function recupererScansRadar(): Promise<{
+  scans: ScanRadar[];
+  actif: string | null;
+}> {
+  return appeler("/radar/scans");
+}
+
+/** Dépose une chasse dans la file. */
+export function lancerScan(
+  scan: NouveauScan,
+): Promise<{ id: string; nom_fichier: string; requetes_estimees: number }> {
+  return envoyer("/radar/scan", scan);
+}
+
+/** Demande l'arrêt d'une chasse en cours. */
+export function annulerScan(id: string): Promise<{ annulation_demandee: boolean }> {
+  return envoyer(`/radar/scan/${encodeURIComponent(id)}/annuler`, {});
 }
