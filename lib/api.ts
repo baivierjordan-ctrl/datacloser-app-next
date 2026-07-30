@@ -1,0 +1,104 @@
+import type { Lead } from "./types";
+import { effacerSession, lireSession } from "./session";
+
+const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+export class SessionExpiree extends Error {
+  constructor() {
+    super("Votre session a expiré. Reconnectez-vous.");
+  }
+}
+
+async function appeler<T>(chemin: string): Promise<T> {
+  const session = lireSession();
+  if (!session) throw new SessionExpiree();
+
+  const reponse = await fetch(`${BASE}${chemin}`, {
+    cache: "no-store",
+    headers: { Authorization: `Bearer ${session.jeton}` },
+  });
+
+  if (reponse.status === 401) {
+    effacerSession();
+    throw new SessionExpiree();
+  }
+  if (!reponse.ok) {
+    throw new Error("Le serveur n'a pas répondu correctement. Réessayez.");
+  }
+  return reponse.json();
+}
+
+export interface ReponseLeads {
+  fichier: string | null;
+  total: number;
+  leads: Lead[];
+}
+
+/** Leads du scan demandé, ou du plus récent par défaut. */
+export function recupererLeads(fichier?: string): Promise<ReponseLeads> {
+  const suffixe = fichier ? `?fichier=${encodeURIComponent(fichier)}` : "";
+  return appeler<ReponseLeads>(`/leads${suffixe}`);
+}
+
+/** Scans disponibles, du plus récent au plus ancien. */
+export async function recupererScans(): Promise<string[]> {
+  const data = await appeler<{ scans: string[] }>("/scans");
+  return data.scans ?? [];
+}
+
+export interface ScanDetail {
+  fichier: string;
+  titre: string;
+  total: number;
+  contactables: number;
+}
+
+/** Scans avec leur volume, pour l'écran Exports. */
+export async function recupererScansDetails(): Promise<{
+  scans: ScanDetail[];
+  tronque: boolean;
+}> {
+  return appeler("/scans/details");
+}
+
+/** Déclenche le téléchargement du CSV d'origine. */
+export async function telechargerExport(fichier: string): Promise<void> {
+  const session = lireSession();
+  if (!session) throw new SessionExpiree();
+
+  const reponse = await fetch(
+    `${BASE}/export?fichier=${encodeURIComponent(fichier)}`,
+    { headers: { Authorization: `Bearer ${session.jeton}` } },
+  );
+
+  if (reponse.status === 401) {
+    effacerSession();
+    throw new SessionExpiree();
+  }
+  if (!reponse.ok) throw new Error("Téléchargement impossible. Réessayez.");
+
+  const blob = await reponse.blob();
+  const url = URL.createObjectURL(blob);
+  const lien = document.createElement("a");
+  lien.href = url;
+  lien.download = fichier;
+  lien.click();
+  URL.revokeObjectURL(url);
+}
+
+/** Ouvre une session. Lève une erreur explicite si les identifiants sont refusés. */
+export async function seConnecter(email: string, motDePasse: string) {
+  const reponse = await fetch(`${BASE}/auth/connexion`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, mot_de_passe: motDePasse }),
+  });
+
+  if (reponse.status === 401) {
+    throw new Error("Email ou mot de passe incorrect.");
+  }
+  if (!reponse.ok) {
+    throw new Error("Connexion impossible pour le moment. Réessayez.");
+  }
+  return reponse.json() as Promise<{ jeton: string; email: string; credits: number }>;
+}

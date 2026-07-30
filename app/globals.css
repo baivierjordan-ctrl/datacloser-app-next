@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Charte DataCloser — source unique de vérité pour les couleurs.
+   Déclarées comme variables Tailwind v4 : utilisables en bg-ink,
+   text-teal, border-line, etc. */
+@theme {
+  --color-ink: #0a0d12;
+  --color-surface: #0d1117;
+  --color-line: #1e2530;
+  --color-line-hover: #2a3340;
+  --color-teal: #00e5b0;
+  --color-teal-hover: #00cfa0;
+  --color-blue: #0055ff;
+  --color-content: #e6edf3;
+  --color-content-soft: #c9d4e0;
+  --color-muted: #8b9ab0;
+
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-danger: #f43f5e;
+
+  --font-sans: Inter, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-content);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Focus visible au clavier — accessibilité de base, non négociable. */
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
