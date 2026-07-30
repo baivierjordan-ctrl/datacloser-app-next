@@ -2,8 +2,14 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DataCloser",
+  // Le gabarit met le nom du produit en fin d'onglet : l'écran courant
+  // reste lisible quand plusieurs onglets sont ouverts côte à côte.
+  title: {
+    default: "DataCloser",
+    template: "%s · DataCloser",
+  },
   description: "Prospection B2B automatisée pour le marché francophone",
+  applicationName: "DataCloser",
 };
 
 export const viewport: Viewport = {

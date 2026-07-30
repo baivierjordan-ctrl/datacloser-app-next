@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { UserPlus } from "lucide-react";
+import { MarqueEnTete } from "@/components/Marque";
 import { sInscrire } from "@/lib/api";
 import { ecrireSession } from "@/lib/session";
 
@@ -46,6 +47,7 @@ export default function PageInscription() {
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
+        <MarqueEnTete />
         <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
           <UserPlus size={13} aria-hidden="true" /> Inscription
         </p>

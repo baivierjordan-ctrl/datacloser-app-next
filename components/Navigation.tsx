@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Coins, LogOut } from "lucide-react";
+import { Marque } from "@/components/Marque";
 import { effacerSession, lireSession } from "@/lib/session";
 
 const ONGLETS = [
@@ -36,7 +37,14 @@ export function Navigation() {
 
   return (
     <header className="sticky top-0 z-20 -mx-6 mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-line bg-ink/85 px-6 py-3 backdrop-blur-md">
-      <nav className="-mb-3 flex gap-5 overflow-x-auto" aria-label="Sections">
+      <div className="flex min-w-0 flex-1 items-center gap-5">
+        <Link href="/radar" className="shrink-0" aria-label="DataCloser, accueil">
+          <Marque />
+        </Link>
+
+        <span aria-hidden="true" className="h-5 w-px shrink-0 bg-line" />
+
+        <nav className="-mb-3 flex gap-5 overflow-x-auto" aria-label="Sections">
         {ONGLETS.map((onglet) => {
           const actif = chemin === onglet.href;
           return (
@@ -58,7 +66,8 @@ export function Navigation() {
             </Link>
           );
         })}
-      </nav>
+        </nav>
+      </div>
 
       <div className="flex items-center gap-4 text-xs text-muted">
         {credits !== null && (

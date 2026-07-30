@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
+import { MarqueEnTete } from "@/components/Marque";
 import { seConnecter } from "@/lib/api";
 import { ecrireSession } from "@/lib/session";
 
@@ -34,6 +35,7 @@ export default function PageConnexion() {
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
       <div className="w-full max-w-sm">
+        <MarqueEnTete />
         <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-teal">
           DataCloser
         </p>
