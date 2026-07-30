@@ -1,4 +1,4 @@
-import type { Lead } from "./types";
+import type { Campagne, ConfigSmtp, Lead, LogEnvoi } from "./types";
 import { effacerSession, lireSession } from "./session";
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -84,6 +84,57 @@ export async function telechargerExport(fichier: string): Promise<void> {
   lien.download = fichier;
   lien.click();
   URL.revokeObjectURL(url);
+}
+
+async function envoyer<T>(chemin: string, corps: unknown): Promise<T> {
+  const session = lireSession();
+  if (!session) throw new SessionExpiree();
+
+  const reponse = await fetch(`${BASE}${chemin}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.jeton}`,
+    },
+    body: JSON.stringify(corps),
+  });
+
+  if (reponse.status === 401) {
+    effacerSession();
+    throw new SessionExpiree();
+  }
+  if (!reponse.ok) {
+    const detail = await reponse.json().catch(() => null);
+    throw new Error(detail?.detail ?? "L'enregistrement a échoué. Réessayez.");
+  }
+  return reponse.json();
+}
+
+/** Configuration SMTP enregistrée, sans le mot de passe. */
+export function lireConfigSmtp(): Promise<{
+  configure: boolean;
+  config: ConfigSmtp | null;
+}> {
+  return appeler("/outreach/smtp");
+}
+
+/** Enregistre la configuration. Mot de passe vide = on garde l'existant. */
+export function ecrireConfigSmtp(config: ConfigSmtp): Promise<{ enregistre: boolean }> {
+  return envoyer("/outreach/smtp", config);
+}
+
+/** Campagnes de l'utilisateur. */
+export async function recupererCampagnes(): Promise<Campagne[]> {
+  const data = await appeler<{ campagnes: Campagne[] }>("/outreach/campagnes");
+  return data.campagnes ?? [];
+}
+
+/** Journal d'envoi d'une campagne. */
+export async function recupererLogs(campagneId: string): Promise<LogEnvoi[]> {
+  const data = await appeler<{ logs: LogEnvoi[] }>(
+    `/outreach/campagnes/${encodeURIComponent(campagneId)}/logs`,
+  );
+  return data.logs ?? [];
 }
 
 /** Ouvre une session. Lève une erreur explicite si les identifiants sont refusés. */
