@@ -1,4 +1,12 @@
-import type { Campagne, ConfigSmtp, Lead, LogEnvoi } from "./types";
+import type {
+  Campagne,
+  ConfigSmtp,
+  Lead,
+  LogEnvoi,
+  Modeles,
+  NouvelleCampagne,
+  Qualification,
+} from "./types";
 import { effacerSession, lireSession } from "./session";
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -152,4 +160,26 @@ export async function seConnecter(email: string, motDePasse: string) {
     throw new Error("Connexion impossible pour le moment. Réessayez.");
   }
   return reponse.json() as Promise<{ jeton: string; email: string; credits: number }>;
+}
+
+/** Qualifications email présentes dans un scan, avec leur volume. */
+export async function recupererQualifications(
+  fichier: string,
+): Promise<Qualification[]> {
+  const data = await appeler<{ qualifications: Qualification[] }>(
+    `/outreach/qualifications?fichier=${encodeURIComponent(fichier)}`,
+  );
+  return data.qualifications ?? [];
+}
+
+/** Modèles enregistrés, ou modèles par défaut si aucun n'est sauvegardé. */
+export function recupererModeles(): Promise<Modeles> {
+  return appeler<Modeles>("/outreach/modeles");
+}
+
+/** Crée la campagne et alimente la file d'envoi. */
+export function creerCampagne(
+  campagne: NouvelleCampagne,
+): Promise<{ id: string; nom: string; destinataires: number }> {
+  return envoyer("/outreach/campagnes", campagne);
 }

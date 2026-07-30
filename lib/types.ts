@@ -92,3 +92,35 @@ export const FOURNISSEURS: Record<string, { host: string; port: number }> = {
   "Outlook / Hotmail": { host: "smtp-mail.outlook.com", port: 587 },
   OVH: { host: "ssl0.ovh.net", port: 587 },
 };
+
+/** Une qualification email présente dans un scan, avec son volume. */
+export interface Qualification {
+  libelle: string;
+  nombre: number;
+  /** Présélectionnée : les qualifications non contactables sont exclues. */
+  recommandee: boolean;
+}
+
+export interface Relance {
+  sujet: string;
+  corps: string;
+}
+
+/** Modèles d'email proposés à la création d'une campagne. */
+export interface Modeles {
+  sujet: string;
+  corps: string;
+  relances: { j4: Relance; j9: Relance; j14: Relance };
+  variables: string[];
+}
+
+export interface NouvelleCampagne {
+  nom: string;
+  fichier: string;
+  sujet: string;
+  corps: string;
+  qualifications: string[];
+  relance_j4?: Relance | null;
+  relance_j9?: Relance | null;
+  relance_j14?: Relance | null;
+}

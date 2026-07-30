@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Send } from "lucide-react";
+import { CreationCampagne } from "@/components/CreationCampagne";
 import { FormulaireSmtp } from "@/components/FormulaireSmtp";
 import { ListeCampagnes } from "@/components/ListeCampagnes";
 import { Navigation } from "@/components/Navigation";
@@ -15,11 +16,14 @@ import {
 import { lireSession } from "@/lib/session";
 import type { Campagne, ConfigSmtp } from "@/lib/types";
 
-type Vue = "campagnes" | "reglages";
+type Vue = "campagnes" | "creation" | "reglages";
 
-export default function PageOutreach() {
+function Outreach() {
   const router = useRouter();
-  const [vue, setVue] = useState<Vue>("campagnes");
+  const parametres = useSearchParams();
+  const source = parametres.get("source") ?? undefined;
+  const [vue, setVue] = useState<Vue>(source ? "creation" : "campagnes");
+  const [message, setMessage] = useState("");
   const [campagnes, setCampagnes] = useState<Campagne[]>([]);
   const [config, setConfig] = useState<ConfigSmtp | null>(null);
   const [configure, setConfigure] = useState(false);
@@ -97,8 +101,18 @@ export default function PageOutreach() {
 
         <div className="mb-5 flex gap-1">
           {onglet("campagnes", "Campagnes")}
+          {onglet("creation", "Nouvelle campagne")}
           {onglet("reglages", "Réglages")}
         </div>
+
+        {message && (
+          <p
+            role="status"
+            className="mb-4 rounded-lg border border-ok/30 bg-ok/5 px-3 py-2 text-xs text-ok"
+          >
+            {message}
+          </p>
+        )}
 
         {erreur && (
           <p
@@ -120,6 +134,18 @@ export default function PageOutreach() {
           </div>
         ) : vue === "campagnes" ? (
           <ListeCampagnes campagnes={campagnes} />
+        ) : vue === "creation" ? (
+          <CreationCampagne
+            sourceInitiale={source}
+            smtpConfigure={configure}
+            onCreee={(destinataires) => {
+              setMessage(
+                `Campagne créée : ${destinataires} destinataire${destinataires > 1 ? "s" : ""} en file d'envoi.`,
+              );
+              setVue("campagnes");
+              recupererCampagnes().then(setCampagnes).catch(() => {});
+            }}
+          />
         ) : (
           <FormulaireSmtp
             initiale={config}
@@ -129,5 +155,13 @@ export default function PageOutreach() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function PageOutreach() {
+  return (
+    <Suspense fallback={null}>
+      <Outreach />
+    </Suspense>
   );
 }
