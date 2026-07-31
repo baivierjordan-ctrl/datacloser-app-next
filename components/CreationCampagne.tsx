@@ -30,7 +30,11 @@ export function CreationCampagne({
   smtpConfigure,
   onCreee,
   modeleInitial,
-}: Props & { modeleInitial?: string }) {
+  actionInitiale,
+}: Props & {
+  modeleInitial?: string;
+  actionInitiale?: "objets" | "reecrire";
+}) {
   const [scans, setScans] = useState<string[]>([]);
   const [fichier, setFichier] = useState(sourceInitiale ?? "");
   const [nom, setNom] = useState("");
@@ -324,6 +328,7 @@ export function CreationCampagne({
             setSujet(s);
             setModeleEnregistre(false);
           }}
+          actionAuChargement={actionInitiale}
         />
       </section>
 

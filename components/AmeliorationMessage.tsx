@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Loader2, Sparkles, Type, X } from "lucide-react";
 import { ameliorerMessage, proposerObjets } from "@/lib/api";
 import type { PropositionMessage } from "@/lib/types";
@@ -23,11 +23,14 @@ export function AmeliorationMessage({
   corps,
   onAppliquer,
   onChangerSujet,
+  actionAuChargement,
 }: {
   sujet: string;
   corps: string;
   onAppliquer: (sujet: string, corps: string) => void;
   onChangerSujet: (sujet: string) => void;
+  /** Action déclenchée à l'arrivée, quand un conseil l'a demandée. */
+  actionAuChargement?: "objets" | "reecrire";
 }) {
   const [proposition, setProposition] = useState<PropositionMessage | null>(null);
   const [enCours, setEnCours] = useState(false);
@@ -36,6 +39,39 @@ export function AmeliorationMessage({
   const [objetsEnCours, setObjetsEnCours] = useState(false);
 
   const pret = sujet.trim() !== "" && corps.trim() !== "";
+
+  // Un conseil peut demander l'action directement : arriver sur la page
+  // sans que rien ne se passe reviendrait à promettre puis abandonner.
+  const [declenchee, setDeclenchee] = useState(false);
+
+  const zone = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!actionAuChargement || declenchee || !pret) return;
+    setDeclenchee(true);
+    // La proposition apparaît en bas du formulaire : sans cela,
+    // l'utilisateur reste en haut de page et croit qu'il ne se passe
+    // rien.
+    zone.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (actionAuChargement === "objets") {
+      demanderObjets();
+    } else {
+      demander();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actionAuChargement, pret, declenchee]);
+
+  async function demanderObjets() {
+    setErreur("");
+    setObjetsEnCours(true);
+    try {
+      setObjets(await proposerObjets(sujet, corps));
+    } catch (e) {
+      setErreur((e as Error).message);
+    } finally {
+      setObjetsEnCours(false);
+    }
+  }
 
   async function demander() {
     setErreur("");
@@ -49,8 +85,22 @@ export function AmeliorationMessage({
     }
   }
 
+  const attente = enCours || objetsEnCours;
+
   return (
-    <div className="mt-4 border-t border-line pt-4">
+    <div
+      ref={zone}
+      className={`mt-4 border-t pt-4 ${
+        actionAuChargement ? "border-teal/40" : "border-line"
+      }`}
+    >
+      {actionAuChargement && attente && (
+        <p className="mb-3 flex items-center gap-2 text-xs text-teal">
+          <Loader2 size={13} className="animate-spin" aria-hidden="true" />
+          Préparation de la proposition demandée depuis vos conseils…
+        </p>
+      )}
+
       <div className="flex flex-wrap gap-4">
       <button
         type="button"
@@ -68,17 +118,7 @@ export function AmeliorationMessage({
 
       <button
         type="button"
-        onClick={async () => {
-          setErreur("");
-          setObjetsEnCours(true);
-          try {
-            setObjets(await proposerObjets(sujet, corps));
-          } catch (e) {
-            setErreur((e as Error).message);
-          } finally {
-            setObjetsEnCours(false);
-          }
-        }}
+        onClick={demanderObjets}
         disabled={sujet.trim() === "" || objetsEnCours}
         className="flex items-center gap-2 text-xs text-muted transition hover:text-teal disabled:opacity-50"
       >

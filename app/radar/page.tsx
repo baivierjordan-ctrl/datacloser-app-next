@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Check, Search } from "lucide-react";
 import { LancementScan } from "@/components/LancementScan";
@@ -17,8 +17,10 @@ import { lireSession } from "@/lib/session";
  * le consulte, plutôt que d'installer ici une seconde lecture des
  * mêmes données.
  */
-export default function PageRadar() {
+function ContenuRadar() {
   const router = useRouter();
+  const parametres = useSearchParams();
+  const icpDemande = parametres.get("action") === "icp";
   const [termine, setTermine] = useState(false);
 
   useEffect(() => {
@@ -66,10 +68,21 @@ export default function PageRadar() {
           </div>
         )}
 
-        <LancementScan onTermine={() => setTermine(true)} />
+        <LancementScan
+          declencherIcp={icpDemande}
+          onTermine={() => setTermine(true)}
+        />
 
         <PiedDePage />
       </div>
     </main>
+  );
+}
+
+export default function PageRadar() {
+  return (
+    <Suspense fallback={null}>
+      <ContenuRadar />
+    </Suspense>
   );
 }

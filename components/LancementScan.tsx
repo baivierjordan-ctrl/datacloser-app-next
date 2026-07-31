@@ -51,7 +51,13 @@ function EnTeteEtape({
   );
 }
 
-export function LancementScan({ onTermine }: { onTermine: () => void }) {
+export function LancementScan({
+  onTermine,
+  declencherIcp,
+}: {
+  onTermine: () => void;
+  declencherIcp?: boolean;
+}) {
   const [options, setOptions] = useState<OptionsRadar | null>(null);
   const [scans, setScans] = useState<ScanRadar[]>([]);
   const [actif, setActif] = useState<string | null>(null);
@@ -250,7 +256,11 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
         </section>
       )}
 
-      <DemarrageRapide onPlan={appliquerPlan} onSecteur={appliquerSecteur} />
+      <DemarrageRapide
+        declencherIcp={declencherIcp}
+        onPlan={appliquerPlan}
+        onSecteur={appliquerSecteur}
+      />
 
       <section className="rounded-xl border border-line bg-surface p-5">
         <EnTeteEtape

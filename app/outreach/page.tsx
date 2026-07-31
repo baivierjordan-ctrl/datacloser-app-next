@@ -27,8 +27,15 @@ function Outreach() {
   // ou suivre un lien explicite depuis un écran vide.
   const vueDemandee = parametres.get("vue");
   const modeleDemande = parametres.get("modele") ?? undefined;
+  const actionDemandee = parametres.get("action");
+  const action =
+    actionDemandee === "objets" || actionDemandee === "reecrire"
+      ? actionDemandee
+      : undefined;
   const [vue, setVue] = useState<Vue>(
-    source || vueDemandee === "creation" ? "creation" : "campagnes",
+    source || vueDemandee === "creation" || actionDemandee
+      ? "creation"
+      : "campagnes",
   );
   const [message, setMessage] = useState("");
   const [campagnes, setCampagnes] = useState<Campagne[]>([]);
@@ -148,6 +155,7 @@ function Outreach() {
           />
         ) : vue === "creation" ? (
           <CreationCampagne
+            actionInitiale={action}
             modeleInitial={modeleDemande}
             sourceInitiale={source}
             smtpConfigure={configure}

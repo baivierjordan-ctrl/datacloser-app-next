@@ -16,19 +16,56 @@ import type { PlanIcp, SecteurRapide } from "@/lib/types";
 export function DemarrageRapide({
   onPlan,
   onSecteur,
+  declencherIcp,
 }: {
   onPlan: (plan: PlanIcp) => void;
   onSecteur: (secteur: SecteurRapide) => void;
+  /** Vrai quand un conseil a demandé la proposition de ciblage. */
+  declencherIcp?: boolean;
 }) {
   const [secteurs, setSecteurs] = useState<SecteurRapide[]>([]);
   const [enCours, setEnCours] = useState(false);
   const [explication, setExplication] = useState("");
   const [resume, setResume] = useState("");
   const [erreur, setErreur] = useState("");
+  const [lance, setLance] = useState(false);
 
   useEffect(() => {
     recupererSecteurs().then(setSecteurs).catch(() => {});
   }, []);
+
+  // Un conseil peut demander directement la proposition : arriver sur
+  // la page sans que rien ne se passe reviendrait à promettre puis
+  // abandonner.
+  useEffect(() => {
+    if (!declencherIcp || lance) return;
+    setLance(true);
+    proposer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [declencherIcp, lance]);
+
+  async function proposer() {
+    setErreur("");
+    setEnCours(true);
+    try {
+      const plan = await proposerPlanIcp();
+      onPlan(plan);
+      // Le moteur explique son raisonnement : le cacher priverait
+      // l'utilisateur du moyen de juger la proposition.
+      setExplication(plan.explication);
+      // Ce qui a été rempli compte plus que le raisonnement : on
+      // l'annonce d'abord, en chiffres.
+      setResume(
+        `${plan.mots_cles.length} métiers et ${plan.villes.length} zones proposés.`,
+      );
+    } catch (e) {
+      setErreur((e as Error).message);
+      setExplication("");
+      setResume("");
+    } finally {
+      setEnCours(false);
+    }
+  }
 
   return (
     <section className="relative overflow-hidden rounded-xl border border-teal/25 bg-surface p-5">
