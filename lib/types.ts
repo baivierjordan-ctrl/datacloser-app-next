@@ -399,6 +399,9 @@ export interface AuditMessage {
   verdict: string;
   axes: { nom: string; note: number; constat: string; correction: string }[];
   priorite: string;
+  /** Version corrigée appliquant les remarques, vide si non fournie. */
+  corrige_sujet: string;
+  corrige_corps: string;
   /** Calculées côté serveur : une longueur ne s'invente pas. */
   mesures: {
     longueur_objet: number;

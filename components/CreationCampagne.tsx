@@ -332,7 +332,15 @@ export function CreationCampagne({
           actionAuChargement={actionInitiale}
         />
 
-        <AuditMessageBloc sujet={sujet} corps={corps} />
+        <AuditMessageBloc
+          sujet={sujet}
+          corps={corps}
+          onAppliquer={(s, c) => {
+            setSujet(s);
+            setCorps(c);
+            setModeleEnregistre(false);
+          }}
+        />
       </section>
 
       <ApercuOutreach fichier={fichier} sujet={sujet} corps={corps} />

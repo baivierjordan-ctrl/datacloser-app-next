@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AlertTriangle, ClipboardCheck, Loader2 } from "lucide-react";
+import { AlertTriangle, Check, ClipboardCheck, Loader2 } from "lucide-react";
 import { auditerMessage } from "@/lib/api";
 import type { AuditMessage } from "@/lib/types";
 
@@ -24,9 +24,11 @@ function couleurNote(note: number): string {
 export function AuditMessageBloc({
   sujet,
   corps,
+  onAppliquer,
 }: {
   sujet: string;
   corps: string;
+  onAppliquer: (sujet: string, corps: string) => void;
 }) {
   const [audit, setAudit] = useState<AuditMessage | null>(null);
   const [enCours, setEnCours] = useState(false);
@@ -152,6 +154,33 @@ export function AuditMessageBloc({
               <p className="mt-1.5 text-sm leading-relaxed text-content-soft">
                 {audit.priorite}
               </p>
+            </div>
+          )}
+
+          {audit.corrige_corps && (
+            <div className="mt-4 rounded-lg border border-line bg-ink p-4">
+              <p className="text-sm font-medium">Version corrigée</p>
+              <p className="mt-1 text-xs text-muted">
+                Applique les cinq remarques ci-dessus.
+              </p>
+              <p className="mt-3 text-sm">
+                <span className="text-muted">Objet : </span>
+                {audit.corrige_sujet}
+              </p>
+              <pre className="mt-2 max-h-56 overflow-y-auto whitespace-pre-wrap break-words border-t border-line pt-3 font-mono text-[13px] leading-relaxed text-content-soft">
+                {audit.corrige_corps}
+              </pre>
+              <button
+                type="button"
+                onClick={() => {
+                  onAppliquer(audit.corrige_sujet || sujet, audit.corrige_corps);
+                  setAudit(null);
+                }}
+                className="mt-3 flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
+              >
+                <Check size={14} aria-hidden="true" />
+                Appliquer ces corrections
+              </button>
             </div>
           )}
 
