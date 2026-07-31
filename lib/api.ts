@@ -381,3 +381,34 @@ export async function recupererSuggestions(): Promise<string[]> {
   const d = await appeler<{ suggestions: string[] }>("/assistant/suggestions");
   return d.suggestions ?? [];
 }
+
+/** Adresse du webhook CRM enregistrée. */
+export async function recupererWebhook(): Promise<string> {
+  const d = await appeler<{ url: string }>("/crm/webhook");
+  return d.url ?? "";
+}
+
+/** Enregistre l'adresse du webhook, ou l'efface si elle est vide. */
+export function enregistrerWebhook(url: string): Promise<{ url: string }> {
+  return envoyer("/crm/webhook", { url });
+}
+
+/** Envoie une charge de test vers l'adresse indiquée. */
+export function testerWebhook(
+  url: string,
+): Promise<{ code: number; message: string }> {
+  return envoyer("/crm/test", { url });
+}
+
+/** Pousse les leads d'un fichier vers le webhook enregistré. */
+export function envoyerVersCrm(fichier: string): Promise<{ envoyes: number }> {
+  return envoyer("/crm/envoyer", { fichier });
+}
+
+/** Métiers proches de ceux déjà saisis, pour élargir une chasse. */
+export async function suggererMetiers(mots: string[]): Promise<string[]> {
+  const d = await envoyer<{ suggestions: string[] }>("/radar/suggestions", {
+    mots,
+  });
+  return d.suggestions ?? [];
+}

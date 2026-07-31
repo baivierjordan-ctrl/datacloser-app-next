@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Download, FileSpreadsheet } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
+import { ConnexionCrm } from "@/components/ConnexionCrm";
 import { PiedDePage } from "@/components/PiedDePage";
 import {
   SessionExpiree,
@@ -23,6 +24,7 @@ export default function PageExports() {
   const [message, setMessage] = useState("");
   const [tronque, setTronque] = useState(false);
   const [enCours, setEnCours] = useState<string | null>(null);
+  const [vue, setVue] = useState<"fichiers" | "crm">("fichiers");
 
   useEffect(() => {
     if (!lireSession()) {
@@ -86,6 +88,28 @@ export default function PageExports() {
           </p>
         </div>
 
+        <div className="mb-5 flex gap-1">
+          {(["fichiers", "crm"] as const).map((cible) => (
+            <button
+              key={cible}
+              type="button"
+              onClick={() => setVue(cible)}
+              aria-current={vue === cible ? "true" : undefined}
+              className={`rounded-lg px-3 py-1.5 text-sm transition ${
+                vue === cible
+                  ? "bg-surface text-content"
+                  : "text-muted hover:text-content"
+              }`}
+            >
+              {cible === "fichiers" ? "Fichiers" : "Connexion CRM"}
+            </button>
+          ))}
+        </div>
+
+        {vue === "crm" ? (
+          <ConnexionCrm fichiers={scans.map((s) => s.fichier)} />
+        ) : (
+        <>
         {message && (
           <p
             role="alert"
@@ -161,6 +185,9 @@ export default function PageExports() {
             )}
           </>
         )}
+        </>
+        )}
+
         <PiedDePage />
       </div>
     </main>

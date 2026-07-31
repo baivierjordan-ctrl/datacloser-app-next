@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Loader2, Plus, Radar, X } from "lucide-react";
+import { Loader2, Plus, Radar, Sparkles, X } from "lucide-react";
 import { ConsoleScan } from "@/components/ConsoleScan";
 import { HistoriqueChasses } from "@/components/HistoriqueChasses";
 import {
@@ -9,6 +9,7 @@ import {
   lancerScan,
   recupererOptionsRadar,
   recupererScansRadar,
+  suggererMetiers,
 } from "@/lib/api";
 import {
   LIBELLES_SCAN,
@@ -39,6 +40,8 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
 
   const [envoi, setEnvoi] = useState(false);
   const [erreur, setErreur] = useState("");
+  const [proposes, setProposes] = useState<string[]>([]);
+  const [chargeProposes, setChargeProposes] = useState(false);
   const etaitActif = useRef(false);
 
   useEffect(() => {
@@ -219,6 +222,51 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
                 {m} <X size={11} aria-hidden="true" />
               </button>
             ))}
+          </div>
+        )}
+
+        {motsCles.length > 0 && (
+          <div className="mt-4 border-t border-line pt-4">
+            <button
+              type="button"
+              disabled={chargeProposes}
+              onClick={async () => {
+                setChargeProposes(true);
+                try {
+                  setProposes(await suggererMetiers(motsCles));
+                } catch {
+                  setProposes([]);
+                } finally {
+                  setChargeProposes(false);
+                }
+              }}
+              className="flex items-center gap-2 text-xs text-muted transition hover:text-teal disabled:opacity-50"
+            >
+              {chargeProposes ? (
+                <Loader2 size={13} className="animate-spin" aria-hidden="true" />
+              ) : (
+                <Sparkles size={13} aria-hidden="true" />
+              )}
+              {chargeProposes ? "Recherche…" : "Proposer des métiers proches"}
+            </button>
+
+            {proposes.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {proposes.map((mot) => (
+                  <button
+                    key={mot}
+                    type="button"
+                    onClick={() => {
+                      setMotsCles((p) => [...p, mot]);
+                      setProposes((p) => p.filter((x) => x !== mot));
+                    }}
+                    className="flex items-center gap-1.5 rounded-full border border-dashed border-line-hover px-2.5 py-1 text-xs text-muted transition hover:border-teal hover:text-teal"
+                  >
+                    <Plus size={11} aria-hidden="true" /> {mot}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </section>
