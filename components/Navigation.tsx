@@ -113,23 +113,29 @@ export function Navigation() {
     : MENU_COMPTE;
   const dansLeMenu = entrees.some((e) => e.href === chemin);
 
+  // Sur écran étroit, les onglets étaient écrasés à zéro largeur entre la
+  // marque et le bloc de compte, tous deux insécables : plus aucune
+  // navigation possible. Ils passent donc sur une seconde ligne, et
+  // reviennent en ligne dès qu'il y a la place.
   return (
-    <header className="sticky top-0 z-20 -mx-6 mb-8 flex items-center justify-between gap-4 border-b border-line bg-surface/90 px-6 py-3 backdrop-blur-md">
-      <div className="flex min-w-0 flex-1 items-center gap-5">
-        <Link
-          href="/accueil"
-          className="shrink-0"
-          aria-label="DataCloser, tableau de bord"
-        >
-          <Marque />
-        </Link>
+    <header className="sticky top-0 z-20 -mx-6 mb-8 flex flex-wrap items-center gap-x-5 gap-y-1 border-b border-line bg-surface/90 px-6 py-3 backdrop-blur-md">
+      <Link
+        href="/accueil"
+        className="order-1 shrink-0"
+        aria-label="DataCloser, tableau de bord"
+      >
+        <Marque />
+      </Link>
 
-        <span aria-hidden="true" className="h-5 w-px shrink-0 bg-line" />
+      <span
+        aria-hidden="true"
+        className="order-1 hidden h-5 w-px shrink-0 bg-line lg:block"
+      />
 
-        <nav
-          className="defilement-discret -mb-3 flex min-w-0 flex-1 gap-5 pb-3"
-          aria-label="Sections"
-        >
+      <nav
+        className="defilement-discret order-3 -mb-3 flex w-full gap-5 pb-3 lg:order-2 lg:w-auto lg:flex-1"
+        aria-label="Sections"
+      >
           {ONGLETS.map((onglet) => {
             const actif = chemin === onglet.href;
             return (
@@ -151,10 +157,9 @@ export function Navigation() {
               </Link>
             );
           })}
-        </nav>
-      </div>
+      </nav>
 
-      <div className="flex shrink-0 items-center gap-3">
+      <div className="order-2 ml-auto flex shrink-0 items-center gap-3 lg:order-3">
         {credits !== null && (
           <Link
             href="/boutique"
