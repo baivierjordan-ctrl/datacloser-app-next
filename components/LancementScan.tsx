@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader2, Plus, Radar, Sparkles, X } from "lucide-react";
 import { ConsoleScan } from "@/components/ConsoleScan";
+import { DemarrageRapide } from "@/components/DemarrageRapide";
 import { HistoriqueChasses } from "@/components/HistoriqueChasses";
 import {
   annulerScan,
@@ -15,7 +16,9 @@ import {
   LIBELLES_SCAN,
   SCAN_ACTIF,
   type OptionsRadar,
+  type PlanIcp,
   type ScanRadar,
+  type SecteurRapide,
 } from "@/lib/types";
 
 const champ =
@@ -79,6 +82,22 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
       clearInterval(minuterie);
     };
   }, [onTermine]);
+
+  /** Applique une chasse déduite du profil. Rien n'est lancé. */
+  function appliquerPlan(plan: PlanIcp) {
+    setMotsCles(plan.mots_cles);
+    setPays(plan.pays);
+    setVilles(new Set(plan.villes));
+    setMode(plan.mode);
+    setErreur("");
+  }
+
+  /** Applique un secteur tout prêt, en gardant les villes déjà choisies. */
+  function appliquerSecteur(secteur: SecteurRapide) {
+    setMotsCles(secteur.mots);
+    setMode(secteur.mode);
+    setErreur("");
+  }
 
   /** Recharge le formulaire avec les réglages d'une chasse passée. */
   function reprendre(scan: ScanRadar) {
@@ -182,6 +201,8 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
           </p>
         </section>
       )}
+
+      <DemarrageRapide onPlan={appliquerPlan} onSecteur={appliquerSecteur} />
 
       <section className="rounded-xl border border-line bg-surface p-5">
         <label className={etiquette} htmlFor="mot-cle">

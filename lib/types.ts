@@ -316,3 +316,20 @@ export interface Conseil {
   action: string;
   lien: string;
 }
+
+/** Recherche prête à l'emploi pour un secteur donné. */
+export interface SecteurRapide {
+  cle: string;
+  libelle: string;
+  mots: string[];
+  mode: string;
+}
+
+/** Chasse proposée d'après le profil, à valider avant lancement. */
+export interface PlanIcp {
+  mots_cles: string[];
+  pays: string;
+  villes: string[];
+  mode: string;
+  explication: string;
+}

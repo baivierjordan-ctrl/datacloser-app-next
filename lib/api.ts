@@ -1,5 +1,7 @@
 import type {
   Accueil,
+  PlanIcp,
+  SecteurRapide,
   Conseil,
   ContenuFichier,
   TourConversation,
@@ -431,4 +433,15 @@ export function recupererConseils(): Promise<{
   mesure_reponses: boolean;
 }> {
   return appeler("/conseils");
+}
+
+/** Recherches prêtes à l'emploi, par secteur. */
+export async function recupererSecteurs(): Promise<SecteurRapide[]> {
+  const d = await appeler<{ secteurs: SecteurRapide[] }>("/radar/secteurs");
+  return d.secteurs ?? [];
+}
+
+/** Chasse déduite du profil. Ne lance rien : la configuration est à valider. */
+export function proposerPlanIcp(): Promise<PlanIcp> {
+  return envoyer("/radar/plan-icp", {});
 }
