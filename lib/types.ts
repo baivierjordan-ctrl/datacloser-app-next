@@ -286,6 +286,8 @@ export interface Accueil {
   emails_envoyes: number;
   emails_echoues: number;
   reponses: number;
+  conseils: Conseil[];
+  tout_va_bien: boolean;
   profil_completion: number;
   smtp_configure: boolean;
   /** Une seule suggestion à la fois, calculée d'après l'obstacle réel. */

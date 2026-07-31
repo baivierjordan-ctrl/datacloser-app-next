@@ -165,7 +165,10 @@ export default function PageAccueil() {
               </section>
             )}
 
-            <BlocConseils />
+            <BlocConseils
+              conseils={donnees.conseils}
+              toutVaBien={donnees.tout_va_bien}
+            />
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Chiffre

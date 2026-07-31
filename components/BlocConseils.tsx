@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, Check, Compass, Info, Wand2 } from "lucide-react";
-import { recupererConseils } from "@/lib/api";
 import type { Conseil } from "@/lib/types";
 
 /**
@@ -61,28 +59,18 @@ function lienAction(conseil: Conseil): string {
   }
 }
 
-export function BlocConseils() {
-  const [conseils, setConseils] = useState<Conseil[] | null>(null);
-  const [toutVaBien, setToutVaBien] = useState(false);
-
-  useEffect(() => {
-    recupererConseils()
-      .then((r) => {
-        setConseils(r.conseils);
-        setToutVaBien(r.tout_va_bien);
-      })
-      .catch(() => setConseils([]));
-  }, []);
-
-  if (!conseils) {
-    return (
-      <div
-        className="mb-5 h-32 animate-pulse rounded-xl border border-line bg-surface"
-        aria-busy="true"
-      />
-    );
-  }
-
+/**
+ * Les conseils arrivent avec l'accueil plutôt que par un appel séparé :
+ * celui-ci recalculait tout et rien ne garantissait que les deux
+ * affichent les mêmes chiffres.
+ */
+export function BlocConseils({
+  conseils,
+  toutVaBien,
+}: {
+  conseils: Conseil[];
+  toutVaBien: boolean;
+}) {
   if (conseils.length === 0 && !toutVaBien) return null;
 
   return (
