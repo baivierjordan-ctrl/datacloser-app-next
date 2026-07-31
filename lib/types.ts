@@ -301,5 +301,8 @@ export interface ContenuFichier {
   colonnes: string[];
   lignes: string[][];
   total: number;
+  contactables: number;
+  /** Comptée sur tout le fichier, même au-delà du plafond d'affichage. */
+  qualite: { verifie: number; catchall: number; introuvable: number };
   tronque: boolean;
 }

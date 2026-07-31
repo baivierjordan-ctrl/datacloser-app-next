@@ -1,72 +1,29 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Search } from "lucide-react";
-import { ApercuExemple } from "@/components/ApercuExemple";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { ArrowRight, Check, Search } from "lucide-react";
 import { LancementScan } from "@/components/LancementScan";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
-import { SyntheseChasse } from "@/components/SyntheseChasse";
-import { SessionExpiree, recupererLeads, telechargerExport } from "@/lib/api";
 import { lireSession } from "@/lib/session";
-import type { Lead } from "@/lib/types";
 
-type Etat = "chargement" | "pret" | "vide" | "erreur";
-
-function ContenuRadar() {
+/**
+ * Radar : on y chasse, rien d'autre.
+ *
+ * Les résultats vivent dans Exports — un onglet, un verbe. Quand une
+ * chasse se termine, un bandeau annonce le fichier et renvoie là où on
+ * le consulte, plutôt que d'installer ici une seconde lecture des
+ * mêmes données.
+ */
+export default function PageRadar() {
   const router = useRouter();
-  // Un fichier précis peut être demandé depuis Exports ; sans lui,
-  // le plus récent s'affiche comme avant.
-  const parametres = useSearchParams();
-  const fichierDemande = parametres.get("fichier") ?? undefined;
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [etat, setEtat] = useState<Etat>("chargement");
-  const [message, setMessage] = useState("");
-  const [fichier, setFichier] = useState<string | null>(null);
-
-  const [notification, setNotification] = useState("");
-  const [vue, setVue] = useState<"resultats" | "chasse">("resultats");
-
-  function chargerLeads() {
-    recupererLeads(fichierDemande)
-      .then((reponse) => {
-        setLeads(reponse.leads);
-        setFichier(reponse.fichier);
-        setEtat(reponse.leads.length ? "pret" : "vide");
-      })
-      .catch(() => {});
-  }
+  const [termine, setTermine] = useState(false);
 
   useEffect(() => {
-    const session = lireSession();
-    if (!session) {
-      router.replace("/connexion");
-      return;
-    }
-    let annule = false;
-    recupererLeads(fichierDemande)
-      .then((reponse) => {
-        if (annule) return;
-        setLeads(reponse.leads);
-        setFichier(reponse.fichier);
-        setEtat(reponse.leads.length ? "pret" : "vide");
-      })
-      .catch((erreur: Error) => {
-        if (annule) return;
-        if (erreur instanceof SessionExpiree) {
-          router.replace("/connexion");
-          return;
-        }
-        setMessage(erreur.message);
-        setEtat("erreur");
-      });
-
-    return () => {
-      annule = true;
-    };
-  }, [router, fichierDemande]);
-
+    if (!lireSession()) router.replace("/connexion");
+  }, [router]);
 
   return (
     <main className="min-h-screen px-6 pb-16 pt-6">
@@ -77,104 +34,42 @@ function ContenuRadar() {
           <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
             <Search size={13} aria-hidden="true" /> Radar
           </p>
-
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            {fichier
-              ? fichier.replace(/\.csv$/i, "").replace(/_/g, " ")
-              : "Vos leads"}
+            Lancer une chasse
           </h1>
-
-          <p className="mt-2 text-sm text-muted">
-            {etat === "chargement"
-              ? "Chargement du dernier scan…"
-              : "Le fichier complet est prêt. Voici l'essentiel."}
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+            Indiquez un métier et une zone. Le moteur identifie les
+            entreprises, cherche le décideur, vérifie son email et rédige une
+            accroche à partir de leur site. Le résultat devient un fichier,
+            consultable dans Exports.
           </p>
-
-          {etat === "erreur" && (
-            <p
-              role="alert"
-              className="mt-3 rounded-lg border border-danger/30 bg-danger/5 px-3 py-2 text-xs text-danger"
-            >
-              {message}
-            </p>
-          )}
         </header>
 
-        <div className="mb-5 flex gap-1">
-          {(["resultats", "chasse"] as const).map((cible) => (
-            <button
-              key={cible}
-              type="button"
-              onClick={() => setVue(cible)}
-              aria-current={vue === cible ? "true" : undefined}
-              className={`rounded-lg px-3 py-1.5 text-sm transition ${
-                vue === cible
-                  ? "bg-surface text-content"
-                  : "text-muted hover:text-content"
-              }`}
+        {termine && (
+          <div className="apparition mb-5 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-ok/30 bg-ok/5 px-5 py-4">
+            <p className="flex items-center gap-2.5 text-sm">
+              <Check size={16} className="shrink-0 text-ok" aria-hidden="true" />
+              <span>
+                <span className="text-content">Chasse terminée.</span>{" "}
+                <span className="text-muted">
+                  Votre fichier vous attend dans Exports.
+                </span>
+              </span>
+            </p>
+            <Link
+              href="/exports"
+              className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
             >
-              {cible === "resultats" ? "Résultats" : "Nouvelle chasse"}
-            </button>
-          ))}
-        </div>
-
-        {vue === "chasse" ? (
-          <LancementScan
-            onTermine={() => {
-              chargerLeads();
-              setNotification("Chasse terminée — les résultats sont à jour.");
-            }}
-          />
-        ) : (
-        <>
-        {etat === "chargement" ? (
-          <div className="flex flex-col gap-4" aria-busy="true">
-            <div className="grid gap-4 sm:grid-cols-3">
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  className="h-24 animate-pulse rounded-xl border border-line bg-surface"
-                />
-              ))}
-            </div>
-            <div className="h-32 animate-pulse rounded-xl border border-line bg-surface" />
+              Voir les résultats
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
           </div>
-        ) : etat === "vide" ? (
-          <ApercuExemple onCommencer={() => setVue("chasse")} />
-        ) : (
-          <SyntheseChasse
-            leads={leads}
-            fichier={fichier}
-            onExporter={() => {
-              if (!fichier) return;
-              telechargerExport(fichier)
-                .then(() => setNotification("Fichier téléchargé."))
-                .catch(() =>
-                  setNotification(
-                    "Téléchargement impossible. Réessayez dans un instant.",
-                  ),
-                );
-            }}
-          />
-        )}
-        </>
         )}
 
-        {notification && (
-          <p role="status" className="mt-3 text-center text-xs text-muted">
-            {notification}
-          </p>
-        )}
+        <LancementScan onTermine={() => setTermine(true)} />
+
         <PiedDePage />
       </div>
     </main>
-  );
-}
-
-export default function PageRadar() {
-  return (
-    <Suspense fallback={null}>
-      <ContenuRadar />
-    </Suspense>
   );
 }

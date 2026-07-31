@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, Download, Loader2, Search } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, Download, Loader2, Search } from "lucide-react";
+import { Aide } from "@/components/Aide";
 import { recupererContenuFichier, telechargerExport } from "@/lib/api";
 import type { ContenuFichier } from "@/lib/types";
 
@@ -105,6 +107,103 @@ export function TableauFichier({
             </>
           )}
         </p>
+      )}
+
+      {contenu && contenu.total > 0 && (
+        <>
+          <div className="mt-5 grid gap-4 sm:grid-cols-3">
+            {[
+              { valeur: contenu.total, libelle: "entreprises", accent: false },
+              { valeur: contenu.contactables, libelle: "contactables", accent: true },
+              { valeur: contenu.contactables, libelle: "crédits à l'envoi", accent: false },
+            ].map((carte, rang) => (
+              <div
+                key={carte.libelle}
+                className="apparition rounded-xl border border-line bg-surface p-5"
+                style={{ animationDelay: `${rang * 45}ms` }}
+              >
+                <p
+                  className={`font-display text-[30px] font-semibold leading-none tabular-nums ${
+                    carte.accent ? "text-teal" : "text-content"
+                  }`}
+                >
+                  {carte.valeur}
+                </p>
+                <p className="mt-2 flex items-center gap-1.5 text-xs text-muted">
+                  {carte.libelle}
+                  {carte.libelle === "crédits à l'envoi" && (
+                    <Aide titre="Comment les crédits sont comptés">
+                      Un crédit par email réellement envoyé, uniquement aux
+                      contacts vérifiés ou catch-all. Les introuvables ne
+                      coûtent jamais rien. Les crédits n&apos;expirent pas.
+                    </Aide>
+                  )}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <section className="apparition mt-4 rounded-xl border border-line bg-surface p-5">
+            <h3 className="mb-4 flex items-center gap-2 text-sm font-medium">
+              Qualité des emails
+              <Aide titre="Les trois niveaux de qualification">
+                Vérifié : le serveur du destinataire a confirmé que l&apos;adresse
+                existe — le meilleur niveau. Catch-all : le serveur accepte tout,
+                impossible de confirmer sans envoyer — utilisable avec prudence.
+                Introuvable : aucune adresse fiable — exclu des campagnes, jamais
+                facturé à l&apos;envoi.
+              </Aide>
+            </h3>
+
+            <div
+              className="flex h-2.5 overflow-hidden rounded-full bg-ink"
+              role="img"
+              aria-label={`${contenu.qualite.verifie} vérifiés, ${contenu.qualite.catchall} catch-all, ${contenu.qualite.introuvable} introuvables`}
+            >
+              {([
+                ["verifie", "bg-ok"],
+                ["catchall", "bg-warn"],
+                ["introuvable", "bg-danger"],
+              ] as const).map(([cle, couleur]) =>
+                contenu.qualite[cle] > 0 ? (
+                  <div
+                    key={cle}
+                    className={couleur}
+                    style={{
+                      width: `${(contenu.qualite[cle] / contenu.total) * 100}%`,
+                    }}
+                  />
+                ) : null,
+              )}
+            </div>
+
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+                {([
+                  ["verifie", "bg-ok", "Vérifié"],
+                  ["catchall", "bg-warn", "Catch-all"],
+                  ["introuvable", "bg-danger", "Introuvable"],
+                ] as const).map(([cle, couleur, libelle]) => (
+                  <span key={cle} className="flex items-center gap-1.5 text-xs text-muted">
+                    <span aria-hidden="true" className={`size-2 rounded-full ${couleur}`} />
+                    <span className="font-mono tabular-nums text-content">
+                      {contenu.qualite[cle]}
+                    </span>
+                    {libelle}
+                  </span>
+                ))}
+              </div>
+
+              <Link
+                href={`/outreach?source=${encodeURIComponent(fichier)}`}
+                className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+              >
+                Lancer une campagne
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
+          </section>
+        </>
       )}
 
       {erreur && (

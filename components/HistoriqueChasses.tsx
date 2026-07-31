@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ChevronDown, Download, RotateCcw } from "lucide-react";
+import { ApercuExemple } from "@/components/ApercuExemple";
 import { ConsoleScan } from "@/components/ConsoleScan";
 import { recupererScansRadar, telechargerExport } from "@/lib/api";
 import { dateHeure } from "@/lib/dates";
@@ -69,11 +70,7 @@ export function HistoriqueChasses({
   }
 
   if (scans.length === 0) {
-    return (
-      <p className="rounded-xl border border-line bg-surface px-5 py-8 text-center text-sm text-muted">
-        Vos chasses apparaîtront ici, avec leur journal et leur fichier.
-      </p>
-    );
+    return <ApercuExemple />;
   }
 
   return (
