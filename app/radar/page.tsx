@@ -166,6 +166,20 @@ export default function PageRadar() {
             minimum pour élargir la recherche.
           </p>
         ) : (
+          <>
+          {/* Un en-tête rend l'alignement lisible : sans lui, une colonne
+              d'emails n'annonce pas ce qu'elle contient. */}
+          <div
+            aria-hidden="true"
+            className="mb-1.5 hidden items-center gap-4 px-5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/60 lg:flex"
+          >
+            <span className="w-4 shrink-0" />
+            <span className="min-w-0 flex-1">Entreprise</span>
+            <span className="w-56 shrink-0">Email</span>
+            <span className="w-[46px] shrink-0">Score</span>
+            <span className="w-7 shrink-0" />
+          </div>
+
           <div className="flex flex-col gap-2">
             {visibles.map((lead, rang) => (
               <div
@@ -190,6 +204,7 @@ export default function PageRadar() {
               </div>
             ))}
           </div>
+          </>
         )}
 
         <BarreActions

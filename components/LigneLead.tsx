@@ -33,7 +33,7 @@ export function LigneLead({ lead, selectionne, deplie, onSelection, onDeplier }:
         deplie ? "border-teal/30" : "border-line hover:border-line-hover"
       }`}
     >
-      <div className="flex items-center gap-4 px-5 py-4">
+      <div className="flex items-center gap-4 px-5 py-3">
         <input
           type="checkbox"
           checked={selectionne}
@@ -61,12 +61,6 @@ export function LigneLead({ lead, selectionne, deplie, onSelection, onDeplier }:
                 {lead.ville}
               </span>
             )}
-            {lead.site && (
-              <span className="flex items-center gap-1">
-                <Globe size={11} aria-hidden="true" />
-                {lead.site}
-              </span>
-            )}
             <span className={`flex items-center gap-1.5 ${COULEUR_STATUT[lead.statut]}`}>
               <span
                 className={`size-1.5 rounded-full ${PASTILLE_STATUT[lead.statut]}`}
@@ -76,6 +70,19 @@ export function LigneLead({ lead, selectionne, deplie, onSelection, onDeplier }:
             </span>
           </div>
         </div>
+
+        {/* L'email est ce qu'on vient chercher : il occupait la place
+            d'un secret alors qu'il devrait tenir la colonne. Aligné à
+            largeur fixe, il se lit en descendant la liste. Masqué sur
+            écran étroit, où il passerait à la ligne. */}
+        <span
+          className={`hidden w-56 shrink-0 truncate font-mono text-xs lg:block ${
+            contactable ? "text-content-soft" : "text-muted/50"
+          }`}
+          title={lead.email || undefined}
+        >
+          {lead.email || "—"}
+        </span>
 
         <BarreScore valeur={lead.score} />
 
@@ -103,10 +110,21 @@ export function LigneLead({ lead, selectionne, deplie, onSelection, onDeplier }:
             « {lead.accroche} »
           </p>
           <div className="flex flex-wrap gap-4 font-mono text-xs text-muted">
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 lg:hidden">
               <Mail size={11} aria-hidden="true" />
               {lead.email}
             </span>
+            {lead.site && (
+              <a
+                href={lead.site.startsWith("http") ? lead.site : `https://${lead.site}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 transition hover:text-teal"
+              >
+                <Globe size={11} aria-hidden="true" />
+                {lead.site}
+              </a>
+            )}
             {lead.tel && <span>{lead.tel}</span>}
           </div>
         </div>
