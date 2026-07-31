@@ -341,3 +341,26 @@ export interface EtatAdmin {
   agents_actifs: { email: string; credits: number; depuis: string | null }[];
   derniers_cycles: Record<string, unknown>[];
 }
+
+/** État du pipeline de recherche de domaines. */
+export interface EtatBacklinks {
+  en_cours: boolean;
+  journal: string[];
+  total_journal: number;
+  erreur: string | null;
+  resultat: {
+    raw_found?: number;
+    qualified?: number;
+    with_emails?: number;
+    prospects?: Record<string, unknown>[];
+  } | null;
+}
+
+/** Ligne extraite du cache global. */
+export interface LigneCache {
+  entreprise: string;
+  decideur: string;
+  email: string;
+  site: string;
+  ville: string;
+}

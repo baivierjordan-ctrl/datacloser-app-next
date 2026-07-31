@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Bot, Crown, Database, Loader2, Trash2, Zap } from "lucide-react";
+import { ExportCache } from "@/components/ExportCache";
+import { LinkBuilding } from "@/components/LinkBuilding";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import {
@@ -296,6 +298,10 @@ export default function PageAdmin() {
                 </table>
               </div>
             </section>
+
+            <LinkBuilding />
+
+            <ExportCache />
 
             <section className="rounded-xl border border-danger/30 bg-danger/5 p-5">
               <h2 className="mb-1 flex items-center gap-2 text-sm font-medium text-danger">

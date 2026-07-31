@@ -1,5 +1,7 @@
 import type {
   Accueil,
+  EtatBacklinks,
+  LigneCache,
   EtatAdmin,
   PlanIcp,
   SecteurRapide,
@@ -479,4 +481,29 @@ export function purgerCache(
   confirmation: string,
 ): Promise<{ supprimes: number; message: string }> {
   return envoyer("/admin/purger-cache", { confirmation });
+}
+
+/** Démarre une recherche de domaines. Une seule à la fois. */
+export function lancerBacklinks(demande: {
+  sujets: string[];
+  langue: string;
+  maximum: number;
+  da_min: number;
+  score_min: number;
+}): Promise<{ lance: boolean }> {
+  return envoyer("/admin/backlinks/lancer", demande);
+}
+
+/** Journal et résultat de la recherche en cours ou de la dernière. */
+export function etatBacklinks(): Promise<EtatBacklinks> {
+  return appeler<EtatBacklinks>("/admin/backlinks");
+}
+
+/** Extrait des leads du cache global, sans relancer de scan. */
+export function exporterCache(
+  recherche: string,
+  limite: number,
+): Promise<{ lignes: LigneCache[]; total: number }> {
+  const p = new URLSearchParams({ recherche, limite: String(limite) });
+  return appeler(`/admin/cache?${p}`);
 }
