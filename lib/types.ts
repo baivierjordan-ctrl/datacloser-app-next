@@ -378,9 +378,19 @@ export interface LigneCache {
 }
 
 /** Réécriture proposée par le moteur. Rien n'est appliqué sans validation. */
-export interface PropositionMessage {
+export interface VersionMessage {
+  angle: string;
   sujet: string;
   corps: string;
+  /** Ce que cet angle cherche à provoquer. */
+  pourquoi: string;
+  mesures: AuditMessage["mesures"];
+}
+
+export interface PropositionMessage {
+  /** Trois angles distincts : le choix apprend plus qu'une version unique. */
+  versions: VersionMessage[];
+  recommande: string;
   changements: string[];
   /** Vrai quand la réécriture s'appuie sur les résultats mesurés. */
   diagnostic_utilise: boolean;
