@@ -367,3 +367,12 @@ export interface LigneCache {
   site: string;
   ville: string;
 }
+
+/** Réécriture proposée par le moteur. Rien n'est appliqué sans validation. */
+export interface PropositionMessage {
+  sujet: string;
+  corps: string;
+  changements: string[];
+  /** Vrai quand la réécriture s'appuie sur les résultats mesurés. */
+  diagnostic_utilise: boolean;
+}

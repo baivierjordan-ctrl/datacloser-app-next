@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AlertTriangle, Check, Loader2, Save, Send } from "lucide-react";
 import { Aide } from "@/components/Aide";
+import { AmeliorationMessage } from "@/components/AmeliorationMessage";
 import { ApercuOutreach } from "@/components/ApercuOutreach";
 import {
   creerCampagne,
@@ -300,6 +301,16 @@ export function CreationCampagne({
             </>
           )}
         </button>
+
+        <AmeliorationMessage
+          sujet={sujet}
+          corps={corps}
+          onAppliquer={(s, c) => {
+            setSujet(s);
+            setCorps(c);
+            setModeleEnregistre(false);
+          }}
+        />
       </section>
 
       <ApercuOutreach fichier={fichier} sujet={sujet} corps={corps} />

@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  PropositionMessage,
   EtatBacklinks,
   LigneCache,
   EtatAdmin,
@@ -506,4 +507,12 @@ export function exporterCache(
 ): Promise<{ lignes: LigneCache[]; total: number }> {
   const p = new URLSearchParams({ recherche, limite: String(limite) });
   return appeler(`/admin/cache?${p}`);
+}
+
+/** Demande une réécriture du modèle. N'applique rien. */
+export function ameliorerMessage(
+  sujet: string,
+  corps: string,
+): Promise<PropositionMessage> {
+  return envoyer("/outreach/ameliorer", { sujet, corps });
 }
