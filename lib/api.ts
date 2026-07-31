@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  AuditMessage,
   ModeleCampagne,
   PropositionMessage,
   EtatBacklinks,
@@ -535,4 +536,12 @@ export async function proposerObjets(
     corps,
   });
   return d.variantes ?? [];
+}
+
+/** Audit du message sur cinq axes, mesures objectives comprises. */
+export function auditerMessage(
+  sujet: string,
+  corps: string,
+): Promise<AuditMessage> {
+  return envoyer("/outreach/auditer", { sujet, corps });
 }

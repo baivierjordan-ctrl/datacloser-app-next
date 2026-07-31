@@ -392,3 +392,24 @@ export interface ModeleCampagne {
   sujet: string;
   corps: string;
 }
+
+/** Audit du message : mesures objectives et appréciations du moteur. */
+export interface AuditMessage {
+  note_globale: number | null;
+  verdict: string;
+  axes: { nom: string; note: number; constat: string; correction: string }[];
+  priorite: string;
+  /** Calculées côté serveur : une longueur ne s'invente pas. */
+  mesures: {
+    longueur_objet: number;
+    objet_tronque_mobile: boolean;
+    mots_corps: number;
+    corps_long: boolean;
+    questions: number;
+    liens: number;
+    declencheurs: string[];
+    personnalise: boolean;
+    majuscules_objet: boolean;
+    exclamations: number;
+  };
+}
