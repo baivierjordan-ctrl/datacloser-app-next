@@ -430,8 +430,10 @@ export interface AuditMessage {
     personnalise: boolean;
     majuscules_objet: boolean;
     exclamations: number;
-    /** Marqueurs d'offre commerciale : ils n'ont pas leur place en premier contact. */
-    offre: string[];
+    /** Ce qui fait sortir de l'email : inscription, compte, lien. */
+    friction: string[];
+    /** Contrepartie envoyée en retour d'une réponse : sans friction. */
+    contrepartie_reponse: boolean;
     promesse_chiffree: boolean;
   };
 }

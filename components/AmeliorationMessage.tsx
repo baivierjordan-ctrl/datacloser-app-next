@@ -188,7 +188,7 @@ export function AmeliorationMessage({
                 version.angle.toLowerCase() ===
                 proposition.recommande.toLowerCase();
               const alertes = [
-                version.mesures.offre.length > 0 && "contient une offre",
+                version.mesures.friction.length > 0 && "demande de sortir de l'email",
                 version.mesures.corps_long && "trop long",
                 version.mesures.objet_tronque_mobile && "objet trop long",
               ].filter(Boolean);

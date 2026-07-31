@@ -69,8 +69,8 @@ export function AuditMessageBloc({
   // Les constats objectifs, formulés seulement quand ils s'appliquent.
   const faits = m
     ? [
-        m.offre.length > 0 &&
-          `Offre commerciale en premier contact (${m.offre.join(", ")}) : elle appartient à la relance, une fois l'échange amorcé.`,
+        m.friction.length > 0 &&
+          `Le message demande de sortir de l'email (${m.friction.join(", ")}) : chaque étape supplémentaire coûte des réponses.`,
         m.promesse_chiffree &&
           "Promesse chiffrée : elle fait lire le message comme une publicité.",
         m.objet_tronque_mobile &&
