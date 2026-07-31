@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  EtatAdmin,
   PlanIcp,
   SecteurRapide,
   Conseil,
@@ -450,4 +451,32 @@ export function proposerPlanIcp(): Promise<PlanIcp> {
 export async function recupererCredits(): Promise<number> {
   const d = await appeler<{ credits: number }>("/credits");
   return d.credits ?? 0;
+}
+
+/** Vue d'ensemble de l'administration. Refusée aux comptes non habilités. */
+export function recupererEtatAdmin(): Promise<EtatAdmin> {
+  return appeler<EtatAdmin>("/admin/etat");
+}
+
+/** Ajoute des crédits à un compte existant. */
+export function crediterCompte(
+  email: string,
+  montant: number,
+): Promise<{ email: string; ajoutes: number; solde: number }> {
+  return envoyer("/admin/crediter", { email, montant });
+}
+
+/** Active ou désactive l'agent autonome d'un compte. */
+export function basculerAgent(
+  email: string,
+  actif: boolean,
+): Promise<{ email: string; actif: boolean }> {
+  return envoyer("/admin/agent", { email, actif });
+}
+
+/** Purge irréversible du cache des leads non vérifiés. */
+export function purgerCache(
+  confirmation: string,
+): Promise<{ supprimes: number; message: string }> {
+  return envoyer("/admin/purger-cache", { confirmation });
 }

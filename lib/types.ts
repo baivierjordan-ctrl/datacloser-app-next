@@ -333,3 +333,11 @@ export interface PlanIcp {
   mode: string;
   explication: string;
 }
+
+/** Vue d'ensemble de l'administration. */
+export interface EtatAdmin {
+  leads_caches: number;
+  comptes: { id: number; email: string; credits: number }[];
+  agents_actifs: { email: string; credits: number; depuis: string | null }[];
+  derniers_cycles: Record<string, unknown>[];
+}

@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import {
   Building2,
+  Crown,
   ChevronDown,
   Coins,
   Handshake,
@@ -34,6 +35,10 @@ const MENU_COMPTE = [
   { href: "/boutique", libelle: "Boutique", Icone: ShoppingBag },
   { href: "/partenariat", libelle: "Partenariat", Icone: Handshake },
 ];
+
+/** Comptes voyant l'entrée d'administration. Le serveur refuse de toute
+    façon les autres : ceci ne fait qu'éviter un lien inutile. */
+const ADMINS = ["admin@datacloser.com"];
 
 export function Navigation() {
   const router = useRouter();
@@ -99,7 +104,11 @@ export function Navigation() {
     router.replace("/connexion");
   }
 
-  const dansLeMenu = MENU_COMPTE.some((e) => e.href === chemin);
+  const estAdmin = ADMINS.includes(compte.trim().toLowerCase());
+  const entrees = estAdmin
+    ? [...MENU_COMPTE, { href: "/admin", libelle: "Administration", Icone: Crown }]
+    : MENU_COMPTE;
+  const dansLeMenu = entrees.some((e) => e.href === chemin);
 
   return (
     <header className="sticky top-0 z-20 -mx-6 mb-8 flex items-center justify-between gap-4 border-b border-line bg-ink/85 px-6 py-3 backdrop-blur-md">
@@ -186,7 +195,7 @@ export function Navigation() {
                 {compte}
               </p>
 
-              {MENU_COMPTE.map(({ href, libelle, Icone }) => (
+              {entrees.map(({ href, libelle, Icone }) => (
                 <Link
                   key={href}
                   href={href}
