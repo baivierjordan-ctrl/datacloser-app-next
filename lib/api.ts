@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  ContenuFichier,
   TourConversation,
   ApercuEmail,
   Campagne,
@@ -411,4 +412,13 @@ export async function suggererMetiers(mots: string[]): Promise<string[]> {
     mots,
   });
   return d.suggestions ?? [];
+}
+
+/** Contenu complet d'un fichier, colonnes réelles comprises. */
+export function recupererContenuFichier(
+  fichier: string,
+): Promise<ContenuFichier> {
+  return appeler<ContenuFichier>(
+    `/fichier/contenu?fichier=${encodeURIComponent(fichier)}`,
+  );
 }

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Eye, ArrowRight, Download, FileSpreadsheet } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { ConnexionCrm } from "@/components/ConnexionCrm";
+import { TableauFichier } from "@/components/TableauFichier";
 import { PiedDePage } from "@/components/PiedDePage";
 import {
   SessionExpiree,
@@ -25,6 +26,7 @@ export default function PageExports() {
   const [tronque, setTronque] = useState(false);
   const [enCours, setEnCours] = useState<string | null>(null);
   const [vue, setVue] = useState<"fichiers" | "crm">("fichiers");
+  const [ouvert, setOuvert] = useState<string | null>(null);
 
   useEffect(() => {
     if (!lireSession()) {
@@ -88,6 +90,7 @@ export default function PageExports() {
           </p>
         </div>
 
+        {!ouvert && (
         <div className="mb-5 flex gap-1">
           {(["fichiers", "crm"] as const).map((cible) => (
             <button
@@ -105,8 +108,11 @@ export default function PageExports() {
             </button>
           ))}
         </div>
+        )}
 
-        {vue === "crm" ? (
+        {ouvert ? (
+          <TableauFichier fichier={ouvert} onRetour={() => setOuvert(null)} />
+        ) : vue === "crm" ? (
           <ConnexionCrm fichiers={scans.map((s) => s.fichier)} />
         ) : (
         <>
@@ -168,13 +174,14 @@ export default function PageExports() {
                   <div className="flex shrink-0 items-center gap-2">
                     {/* Consulter réutilise l'écran Radar : mêmes chiffres,
                         même échantillon, sans dupliquer une vue. */}
-                    <Link
-                      href={`/radar?fichier=${encodeURIComponent(scan.fichier)}`}
+                    <button
+                      type="button"
+                      onClick={() => setOuvert(scan.fichier)}
                       className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-teal/40 hover:text-teal"
                     >
                       <Eye size={14} aria-hidden="true" />
                       Consulter
-                    </Link>
+                    </button>
                     <button
                       type="button"
                       onClick={() => telecharger(scan.fichier)}

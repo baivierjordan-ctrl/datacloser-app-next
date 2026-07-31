@@ -294,3 +294,12 @@ export interface TourConversation {
   role: "utilisateur" | "assistant";
   contenu: string;
 }
+
+/** Contenu brut d'un fichier de leads : en-têtes réels et lignes telles quelles. */
+export interface ContenuFichier {
+  fichier: string;
+  colonnes: string[];
+  lignes: string[][];
+  total: number;
+  tronque: boolean;
+}
