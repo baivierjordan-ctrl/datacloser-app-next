@@ -414,5 +414,8 @@ export interface AuditMessage {
     personnalise: boolean;
     majuscules_objet: boolean;
     exclamations: number;
+    /** Marqueurs d'offre commerciale : ils n'ont pas leur place en premier contact. */
+    offre: string[];
+    promesse_chiffree: boolean;
   };
 }

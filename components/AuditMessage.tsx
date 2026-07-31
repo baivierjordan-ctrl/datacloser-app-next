@@ -62,6 +62,10 @@ export function AuditMessageBloc({
   // Les constats objectifs, formulés seulement quand ils s'appliquent.
   const faits = m
     ? [
+        m.offre.length > 0 &&
+          `Offre commerciale en premier contact (${m.offre.join(", ")}) : elle appartient à la relance, une fois l'échange amorcé.`,
+        m.promesse_chiffree &&
+          "Promesse chiffrée : elle fait lire le message comme une publicité.",
         m.objet_tronque_mobile &&
           `Objet de ${m.longueur_objet} caractères : coupé sur téléphone au-delà de 60.`,
         m.corps_long &&
