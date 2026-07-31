@@ -318,6 +318,13 @@ export interface Conseil {
   constat: string;
   action: string;
   lien: string;
+  /** L'action qui corrige le problème, quand elle existe. */
+  faire: {
+    type: "modele_gagnant" | "variantes_objet" | "reecrire" | "chasse_icp";
+    libelle: string;
+    campagne_id?: string;
+    sujet?: string;
+  } | null;
 }
 
 /** Recherche prête à l'emploi pour un secteur donné. */
@@ -375,4 +382,11 @@ export interface PropositionMessage {
   changements: string[];
   /** Vrai quand la réécriture s'appuie sur les résultats mesurés. */
   diagnostic_utilise: boolean;
+}
+
+/** Modèle d'une campagne, pour repartir de celle qui marche. */
+export interface ModeleCampagne {
+  nom: string;
+  sujet: string;
+  corps: string;
 }

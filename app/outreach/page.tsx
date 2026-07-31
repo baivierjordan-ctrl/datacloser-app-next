@@ -26,6 +26,7 @@ function Outreach() {
   // Deux chemins mènent à la création : arriver du Radar avec un scan,
   // ou suivre un lien explicite depuis un écran vide.
   const vueDemandee = parametres.get("vue");
+  const modeleDemande = parametres.get("modele") ?? undefined;
   const [vue, setVue] = useState<Vue>(
     source || vueDemandee === "creation" ? "creation" : "campagnes",
   );
@@ -147,6 +148,7 @@ function Outreach() {
           />
         ) : vue === "creation" ? (
           <CreationCampagne
+            modeleInitial={modeleDemande}
             sourceInitiale={source}
             smtpConfigure={configure}
             onCreee={(destinataires) => {

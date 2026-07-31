@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  ModeleCampagne,
   PropositionMessage,
   EtatBacklinks,
   LigneCache,
@@ -515,4 +516,23 @@ export function ameliorerMessage(
   corps: string,
 ): Promise<PropositionMessage> {
   return envoyer("/outreach/ameliorer", { sujet, corps });
+}
+
+/** Modèle d'une campagne existante. */
+export function recupererModeleCampagne(id: string): Promise<ModeleCampagne> {
+  return appeler<ModeleCampagne>(
+    `/outreach/campagnes/${encodeURIComponent(id)}/modele`,
+  );
+}
+
+/** Trois objets alternatifs, pour comparer ce qui fait ouvrir. */
+export async function proposerObjets(
+  sujet: string,
+  corps = "",
+): Promise<string[]> {
+  const d = await envoyer<{ variantes: string[] }>("/outreach/variantes-objet", {
+    sujet,
+    corps,
+  });
+  return d.variantes ?? [];
 }

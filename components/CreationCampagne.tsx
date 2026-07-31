@@ -8,6 +8,7 @@ import { ApercuOutreach } from "@/components/ApercuOutreach";
 import {
   creerCampagne,
   enregistrerModele,
+  recupererModeleCampagne,
   recupererModeles,
   recupererQualifications,
   recupererScans,
@@ -28,7 +29,8 @@ export function CreationCampagne({
   sourceInitiale,
   smtpConfigure,
   onCreee,
-}: Props) {
+  modeleInitial,
+}: Props & { modeleInitial?: string }) {
   const [scans, setScans] = useState<string[]>([]);
   const [fichier, setFichier] = useState(sourceInitiale ?? "");
   const [nom, setNom] = useState("");
@@ -50,6 +52,7 @@ export function CreationCampagne({
   const [envoiEnCours, setEnvoiEnCours] = useState(false);
   const [erreur, setErreur] = useState("");
   const [modeleEnregistre, setModeleEnregistre] = useState(false);
+  const [origineModele, setOrigineModele] = useState("");
 
   // Modèles et liste des scans : une seule fois au montage.
   useEffect(() => {
@@ -302,12 +305,23 @@ export function CreationCampagne({
           )}
         </button>
 
+        {origineModele && (
+          <p className="mt-3 rounded-lg border border-teal/30 bg-teal/5 px-3 py-2 text-xs text-muted">
+            Modèle repris de « {origineModele} », votre campagne qui obtient le
+            meilleur taux de réponse. Ajustez-le avant de lancer.
+          </p>
+        )}
+
         <AmeliorationMessage
           sujet={sujet}
           corps={corps}
           onAppliquer={(s, c) => {
             setSujet(s);
             setCorps(c);
+            setModeleEnregistre(false);
+          }}
+          onChangerSujet={(s) => {
+            setSujet(s);
             setModeleEnregistre(false);
           }}
         />

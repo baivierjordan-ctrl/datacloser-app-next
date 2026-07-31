@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Loader2, Sparkles, X } from "lucide-react";
-import { ameliorerMessage } from "@/lib/api";
+import { Check, Loader2, Sparkles, Type, X } from "lucide-react";
+import { ameliorerMessage, proposerObjets } from "@/lib/api";
 import type { PropositionMessage } from "@/lib/types";
 
 /**
@@ -22,14 +22,18 @@ export function AmeliorationMessage({
   sujet,
   corps,
   onAppliquer,
+  onChangerSujet,
 }: {
   sujet: string;
   corps: string;
   onAppliquer: (sujet: string, corps: string) => void;
+  onChangerSujet: (sujet: string) => void;
 }) {
   const [proposition, setProposition] = useState<PropositionMessage | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState("");
+  const [objets, setObjets] = useState<string[]>([]);
+  const [objetsEnCours, setObjetsEnCours] = useState(false);
 
   const pret = sujet.trim() !== "" && corps.trim() !== "";
 
@@ -47,6 +51,7 @@ export function AmeliorationMessage({
 
   return (
     <div className="mt-4 border-t border-line pt-4">
+      <div className="flex flex-wrap gap-4">
       <button
         type="button"
         onClick={demander}
@@ -60,6 +65,56 @@ export function AmeliorationMessage({
         )}
         {enCours ? "Réécriture en cours…" : "Proposer une version améliorée"}
       </button>
+
+      <button
+        type="button"
+        onClick={async () => {
+          setErreur("");
+          setObjetsEnCours(true);
+          try {
+            setObjets(await proposerObjets(sujet, corps));
+          } catch (e) {
+            setErreur((e as Error).message);
+          } finally {
+            setObjetsEnCours(false);
+          }
+        }}
+        disabled={sujet.trim() === "" || objetsEnCours}
+        className="flex items-center gap-2 text-xs text-muted transition hover:text-teal disabled:opacity-50"
+      >
+        {objetsEnCours ? (
+          <Loader2 size={13} className="animate-spin" aria-hidden="true" />
+        ) : (
+          <Type size={13} aria-hidden="true" />
+        )}
+        {objetsEnCours ? "Recherche…" : "Proposer d'autres objets"}
+      </button>
+      </div>
+
+      {objets.length > 0 && (
+        <div className="apparition mt-4 rounded-xl border border-line bg-surface p-4">
+          <p className="mb-1 text-sm font-medium">Autres objets possibles</p>
+          <p className="mb-3 text-xs text-muted">
+            Trois angles différents. Changez-en un sur deux entre vos
+            campagnes : c&apos;est la seule façon de savoir ce qui fait ouvrir.
+          </p>
+          <div className="flex flex-col gap-2">
+            {objets.map((o) => (
+              <button
+                key={o}
+                type="button"
+                onClick={() => {
+                  onChangerSujet(o);
+                  setObjets([]);
+                }}
+                className="rounded-lg border border-line px-3 py-2.5 text-left text-sm transition hover:border-teal hover:text-teal"
+              >
+                {o}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {!pret && (
         <p className="mt-2 text-xs text-muted">

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AlertTriangle, ArrowRight, Check, Compass, Info } from "lucide-react";
+import { AlertTriangle, ArrowRight, Check, Compass, Info, Wand2 } from "lucide-react";
 import { recupererConseils } from "@/lib/api";
 import type { Conseil } from "@/lib/types";
 
@@ -41,6 +41,25 @@ const APPARENCE = {
     libelle: "Conseil",
   },
 } as const;
+
+/** Adresse déclenchant l'action, lue par l'écran de destination. */
+function lienAction(conseil: Conseil): string {
+  const f = conseil.faire;
+  if (!f) return conseil.lien;
+
+  switch (f.type) {
+    case "modele_gagnant":
+      return `/outreach?vue=creation&modele=${encodeURIComponent(f.campagne_id ?? "")}`;
+    case "variantes_objet":
+      return "/outreach?vue=creation&action=objets";
+    case "reecrire":
+      return "/outreach?vue=creation&action=reecrire";
+    case "chasse_icp":
+      return "/radar?action=icp";
+    default:
+      return conseil.lien;
+  }
+}
 
 export function BlocConseils() {
   const [conseils, setConseils] = useState<Conseil[] | null>(null);
@@ -121,13 +140,36 @@ export function BlocConseils() {
                   {conseil.action}
                 </p>
 
-                <Link
-                  href={conseil.lien}
-                  className="mt-3.5 inline-flex items-center gap-1.5 text-xs text-teal transition hover:underline"
-                >
-                  Y aller
-                  <ArrowRight size={12} aria-hidden="true" />
-                </Link>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  {conseil.faire ? (
+                    <>
+                      {/* Un conseil qui diagnostique sans proposer de
+                          remède laisse l'utilisateur devant une page
+                          vide. L'action porte le lien qui la déclenche. */}
+                      <Link
+                        href={lienAction(conseil)}
+                        className="inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
+                      >
+                        <Wand2 size={14} aria-hidden="true" />
+                        {conseil.faire.libelle}
+                      </Link>
+                      <Link
+                        href={conseil.lien}
+                        className="text-xs text-muted transition hover:text-content"
+                      >
+                        Faire moi-même
+                      </Link>
+                    </>
+                  ) : (
+                    <Link
+                      href={conseil.lien}
+                      className="inline-flex items-center gap-1.5 text-xs text-teal transition hover:underline"
+                    >
+                      Y aller
+                      <ArrowRight size={12} aria-hidden="true" />
+                    </Link>
+                  )}
+                </div>
               </article>
             );
           })}
