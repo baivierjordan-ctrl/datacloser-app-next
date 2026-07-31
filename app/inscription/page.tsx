@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { UserPlus } from "lucide-react";
+import { IllustrationRadar } from "@/components/IllustrationRadar";
 import { MarqueEnTete } from "@/components/Marque";
 import { sInscrire } from "@/lib/api";
 import { ecrireSession } from "@/lib/session";
@@ -45,7 +46,8 @@ export default function PageInscription() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6 py-10">
+    <main className="flex min-h-screen">
+      <div className="flex flex-1 items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
         <MarqueEnTete />
         <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
@@ -159,6 +161,23 @@ export default function PageInscription() {
           </Link>
         </p>
       </div>
+      </div>
+
+      <aside
+        aria-hidden="true"
+        className="relative hidden flex-1 items-center justify-center overflow-hidden border-l border-line bg-surface/40 lg:flex"
+      >
+        <div className="max-w-md px-12">
+          <IllustrationRadar classe="mx-auto mb-8 w-64 text-content" />
+          <p className="text-center font-display text-xl font-semibold leading-snug">
+            Votre marché, balayé en continu.
+          </p>
+          <p className="mt-3 text-center text-sm leading-relaxed text-muted">
+            Le moteur détecte les entreprises, vérifie les décideurs et leurs
+            emails, puis rédige une accroche à partir de leur propre site.
+          </p>
+        </div>
+      </aside>
     </main>
   );
 }

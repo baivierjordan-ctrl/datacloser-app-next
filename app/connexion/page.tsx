@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
+import { IllustrationRadar } from "@/components/IllustrationRadar";
 import { MarqueEnTete } from "@/components/Marque";
 import { seConnecter } from "@/lib/api";
 import { ecrireSession } from "@/lib/session";
@@ -33,12 +34,10 @@ export default function PageConnexion() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main className="flex min-h-screen">
+      <div className="flex flex-1 items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
         <MarqueEnTete />
-        <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-teal">
-          DataCloser
-        </p>
         <h1 className="mb-8 text-2xl font-semibold">Connexion</h1>
 
         <div className="flex flex-col gap-4">
@@ -102,6 +101,23 @@ export default function PageConnexion() {
           </Link>
         </p>
       </div>
+      </div>
+
+      <aside
+        aria-hidden="true"
+        className="relative hidden flex-1 items-center justify-center overflow-hidden border-l border-line bg-surface/40 lg:flex"
+      >
+        <div className="max-w-md px-12">
+          <IllustrationRadar classe="mx-auto mb-8 w-64 text-content" />
+          <p className="text-center font-display text-xl font-semibold leading-snug">
+            Votre marché, balayé en continu.
+          </p>
+          <p className="mt-3 text-center text-sm leading-relaxed text-muted">
+            Le moteur détecte les entreprises, vérifie les décideurs et leurs
+            emails, puis rédige une accroche à partir de leur propre site.
+          </p>
+        </div>
+      </aside>
     </main>
   );
 }

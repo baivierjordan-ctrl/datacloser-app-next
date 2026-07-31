@@ -20,12 +20,6 @@ export interface Lead {
   besoins?: string[];
 }
 
-/** Filtres appliqués à la liste de résultats. */
-export interface FiltresRadar {
-  scoreMin: number;
-  verifiesSeuls: boolean;
-}
-
 export const LIBELLES_STATUT: Record<StatutEmail, string> = {
   verifie: "Vérifié",
   catchall: "Catch-all",

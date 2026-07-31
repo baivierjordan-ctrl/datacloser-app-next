@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AlertTriangle, Check, Loader2, Save, Send } from "lucide-react";
+import { Aide } from "@/components/Aide";
 import { ApercuOutreach } from "@/components/ApercuOutreach";
 import {
   creerCampagne,
@@ -187,7 +188,15 @@ export function CreationCampagne({
       </section>
 
       <section className="rounded-xl border border-line bg-surface p-5">
-        <h2 className="mb-1 text-sm font-medium">Destinataires</h2>
+        <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
+          Destinataires
+          <Aide titre="Pourquoi filtrer par qualification">
+            Envoyer aux adresses introuvables nuit à la réputation de votre
+            domaine : les serveurs finissent par vous classer en spam. Les
+            qualifications fiables sont cochées d&apos;office ; élargissez en
+            connaissance de cause.
+          </Aide>
+        </h2>
         <p className="mb-4 text-xs text-muted">
           Les qualifications les plus fiables sont cochées par défaut. Élargissez
           pour augmenter le volume.
@@ -304,6 +313,12 @@ export function CreationCampagne({
             onChange={(e) => setAvecRelance(e.target.checked)}
           />
           Activer les relances
+          <Aide titre="Comment fonctionnent les relances">
+            La relance J+4 part quatre jours après le premier message, et
+            uniquement aux destinataires qui l&apos;ont reçu sans répondre.
+            J+9 et J+14 suivent la même logique en cascade. Chaque relance
+            envoyée coûte un crédit, comme un message normal.
+          </Aide>
         </label>
         <p className="mt-1.5 text-xs text-muted">
           La relance part 4 jours après le premier message, et uniquement aux
