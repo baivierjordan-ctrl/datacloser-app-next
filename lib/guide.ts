@@ -181,9 +181,14 @@ export const SECTIONS: SectionGuide[] = [
     resume: "Mieux vaut le savoir avant que le découvrir.",
     passages: [
       {
-        titre: "Il ne mesure ni les ouvertures ni les réponses",
+        titre: "Il ne mesure pas les ouvertures",
         texte:
-          "L'application sait qu'un message est parti, pas ce qu'il est devenu. Les réponses arrivent dans votre boîte mail : c'est là qu'il faut les suivre. Aucun conseil de l'application ne prétend donc juger l'efficacité de vos messages, seulement votre configuration.",
+          "Savoir qui a ouvert un message suppose d'y glisser une image invisible. Nous ne le faisons pas : ces pixels sont bloqués par la plupart des messageries, ils dégradent la délivrabilité, et ils espionnent quelqu'un qui n'a rien demandé. Les réponses, elles, sont détectées — c'est le seul chiffre qui mesure vraiment quelque chose.",
+      },
+      {
+        titre: "Comment les réponses sont détectées",
+        texte:
+          "Si vous avez configuré votre envoi, l'application se connecte à votre boîte toutes les vingt minutes et compare les expéditeurs des messages reçus à vos destinataires. Elle ne lit que les en-têtes : jamais le contenu de vos messages. Il vous faudra peut-être activer l'accès IMAP chez votre fournisseur.",
       },
       {
         titre: "Il ne garantit pas une adresse pour chaque entreprise",

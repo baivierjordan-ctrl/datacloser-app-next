@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, Pause, Play, Trash2 } from "lucide-react";
+import { ArrowRight, ChevronDown, MailCheck, Pause, Play, Trash2 } from "lucide-react";
 import {
   changerStatutCampagne,
   recupererLogs,
@@ -255,11 +255,22 @@ export function ListeCampagnes({
                             </span>
                             <span className="font-mono text-muted">{heure}</span>
                             <span
-                              className={`w-14 text-right font-mono ${
-                                ligne.erreur ? "text-danger" : "text-ok"
+                              className={`flex w-20 items-center justify-end gap-1 text-right font-mono ${
+                                ligne.erreur
+                                  ? "text-danger"
+                                  : ligne.repondu_at
+                                    ? "text-teal"
+                                    : "text-muted"
                               }`}
                             >
-                              {ligne.erreur ? "échec" : ligne.statut || "envoyé"}
+                              {ligne.repondu_at && (
+                                <MailCheck size={12} aria-hidden="true" />
+                              )}
+                              {ligne.erreur
+                                ? "échec"
+                                : ligne.repondu_at
+                                  ? "répondu"
+                                  : ligne.statut || "envoyé"}
                             </span>
                           </button>
 

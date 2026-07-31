@@ -78,6 +78,8 @@ export interface LogEnvoi {
   statut: string;
   erreur: string | null;
   credits: number;
+  /** Horodatage de la réponse du destinataire, si elle a été détectée. */
+  repondu_at: string | null;
   /** L'email tel qu'il est parti — la seule trace de ce que le destinataire a reçu. */
   email_genere: string;
   created_at: string | null;
@@ -283,6 +285,7 @@ export interface Accueil {
   campagnes_actives: number;
   emails_envoyes: number;
   emails_echoues: number;
+  reponses: number;
   profil_completion: number;
   smtp_configure: boolean;
   /** Une seule suggestion à la fois, calculée d'après l'obstacle réel. */

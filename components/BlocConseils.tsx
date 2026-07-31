@@ -135,9 +135,10 @@ export function BlocConseils() {
       )}
 
       <p className="mt-3 text-xs leading-relaxed text-muted">
-        Ces conseils portent sur votre configuration, mesurée sur vos données.
-        DataCloser n&apos;enregistre ni les ouvertures ni les réponses : aucun
-        conseil ne prétend juger l&apos;efficacité réelle de vos messages.
+        Ces conseils s&apos;appuient sur vos données réelles. Les réponses sont
+        détectées dans votre boîte ; les ouvertures ne sont pas mesurées, un
+        pixel de suivi se payant en délivrabilité et en respect du
+        destinataire.
       </p>
     </section>
   );

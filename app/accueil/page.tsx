@@ -185,9 +185,15 @@ export default function PageAccueil() {
                 rang={2}
               />
               <Chiffre
+                valeur={donnees.reponses}
+                libelle={donnees.reponses > 1 ? "réponses reçues" : "réponse reçue"}
+                accent
+                rang={3}
+              />
+              <Chiffre
                 valeur={`${donnees.profil_completion} %`}
                 libelle="profil complété"
-                rang={3}
+                rang={4}
               />
             </div>
 
