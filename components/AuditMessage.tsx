@@ -14,12 +14,19 @@ import type { AuditMessage } from "@/lib/types";
  * deux ferait passer un avis pour un fait.
  */
 
-/** Une note colore selon ce qu'elle appelle : refaire, revoir, garder. */
-function couleurNote(note: number): string {
-  if (note >= 8) return "text-ok";
-  if (note >= 5) return "text-warn";
-  return "text-danger";
-}
+/**
+ * Trois états, et rien de plus.
+ *
+ * La note chiffrée a été retirée : sur cinq messages successifs
+ * objectivement meilleurs, elle a rendu 5, 6, 8, 6 puis 5. Un modèle de
+ * langage n'évalue pas de façon stable sur des écarts fins, et un
+ * chiffre instable invite à optimiser contre du bruit.
+ */
+const ETATS = {
+  respecte: { libelle: "Respecté", couleur: "text-ok", puce: "bg-ok" },
+  ameliorable: { libelle: "Améliorable", couleur: "text-warn", puce: "bg-warn" },
+  manque: { libelle: "À corriger", couleur: "text-danger", puce: "bg-danger" },
+} as const;
 
 export function AuditMessageBloc({
   sujet,
@@ -107,19 +114,9 @@ export function AuditMessageBloc({
 
       {audit && (
         <div className="apparition mt-4 rounded-xl border border-line bg-surface p-5">
-          <div className="flex flex-wrap items-baseline gap-3">
-            <span
-              className={`font-display text-[32px] font-semibold leading-none tabular-nums ${couleurNote(
-                audit.note_globale ?? 0,
-              )}`}
-            >
-              {audit.note_globale}
-              <span className="text-base text-muted">/10</span>
-            </span>
-            <p className="min-w-0 flex-1 text-sm text-content-soft">
-              {audit.verdict}
-            </p>
-          </div>
+          <p className="text-sm leading-relaxed text-content-soft">
+            {audit.verdict}
+          </p>
 
           {faits.length > 0 && (
             <div className="mt-4 rounded-lg border border-warn/30 bg-warn/5 p-4">
@@ -137,16 +134,29 @@ export function AuditMessageBloc({
             </div>
           )}
 
+          <p className="mt-3 font-mono text-xs text-muted">
+            {audit.axes.filter((a) => a.verdict === "respecte").length} critère(s)
+            sur {audit.axes.length} respecté(s)
+          </p>
+
           <div className="mt-4 flex flex-col gap-3">
             {audit.axes.map((axe) => (
               <div key={axe.nom} className="rounded-lg border border-line p-4">
-                <div className="flex items-baseline gap-2.5">
+                <div className="flex flex-wrap items-center gap-2.5">
                   <span
-                    className={`font-mono text-sm tabular-nums ${couleurNote(axe.note)}`}
-                  >
-                    {axe.note}
-                  </span>
+                    aria-hidden="true"
+                    className={`size-2 shrink-0 rounded-full ${
+                      ETATS[axe.verdict]?.puce ?? "bg-muted"
+                    }`}
+                  />
                   <h4 className="text-sm font-medium">{axe.nom}</h4>
+                  <span
+                    className={`font-mono text-[11px] uppercase tracking-[0.12em] ${
+                      ETATS[axe.verdict]?.couleur ?? "text-muted"
+                    }`}
+                  >
+                    {ETATS[axe.verdict]?.libelle ?? ""}
+                  </span>
                 </div>
                 <p className="mt-1.5 text-xs leading-relaxed text-content-soft">
                   {axe.constat}

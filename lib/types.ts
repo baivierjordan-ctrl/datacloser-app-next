@@ -405,9 +405,15 @@ export interface ModeleCampagne {
 
 /** Audit du message : mesures objectives et appréciations du moteur. */
 export interface AuditMessage {
-  note_globale: number | null;
   verdict: string;
-  axes: { nom: string; note: number; constat: string; correction: string }[];
+  /** Trois états plutôt qu'une note : un modèle de langage n'évalue pas
+      de façon stable sur des écarts fins. */
+  axes: {
+    nom: string;
+    verdict: "respecte" | "ameliorable" | "manque";
+    constat: string;
+    correction: string;
+  }[];
   priorite: string;
   /** Version corrigée appliquant les remarques, vide si non fournie. */
   corrige_sujet: string;
