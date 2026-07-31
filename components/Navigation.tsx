@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import {
+  BookOpen,
   Building2,
   Crown,
   ChevronDown,
@@ -32,6 +33,7 @@ const ONGLETS = [
 ];
 
 const MENU_COMPTE = [
+  { href: "/guide", libelle: "Mode d'emploi", Icone: BookOpen },
   { href: "/entreprise", libelle: "Mon entreprise", Icone: Building2 },
   { href: "/boutique", libelle: "Boutique", Icone: ShoppingBag },
   { href: "/partenariat", libelle: "Partenariat", Icone: Handshake },

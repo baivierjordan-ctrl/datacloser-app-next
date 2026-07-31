@@ -112,8 +112,16 @@ export default function PageAccueil() {
                   <h2 id="premiers-pas" className="text-sm font-medium">
                     Premiers pas
                   </h2>
-                  <span className="font-mono text-xs text-muted">
-                    {donnees.etapes.filter((e) => e.faite).length} / {donnees.etapes.length}
+                  <span className="flex items-center gap-3">
+                    <Link
+                      href="/guide"
+                      className="text-xs text-teal transition hover:underline"
+                    >
+                      Mode d&apos;emploi
+                    </Link>
+                    <span className="font-mono text-xs text-muted">
+                      {donnees.etapes.filter((e) => e.faite).length} / {donnees.etapes.length}
+                    </span>
                   </span>
                 </div>
 
