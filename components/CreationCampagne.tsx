@@ -58,6 +58,7 @@ export function CreationCampagne({
   const [erreur, setErreur] = useState("");
   const [modeleEnregistre, setModeleEnregistre] = useState(false);
   const [origineModele, setOrigineModele] = useState("");
+  const [remarquesAudit, setRemarquesAudit] = useState<string[]>([]);
 
   // Modèles et liste des scans : une seule fois au montage.
   useEffect(() => {
@@ -330,6 +331,7 @@ export function CreationCampagne({
             setModeleEnregistre(false);
           }}
           actionAuChargement={actionInitiale}
+          remarques={remarquesAudit}
         />
 
         <AuditMessageBloc
@@ -339,7 +341,9 @@ export function CreationCampagne({
             setSujet(s);
             setCorps(c);
             setModeleEnregistre(false);
+            setRemarquesAudit([]);
           }}
+          onRemarques={setRemarquesAudit}
         />
       </section>
 

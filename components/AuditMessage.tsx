@@ -25,10 +25,13 @@ export function AuditMessageBloc({
   sujet,
   corps,
   onAppliquer,
+  onRemarques,
 }: {
   sujet: string;
   corps: string;
   onAppliquer: (sujet: string, corps: string) => void;
+  /** Transmet les corrections relevées, pour la réécriture. */
+  onRemarques?: (remarques: string[]) => void;
 }) {
   const [audit, setAudit] = useState<AuditMessage | null>(null);
   const [enCours, setEnCours] = useState(false);
@@ -40,7 +43,13 @@ export function AuditMessageBloc({
     setErreur("");
     setEnCours(true);
     try {
-      setAudit(await auditerMessage(sujet, corps));
+      const resultat = await auditerMessage(sujet, corps);
+      setAudit(resultat);
+      onRemarques?.(
+        resultat.axes
+          .filter((a) => a.correction?.trim())
+          .map((a) => `${a.nom} : ${a.correction}`),
+      );
     } catch (e) {
       setErreur((e as Error).message);
     } finally {

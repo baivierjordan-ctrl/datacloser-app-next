@@ -24,6 +24,7 @@ export function AmeliorationMessage({
   onAppliquer,
   onChangerSujet,
   actionAuChargement,
+  remarques,
 }: {
   sujet: string;
   corps: string;
@@ -31,6 +32,8 @@ export function AmeliorationMessage({
   onChangerSujet: (sujet: string) => void;
   /** Action déclenchée à l'arrivée, quand un conseil l'a demandée. */
   actionAuChargement?: "objets" | "reecrire";
+  /** Remarques du dernier audit, pour ne pas refaire le travail en aveugle. */
+  remarques?: string[];
 }) {
   const [proposition, setProposition] = useState<PropositionMessage | null>(null);
   const [enCours, setEnCours] = useState(false);
@@ -77,7 +80,7 @@ export function AmeliorationMessage({
     setErreur("");
     setEnCours(true);
     try {
-      setProposition(await ameliorerMessage(sujet, corps));
+      setProposition(await ameliorerMessage(sujet, corps, remarques ?? []));
     } catch (e) {
       setErreur((e as Error).message);
     } finally {

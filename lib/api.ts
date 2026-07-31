@@ -515,8 +515,9 @@ export function exporterCache(
 export function ameliorerMessage(
   sujet: string,
   corps: string,
+  remarques: string[] = [],
 ): Promise<PropositionMessage> {
-  return envoyer("/outreach/ameliorer", { sujet, corps });
+  return envoyer("/outreach/ameliorer", { sujet, corps, remarques });
 }
 
 /** Modèle d'une campagne existante. */
