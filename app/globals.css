@@ -141,6 +141,26 @@ h3 {
   animation: balayage 3.6s linear infinite;
 }
 
+/* ── Défilement horizontal discret ───────────────────────────── */
+/* Windows affiche ses barres de défilement en permanence, là où macOS
+   les superpose et les efface. Sur une rangée d'onglets, cette barre
+   grise coupe la navigation en deux. On la masque — et un fondu sur le
+   bord signale qu'il reste des onglets, sinon on cacherait aussi
+   l'information. Le défilement reste possible à la molette, au doigt
+   et au clavier. */
+.defilement-discret {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Le fondu ne s'applique qu'à droite, là où le contenu déborde. */
+  mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+}
+
+.defilement-discret::-webkit-scrollbar {
+  display: none;
+}
+
 /* ── Accessibilité ───────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-teal);

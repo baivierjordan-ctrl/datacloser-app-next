@@ -46,7 +46,10 @@ export function Navigation() {
 
         <span aria-hidden="true" className="h-5 w-px shrink-0 bg-line" />
 
-        <nav className="-mb-3 flex gap-5 overflow-x-auto" aria-label="Sections">
+        <nav
+          className="defilement-discret -mb-3 flex min-w-0 flex-1 gap-5 pb-3"
+          aria-label="Sections"
+        >
         {ONGLETS.map((onglet) => {
           const actif = chemin === onglet.href;
           return (
@@ -54,7 +57,7 @@ export function Navigation() {
               key={onglet.href}
               href={onglet.href}
               aria-current={actif ? "page" : undefined}
-              className={`relative whitespace-nowrap pb-3 text-sm transition-colors ${
+              className={`relative whitespace-nowrap text-sm transition-colors ${
                 actif ? "text-content" : "text-muted hover:text-content"
               }`}
             >
@@ -62,7 +65,7 @@ export function Navigation() {
               {actif && (
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-0 -bottom-px h-px bg-teal"
+                  className="absolute inset-x-0 -bottom-3 h-px bg-teal"
                 />
               )}
             </Link>
