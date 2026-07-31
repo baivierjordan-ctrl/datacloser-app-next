@@ -28,6 +28,13 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        <script
+          // Exécuté avant le rendu : c'est la seule façon d'éviter le
+          // clignotement. Volontairement minimal et sans dépendance.
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var p=localStorage.getItem("datacloser.theme");var s=window.matchMedia("(prefers-color-scheme: dark)").matches;if(p==="sombre"||(!p&&s)){document.documentElement.setAttribute("data-theme","sombre")}}catch(e){}})()`,
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
