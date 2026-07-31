@@ -30,12 +30,17 @@ export function DemarrageRapide({
   }, []);
 
   return (
-    <section className="rounded-xl border border-line bg-surface p-5">
-      <h2 className="flex items-center gap-2 text-sm font-medium">
+    <section className="relative overflow-hidden rounded-xl border border-teal/25 bg-surface p-5">
+      {/* Un halo discret distingue le raccourci du formulaire qu'il remplit. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-16 -top-20 size-56 rounded-full bg-teal/10 blur-3xl"
+      />
+      <h2 className="relative flex items-center gap-2 text-sm font-medium">
         <Sparkles size={14} className="text-teal" aria-hidden="true" />
         Démarrage rapide
       </h2>
-      <p className="mb-4 mt-1 text-xs text-muted">
+      <p className="relative mb-4 mt-1 text-xs text-muted">
         Remplit le formulaire ci-dessous. Rien ne part tant que vous
         n&apos;avez pas lancé la chasse.
       </p>
@@ -59,25 +64,25 @@ export function DemarrageRapide({
             setEnCours(false);
           }
         }}
-        className="flex w-full items-center gap-2.5 rounded-lg border border-teal/30 bg-teal/5 px-4 py-3 text-left transition hover:border-teal/50 disabled:opacity-50"
+        className="relative flex w-full items-center gap-3 rounded-lg bg-teal px-4 py-3.5 text-left text-ink transition hover:bg-teal-hover disabled:opacity-60"
       >
         {enCours ? (
-          <Loader2 size={15} className="shrink-0 animate-spin text-teal" aria-hidden="true" />
+          <Loader2 size={18} className="shrink-0 animate-spin" aria-hidden="true" />
         ) : (
-          <Target size={15} className="shrink-0 text-teal" aria-hidden="true" />
+          <Target size={18} className="shrink-0" aria-hidden="true" />
         )}
         <span>
-          <span className="block text-sm font-medium">
+          <span className="block text-[15px] font-semibold">
             {enCours ? "Analyse de votre profil…" : "Chasser mes clients idéaux"}
           </span>
-          <span className="mt-0.5 block text-xs text-muted">
+          <span className="mt-0.5 block text-xs text-ink/70">
             Métiers et zones déduits de votre profil d&apos;entreprise.
           </span>
         </span>
       </button>
 
       {erreur && (
-        <p role="alert" className="mt-3 text-xs text-danger">
+        <p role="alert" className="relative mt-3 text-xs text-danger">
           {erreur}
         </p>
       )}
@@ -85,7 +90,7 @@ export function DemarrageRapide({
       {explication && (
         <p
           role="status"
-          className="apparition mt-3 rounded-lg border border-line bg-ink px-3 py-2.5 text-xs leading-relaxed text-muted"
+          className="apparition relative mt-3 rounded-lg border border-line bg-ink px-3 py-2.5 text-xs leading-relaxed text-muted"
         >
           {explication} Le formulaire ci-dessous est rempli : relisez-le, puis
           lancez la chasse.
@@ -94,8 +99,8 @@ export function DemarrageRapide({
 
       {secteurs.length > 0 && (
         <>
-          <p className="mb-2.5 mt-5 text-xs text-muted">Ou partez d&apos;un secteur</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="relative mb-2.5 mt-5 text-xs text-muted">Ou partez d&apos;un secteur</p>
+          <div className="relative flex flex-wrap gap-2">
             {secteurs.map((secteur) => (
               <button
                 key={secteur.cle}
