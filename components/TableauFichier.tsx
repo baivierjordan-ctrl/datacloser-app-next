@@ -133,9 +133,10 @@ export function TableauFichier({
                   {carte.libelle}
                   {carte.libelle === "crédits à l'envoi" && (
                     <Aide titre="Comment les crédits sont comptés">
-                      Un crédit par email réellement envoyé, uniquement aux
-                      contacts vérifiés ou catch-all. Les introuvables ne
-                      coûtent jamais rien. Les crédits n&apos;expirent pas.
+                      Un crédit par premier message envoyé, uniquement aux
+                      contacts vérifiés ou catch-all. Les relances sont
+                      gratuites et les introuvables ne coûtent jamais rien.
+                      Les crédits n&apos;expirent pas.
                     </Aide>
                   )}
                 </p>

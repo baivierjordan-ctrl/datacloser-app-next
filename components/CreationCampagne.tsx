@@ -316,8 +316,8 @@ export function CreationCampagne({
           <Aide titre="Comment fonctionnent les relances">
             La relance J+4 part quatre jours après le premier message, et
             uniquement aux destinataires qui l&apos;ont reçu sans répondre.
-            J+9 et J+14 suivent la même logique en cascade. Chaque relance
-            envoyée coûte un crédit, comme un message normal.
+            J+9 et J+14 suivent la même logique en cascade. Les relances ne
+            coûtent aucun crédit : seul le premier message est facturé.
           </Aide>
         </label>
         <p className="mt-1.5 text-xs text-muted">
@@ -370,16 +370,20 @@ export function CreationCampagne({
       )}
 
       <div className="sticky bottom-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface/95 px-5 py-3.5 shadow-lg shadow-black/5 backdrop-blur">
-        <span className="text-sm text-muted">
-          <span className="font-mono tabular-nums text-content">
-            {destinataires}
-          </span>{" "}
-          destinataires ·{" "}
-          <span className="font-mono tabular-nums text-content">
-            {destinataires}
-          </span>{" "}
-          crédits
-        </span>
+        <div className="min-w-0 text-sm">
+          <p className="text-content">
+            <span className="font-mono tabular-nums">{destinataires}</span>{" "}
+            {destinataires > 1 ? "destinataires" : "destinataire"} ·{" "}
+            <span className="font-mono tabular-nums text-teal">
+              {destinataires}
+            </span>{" "}
+            {destinataires > 1 ? "crédits" : "crédit"}
+          </p>
+          <p className="mt-0.5 text-xs text-muted">
+            Seul le premier message est facturé. Les relances éventuelles ne
+            coûtent rien de plus.
+          </p>
+        </div>
         <button
           type="button"
           onClick={lancer}

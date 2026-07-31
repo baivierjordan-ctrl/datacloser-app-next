@@ -60,7 +60,7 @@ export const SECTIONS: SectionGuide[] = [
       {
         titre: "Crédit",
         texte:
-          "L'unité de consommation. Un crédit est débité par entreprise dont l'email est vérifié lors d'une chasse, et un crédit par email réellement envoyé. Les entreprises sans adresse exploitable ne sont jamais facturées. Les crédits n'expirent pas.",
+          "L'unité de consommation. Un crédit est débité par entreprise dont l'email est vérifié lors d'une chasse, et un crédit par premier message envoyé. Les relances sont gratuites, et les entreprises sans adresse exploitable ne sont jamais facturées. Les crédits n'expirent pas.",
       },
       {
         titre: "Qualification de l'email",
@@ -146,7 +146,7 @@ export const SECTIONS: SectionGuide[] = [
       {
         titre: "Relancez avec mesure",
         texte:
-          "Les relances partent à J+4, J+9 et J+14, uniquement aux destinataires qui n'ont pas répondu. Chaque relance envoyée coûte un crédit, comme un message normal.",
+          "Les relances partent à J+4, J+9 et J+14, uniquement aux destinataires qui n'ont pas répondu. Elles ne coûtent aucun crédit : seul le premier message d'une séquence est facturé. Il n'y a donc aucune raison financière de s'en priver.",
       },
       {
         attention:
@@ -191,9 +191,9 @@ export const SECTIONS: SectionGuide[] = [
           "Certaines entreprises n'exposent aucune adresse exploitable. Elles apparaissent comme introuvables et ne vous coûtent rien.",
       },
       {
-        titre: "Il n'écrit pas à votre place sans contrôle",
+        titre: "Il n'écrit pas tout le message à votre place",
         texte:
-          "Le moteur rédige les accroches, vous écrivez le message. L'aperçu existe pour que rien ne parte sans que vous l'ayez lu.",
+          "Le partage est net : vous rédigez le modèle — l'objet, l'argument, la question finale — et le moteur écrit pour chaque destinataire l'accroche tirée de son site, puis adapte le message à sa langue. C'est ce qui permet d'envoyer cent messages différents sans en écrire cent. L'aperçu existe pour que rien ne parte sans que vous l'ayez lu.",
       },
     ],
   },
@@ -216,7 +216,7 @@ export const SECTIONS: SectionGuide[] = [
       },
       {
         attention:
-          "Ce qui reste à votre charge : écrire des messages qui concernent réellement l'activité professionnelle du destinataire, et répondre aux demandes d'information sur vos données. Ce mode d'emploi n'est pas un avis juridique.",
+          "Ce qui reste à votre charge : veiller à ce que le modèle que vous rédigez concerne réellement l'activité professionnelle de vos destinataires, et répondre aux demandes d'information sur vos données. Ce mode d'emploi n'est pas un avis juridique.",
       },
     ],
   },
