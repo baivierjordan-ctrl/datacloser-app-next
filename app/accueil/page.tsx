@@ -7,6 +7,7 @@ import { ArrowRight, Check, Radar } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererAccueil } from "@/lib/api";
+import { dateSeule } from "@/lib/dates";
 import { lireSession } from "@/lib/session";
 import type { Accueil } from "@/lib/types";
 
@@ -15,14 +16,6 @@ function saluer(email: string): string {
   const debut = email.split("@")[0].split(/[._-]/)[0];
   if (!debut) return "Bonjour";
   return `Bonjour ${debut.charAt(0).toUpperCase()}${debut.slice(1)}`;
-}
-
-function dateCourte(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? "—"
-    : d.toLocaleDateString("fr-BE", { day: "2-digit", month: "long" });
 }
 
 /** Un chiffre et ce qu'il compte. Le chiffre porte, le mot explique. */
@@ -92,7 +85,7 @@ export default function PageAccueil() {
               {donnees.chasse_en_cours
                 ? "Une chasse est en cours. Les résultats arriveront dans le Radar."
                 : donnees.derniere_chasse
-                  ? `Dernière chasse le ${dateCourte(donnees.derniere_chasse.created_at)}.`
+                  ? `Dernière chasse le ${dateSeule(donnees.derniere_chasse.created_at)}.`
                   : "Aucune chasse pour l'instant."}
             </p>
           )}

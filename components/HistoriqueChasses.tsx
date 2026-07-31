@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ChevronDown, Download, RotateCcw } from "lucide-react";
 import { ConsoleScan } from "@/components/ConsoleScan";
 import { recupererScansRadar, telechargerExport } from "@/lib/api";
+import { dateHeure } from "@/lib/dates";
 import { LIBELLES_SCAN, SCAN_ACTIF, type ScanRadar } from "@/lib/types";
 
 const COULEUR: Record<string, string> = {
@@ -13,19 +14,6 @@ const COULEUR: Record<string, string> = {
   termine: "text-muted",
   erreur: "text-danger",
 };
-
-function dateCourte(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? "—"
-    : d.toLocaleDateString("fr-BE", {
-        day: "2-digit",
-        month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-}
 
 /**
  * Chasses passées, journal compris.
@@ -123,7 +111,7 @@ export function HistoriqueChasses({
                     </span>{" "}
                     analysées
                   </span>
-                  <span>{dateCourte(scan.created_at)}</span>
+                  <span>{dateHeure(scan.created_at)}</span>
                 </p>
               </div>
 

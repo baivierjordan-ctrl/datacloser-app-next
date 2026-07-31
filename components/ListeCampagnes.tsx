@@ -8,6 +8,7 @@ import {
   recupererLogs,
   supprimerCampagne,
 } from "@/lib/api";
+import { dateCourte, dateHeure } from "@/lib/dates";
 import { LIBELLES_CAMPAGNE, type Campagne, type LogEnvoi } from "@/lib/types";
 
 // Un envoi n'est pas un destinataire : les relances J+4, J+9 et J+14
@@ -20,14 +21,6 @@ const COULEUR_STATUT: Record<string, string> = {
   brouillon: "text-muted",
   annulee: "text-danger",
 };
-
-function dateCourte(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? "—"
-    : d.toLocaleDateString("fr-BE", { day: "2-digit", month: "short", year: "numeric" });
-}
 
 export function ListeCampagnes({
   campagnes,
@@ -236,14 +229,7 @@ export function ListeCampagnes({
                     {journal.map((ligne, i) => {
                       const cle = `${campagne.id}-${i}`;
                       const ouverte = ligneOuverte === cle;
-                      const heure = ligne.created_at
-                        ? new Date(ligne.created_at).toLocaleString("fr-BE", {
-                            day: "2-digit",
-                            month: "short",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })
-                        : "—";
+                      const heure = dateHeure(ligne.created_at);
 
                       return (
                         <li key={cle} className="border-b border-line/50 last:border-0">
