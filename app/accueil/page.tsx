@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Check, Radar } from "lucide-react";
+import { Check, Radar } from "lucide-react";
+import { BlocConseils } from "@/components/BlocConseils";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererAccueil } from "@/lib/api";
@@ -156,24 +157,7 @@ export default function PageAccueil() {
               </section>
             )}
 
-            <section
-              className="apparition mb-5 rounded-xl border border-teal/30 bg-teal/5 p-5"
-              aria-labelledby="prochaine-action"
-            >
-              <h2 id="prochaine-action" className="text-sm font-medium text-teal">
-                {donnees.action.titre}
-              </h2>
-              <p className="mt-1.5 max-w-xl text-sm text-content-soft">
-                {donnees.action.detail}
-              </p>
-              <Link
-                href={donnees.action.lien}
-                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
-              >
-                {donnees.action.bouton}
-                <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </section>
+            <BlocConseils />
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Chiffre

@@ -306,3 +306,13 @@ export interface ContenuFichier {
   qualite: { verifie: number; catchall: number; introuvable: number };
   tronque: boolean;
 }
+
+/** Recommandation adossée à un fait mesuré sur le compte. */
+export interface Conseil {
+  gravite: "bloquant" | "important" | "conseil";
+  titre: string;
+  /** Le chiffre qui justifie le conseil. */
+  constat: string;
+  action: string;
+  lien: string;
+}

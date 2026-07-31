@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  Conseil,
   ContenuFichier,
   TourConversation,
   ApercuEmail,
@@ -421,4 +422,13 @@ export function recupererContenuFichier(
   return appeler<ContenuFichier>(
     `/fichier/contenu?fichier=${encodeURIComponent(fichier)}`,
   );
+}
+
+/** Diagnostic de la configuration, chaque conseil adossé à un fait. */
+export function recupererConseils(): Promise<{
+  conseils: Conseil[];
+  tout_va_bien: boolean;
+  mesure_reponses: boolean;
+}> {
+  return appeler("/conseils");
 }
