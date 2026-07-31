@@ -22,6 +22,7 @@ export function DemarrageRapide({
 }) {
   const [secteurs, setSecteurs] = useState<SecteurRapide[]>([]);
   const [enCours, setEnCours] = useState(false);
+  const [explication, setExplication] = useState("");
   const [erreur, setErreur] = useState("");
 
   useEffect(() => {
@@ -46,9 +47,14 @@ export function DemarrageRapide({
           setErreur("");
           setEnCours(true);
           try {
-            onPlan(await proposerPlanIcp());
+            const plan = await proposerPlanIcp();
+            onPlan(plan);
+            // Le moteur explique son raisonnement : le cacher priverait
+            // l'utilisateur du moyen de juger la proposition.
+            setExplication(plan.explication);
           } catch (e) {
             setErreur((e as Error).message);
+            setExplication("");
           } finally {
             setEnCours(false);
           }
@@ -73,6 +79,16 @@ export function DemarrageRapide({
       {erreur && (
         <p role="alert" className="mt-3 text-xs text-danger">
           {erreur}
+        </p>
+      )}
+
+      {explication && (
+        <p
+          role="status"
+          className="apparition mt-3 rounded-lg border border-line bg-ink px-3 py-2.5 text-xs leading-relaxed text-muted"
+        >
+          {explication} Le formulaire ci-dessous est rempli : relisez-le, puis
+          lancez la chasse.
         </p>
       )}
 
