@@ -108,12 +108,15 @@ export function LancementScan({
     }
 
     rafraichir();
-    const minuterie = setInterval(rafraichir, 10_000);
+    // Dix secondes pendant une chasse, où chaque seconde compte ; une
+    // minute au repos, le temps de repérer une chasse lancée ailleurs
+    // sans tenir le serveur éveillé pour rien.
+    const minuterie = setInterval(rafraichir, actif ? 10_000 : 60_000);
     return () => {
       annule = true;
       clearInterval(minuterie);
     };
-  }, [onTermine]);
+  }, [onTermine, actif]);
 
   /** Applique une chasse déduite du profil. Rien n'est lancé. */
   function appliquerPlan(plan: PlanIcp) {

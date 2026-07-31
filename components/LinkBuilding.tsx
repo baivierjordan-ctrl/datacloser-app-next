@@ -33,25 +33,36 @@ export function LinkBuilding() {
   const [envoi, setEnvoi] = useState(false);
   const finJournal = useRef<HTMLDivElement>(null);
 
+  // Une seule lecture à l'ouverture : elle récupère l'état, et la
+  // dernière recherche s'il y en a eu une.
   useEffect(() => {
     let annule = false;
+    etatBacklinks()
+      .then((r) => !annule && setEtat(r))
+      .catch(() => {});
+    return () => {
+      annule = true;
+    };
+  }, []);
 
-    function interroger() {
+  // Le suivi ne tourne QUE pendant une recherche. Interroger en
+  // permanence maintenait le serveur éveillé sans rien apprendre, et
+  // consommait des heures d'instance pour afficher un état figé.
+  useEffect(() => {
+    if (!etat?.en_cours) return;
+
+    let annule = false;
+    const minuteur = setInterval(() => {
       etatBacklinks()
-        .then((r) => {
-          if (!annule) setEtat(r);
-        })
+        .then((r) => !annule && setEtat(r))
         .catch(() => {});
-    }
+    }, 4000);
 
-    interroger();
-    // Tant qu'une recherche tourne, on suit son avancement.
-    const minuteur = setInterval(interroger, 4000);
     return () => {
       annule = true;
       clearInterval(minuteur);
     };
-  }, []);
+  }, [etat?.en_cours]);
 
   useEffect(() => {
     if (etat?.en_cours) {
