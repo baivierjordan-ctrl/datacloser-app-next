@@ -156,6 +156,28 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
   }
 
   if (!options) {
+    // Un échec de chargement laissait un squelette pulser indéfiniment,
+    // masquant le formulaire entier sans le moindre message. L'erreur
+    // doit se voir, et proposer une issue.
+    if (erreur) {
+      return (
+        <div className="rounded-xl border border-danger/30 bg-danger/5 px-5 py-8 text-center">
+          <p className="text-sm text-content">
+            Impossible de charger les options de recherche.
+          </p>
+          <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-muted">
+            {erreur}
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-5 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+          >
+            Réessayer
+          </button>
+        </div>
+      );
+    }
     return <div className="h-40 animate-pulse rounded-xl border border-line bg-surface" />;
   }
 
