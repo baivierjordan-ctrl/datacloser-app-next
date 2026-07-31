@@ -73,8 +73,13 @@ export interface Campagne {
 
 export interface LogEnvoi {
   destinataire: string;
+  contact: string;
+  entreprise: string;
   statut: string;
   erreur: string | null;
+  credits: number;
+  /** L'email tel qu'il est parti — la seule trace de ce que le destinataire a reçu. */
+  email_genere: string;
   created_at: string | null;
 }
 

@@ -41,6 +41,7 @@ export function ListeCampagnes({
   const [chargement, setChargement] = useState<string | null>(null);
   const [erreur, setErreur] = useState("");
   const [aSupprimer, setASupprimer] = useState<string | null>(null);
+  const [ligneOuverte, setLigneOuverte] = useState<string | null>(null);
   const [occupee, setOccupee] = useState<string | null>(null);
 
   /** Exécute une action sur une campagne et prévient le parent de rafraîchir. */
@@ -231,23 +232,73 @@ export function ListeCampagnes({
                     Aucun envoi enregistré pour cette campagne.
                   </p>
                 ) : (
-                  <ul className="flex flex-col gap-1.5">
-                    {journal.map((ligne, i) => (
-                      <li
-                        key={`${ligne.destinataire}-${i}`}
-                        className="flex flex-wrap items-center justify-between gap-2 font-mono text-xs"
-                      >
-                        <span className="text-content-soft">{ligne.destinataire}</span>
-                        <span
-                          className={
-                            ligne.erreur ? "text-danger" : "text-ok"
-                          }
-                          title={ligne.erreur ?? undefined}
-                        >
-                          {ligne.erreur ? "échec" : ligne.statut || "envoyé"}
-                        </span>
-                      </li>
-                    ))}
+                  <ul className="flex flex-col">
+                    {journal.map((ligne, i) => {
+                      const cle = `${campagne.id}-${i}`;
+                      const ouverte = ligneOuverte === cle;
+                      const heure = ligne.created_at
+                        ? new Date(ligne.created_at).toLocaleString("fr-BE", {
+                            day: "2-digit",
+                            month: "short",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
+                        : "—";
+
+                      return (
+                        <li key={cle} className="border-b border-line/50 last:border-0">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setLigneOuverte(ouverte ? null : cle)
+                            }
+                            disabled={!ligne.email_genere && !ligne.erreur}
+                            aria-expanded={ouverte}
+                            className="flex w-full flex-wrap items-baseline gap-x-3 gap-y-0.5 py-2 text-left text-xs disabled:cursor-default"
+                          >
+                            <span className="min-w-0 flex-1 truncate">
+                              <span className="text-content">
+                                {ligne.entreprise || ligne.destinataire}
+                              </span>
+                              {ligne.contact && (
+                                <span className="text-muted"> · {ligne.contact}</span>
+                              )}
+                            </span>
+                            <span className="hidden truncate font-mono text-muted sm:inline">
+                              {ligne.destinataire}
+                            </span>
+                            <span className="font-mono text-muted">{heure}</span>
+                            <span
+                              className={`w-14 text-right font-mono ${
+                                ligne.erreur ? "text-danger" : "text-ok"
+                              }`}
+                            >
+                              {ligne.erreur ? "échec" : ligne.statut || "envoyé"}
+                            </span>
+                          </button>
+
+                          {ouverte && (
+                            <div className="mb-2 rounded-lg border border-line bg-surface p-3">
+                              {ligne.erreur && (
+                                <p className="mb-2 text-xs text-danger">
+                                  {ligne.erreur}
+                                </p>
+                              )}
+                              {ligne.email_genere && (
+                                <>
+                                  <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-teal">
+                                    Message envoyé
+                                  </p>
+                                  <pre className="max-h-64 overflow-y-auto whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed text-content-soft">
+                                    {ligne.email_genere}
+                                  </pre>
+                                </>
+                              )}
+                            </div>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </div>
