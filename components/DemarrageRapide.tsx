@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, Sparkles, Target } from "lucide-react";
+import { Check, Loader2, Sparkles, Target } from "lucide-react";
 import { proposerPlanIcp, recupererSecteurs } from "@/lib/api";
 import type { PlanIcp, SecteurRapide } from "@/lib/types";
 
@@ -23,6 +23,7 @@ export function DemarrageRapide({
   const [secteurs, setSecteurs] = useState<SecteurRapide[]>([]);
   const [enCours, setEnCours] = useState(false);
   const [explication, setExplication] = useState("");
+  const [resume, setResume] = useState("");
   const [erreur, setErreur] = useState("");
 
   useEffect(() => {
@@ -57,9 +58,15 @@ export function DemarrageRapide({
             // Le moteur explique son raisonnement : le cacher priverait
             // l'utilisateur du moyen de juger la proposition.
             setExplication(plan.explication);
+            // Ce qui a été rempli compte plus que le raisonnement : on
+            // l'annonce d'abord, en chiffres.
+            setResume(
+              `${plan.mots_cles.length} métiers et ${plan.villes.length} zones proposés.`,
+            );
           } catch (e) {
             setErreur((e as Error).message);
             setExplication("");
+            setResume("");
           } finally {
             setEnCours(false);
           }
@@ -87,14 +94,31 @@ export function DemarrageRapide({
         </p>
       )}
 
-      {explication && (
-        <p
+      {resume && (
+        <div
           role="status"
-          className="apparition relative mt-3 rounded-lg border border-line bg-ink px-3 py-2.5 text-xs leading-relaxed text-muted"
+          className="apparition relative mt-3 rounded-lg border border-ok/30 bg-ok/5 px-4 py-3"
         >
-          {explication} Le formulaire ci-dessous est rempli : relisez-le, puis
-          lancez la chasse.
-        </p>
+          <p className="flex items-center gap-2 text-sm text-content">
+            <Check size={15} className="shrink-0 text-ok" aria-hidden="true" />
+            {resume}
+          </p>
+          <p className="mt-1.5 pl-[23px] text-xs text-muted">
+            Le formulaire ci-dessous est rempli. Relisez-le, ajustez, puis
+            lancez la chasse en bas de page.
+          </p>
+
+          {explication && (
+            <details className="mt-2.5 pl-[23px]">
+              <summary className="cursor-pointer text-xs text-teal transition hover:underline">
+                Pourquoi ces métiers et ces zones ?
+              </summary>
+              <p className="mt-2 text-xs leading-relaxed text-muted">
+                {explication}
+              </p>
+            </details>
+          )}
+        </div>
       )}
 
       {secteurs.length > 0 && (

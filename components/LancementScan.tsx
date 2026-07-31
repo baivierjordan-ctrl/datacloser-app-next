@@ -25,6 +25,32 @@ const champ =
   "w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-content outline-none transition focus:border-teal";
 const etiquette = "mb-1.5 block text-xs text-muted";
 
+/** En-tête d'étape : un numéro, ce qu'on y fait, et le piège à éviter. */
+function EnTeteEtape({
+  numero,
+  titre,
+  detail,
+}: {
+  numero: number;
+  titre: string;
+  detail: string;
+}) {
+  return (
+    <div className="mb-4 flex gap-3">
+      <span
+        aria-hidden="true"
+        className="flex size-6 shrink-0 items-center justify-center rounded-full border border-teal/40 font-mono text-[11px] text-teal"
+      >
+        {numero}
+      </span>
+      <div className="min-w-0">
+        <h2 className="text-sm font-medium">{titre}</h2>
+        <p className="mt-1 text-xs leading-relaxed text-muted">{detail}</p>
+      </div>
+    </div>
+  );
+}
+
 export function LancementScan({ onTermine }: { onTermine: () => void }) {
   const [options, setOptions] = useState<OptionsRadar | null>(null);
   const [scans, setScans] = useState<ScanRadar[]>([]);
@@ -227,6 +253,11 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
       <DemarrageRapide onPlan={appliquerPlan} onSecteur={appliquerSecteur} />
 
       <section className="rounded-xl border border-line bg-surface p-5">
+        <EnTeteEtape
+          numero={1}
+          titre="Qui cherchez-vous ?"
+          detail="Un métier par entrée. Préférez « couvreur » à « bâtiment » : les termes larges ramènent des annuaires, les métiers ramènent des entreprises."
+        />
         <label className={etiquette} htmlFor="mot-cle">
           Métiers ou mots-clés
         </label>
@@ -315,6 +346,11 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
       </section>
 
       <section className="rounded-xl border border-line bg-surface p-5">
+        <EnTeteEtape
+          numero={2}
+          titre="Où chercher ?"
+          detail="Chaque métier sera cherché dans chaque ville. Deux métiers et trois villes font six recherches — commencez petit pour juger la qualité."
+        />
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={etiquette} htmlFor="pays">
@@ -399,6 +435,11 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
       </section>
 
       <section className="rounded-xl border border-line bg-surface p-5">
+        <EnTeteEtape
+          numero={3}
+          titre="Réglages"
+          detail="Facultatif. Les valeurs par défaut conviennent à une première chasse."
+        />
         <label className={etiquette} htmlFor="max">
           Résultats par mot-clé et par lieu :{" "}
           <span className="font-mono tabular-nums text-content">{plafond}</span>
@@ -465,17 +506,34 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
         </p>
       )}
 
-      <div className="sticky bottom-6 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface/95 px-5 py-3.5 backdrop-blur">
-        <span className="text-sm text-muted">
+      {/* Récapitulatif avant lancement : le calcul est montré plutôt
+          qu'un total opaque, et le coût est dit en toutes lettres. Un
+          utilisateur ne devrait jamais découvrir la facture après coup. */}
+      <div className="sticky bottom-6 z-10 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-line bg-surface/95 px-5 py-3.5 backdrop-blur">
+        <div className="min-w-0 text-sm">
           {motsCles.length === 0 || lieux.length === 0 ? (
-            "Ajoutez au moins un mot-clé et un lieu"
+            <span className="text-muted">
+              Ajoutez au moins un métier et une zone pour lancer.
+            </span>
           ) : (
             <>
-              <span className="font-mono tabular-nums text-content">{requetes}</span>{" "}
-              requêtes estimées
+              <p className="text-content">
+                <span className="font-mono tabular-nums">{motsCles.length}</span>{" "}
+                {motsCles.length > 1 ? "métiers" : "métier"} ×{" "}
+                <span className="font-mono tabular-nums">{lieux.length}</span>{" "}
+                {lieux.length > 1 ? "zones" : "zone"} ×{" "}
+                <span className="font-mono tabular-nums">{plafond}</span> résultats
+                {" = "}
+                <span className="font-mono tabular-nums text-teal">{requetes}</span>{" "}
+                recherches
+              </p>
+              <p className="mt-0.5 text-xs text-muted">
+                Un crédit par entreprise dont l&apos;email est vérifié. Les
+                entreprises sans adresse ne sont jamais facturées.
+              </p>
             </>
           )}
-        </span>
+        </div>
         <button
           type="button"
           onClick={lancer}
