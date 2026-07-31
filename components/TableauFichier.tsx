@@ -196,7 +196,7 @@ export function TableauFichier({
 
               <Link
                 href={`/outreach?source=${encodeURIComponent(fichier)}`}
-                className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+                className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
               >
                 Lancer une campagne
                 <ArrowRight size={14} aria-hidden="true" />
@@ -265,7 +265,7 @@ export function TableauFichier({
                       <th
                         key={colonne}
                         scope="col"
-                        className="border-b border-line bg-surface px-3 py-2.5 text-left font-mono text-[10px] font-normal uppercase tracking-[0.1em] text-muted"
+                        className="border-b border-line bg-surface px-3 py-2.5 text-left font-mono text-[11px] font-normal uppercase tracking-[0.1em] text-muted"
                       >
                         {colonne}
                       </th>
@@ -288,7 +288,7 @@ export function TableauFichier({
                               : "max-w-[16rem] truncate whitespace-nowrap text-content-soft"
                           }`}
                         >
-                          {cellule || <span className="text-muted/40">—</span>}
+                          {cellule || <span className="text-muted">—</span>}
                         </td>
                       ))}
                     </tr>

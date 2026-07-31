@@ -100,10 +100,10 @@ export function ApercuOutreach({
             {apercu.decideur && (
               <span className="text-xs text-muted">{apercu.decideur}</span>
             )}
-            <span className="font-mono text-[11px] text-muted">
+            <span className="font-mono text-[12px] text-muted">
               {apercu.destinataire}
             </span>
-            <span className="ml-auto font-mono text-[11px] text-muted">
+            <span className="ml-auto font-mono text-[12px] text-muted">
               {apercu.index + 1} / {apercu.total}
             </span>
           </div>
@@ -114,11 +114,11 @@ export function ApercuOutreach({
                 <span className="text-muted">Objet : </span>
                 {apercu.sujet}
               </p>
-              <pre className="whitespace-pre-wrap break-words font-mono text-[12px] leading-relaxed text-content-soft">
+              <pre className="whitespace-pre-wrap break-words font-mono text-[13px] leading-relaxed text-content-soft">
                 {apercu.corps}
               </pre>
               {apercu.langue && (
-                <p className="mt-3 border-t border-line pt-3 text-[11px] text-muted">
+                <p className="mt-3 border-t border-line pt-3 text-[12px] text-muted">
                   Rédigé en {apercu.langue}
                   {apercu.qualification && ` · ${apercu.qualification}`}
                 </p>

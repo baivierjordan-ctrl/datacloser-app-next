@@ -78,7 +78,7 @@ export default function PageConnexion() {
             type="button"
             onClick={valider}
             disabled={enCours}
-            className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:opacity-50"
+            className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-white transition hover:bg-teal-hover disabled:opacity-50"
           >
             <LogIn size={15} aria-hidden="true" />
             {enCours ? "Connexion…" : "Se connecter"}
@@ -105,14 +105,14 @@ export default function PageConnexion() {
 
       <aside
         aria-hidden="true"
-        className="relative hidden flex-1 items-center justify-center overflow-hidden border-l border-line bg-surface/40 lg:flex"
+        className="relative hidden flex-1 items-center justify-center overflow-hidden bg-encre lg:flex"
       >
         <div className="max-w-md px-12">
-          <IllustrationRadar classe="mx-auto mb-8 w-64 text-content" />
-          <p className="text-center font-display text-xl font-semibold leading-snug">
+          <IllustrationRadar classe="mx-auto mb-8 w-64 text-white/70" />
+          <p className="text-center font-display text-xl font-semibold leading-snug text-white">
             Votre marché, balayé en continu.
           </p>
-          <p className="mt-3 text-center text-sm leading-relaxed text-muted">
+          <p className="mt-3 text-center text-sm leading-relaxed text-white/60">
             Le moteur détecte les entreprises, vérifie les décideurs et leurs
             emails, puis rédige une accroche à partir de leur propre site.
           </p>

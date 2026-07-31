@@ -31,7 +31,7 @@ export default function PageRadar() {
         <Navigation />
 
         <header className="mb-8">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <Search size={13} aria-hidden="true" /> Radar
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
@@ -58,7 +58,7 @@ export default function PageRadar() {
             </p>
             <Link
               href="/exports"
-              className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+              className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
             >
               Voir les résultats
               <ArrowRight size={14} aria-hidden="true" />

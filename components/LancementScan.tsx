@@ -39,7 +39,7 @@ function EnTeteEtape({
     <div className="mb-4 flex gap-3">
       <span
         aria-hidden="true"
-        className="flex size-6 shrink-0 items-center justify-center rounded-full border border-teal/40 font-mono text-[11px] text-teal"
+        className="flex size-6 shrink-0 items-center justify-center rounded-full border border-teal/40 font-mono text-[12px] text-teal"
       >
         {numero}
       </span>
@@ -197,7 +197,7 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="mt-5 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+            className="mt-5 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
           >
             Réessayer
           </button>
@@ -509,7 +509,7 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
       {/* Récapitulatif avant lancement : le calcul est montré plutôt
           qu'un total opaque, et le coût est dit en toutes lettres. Un
           utilisateur ne devrait jamais découvrir la facture après coup. */}
-      <div className="sticky bottom-6 z-10 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-line bg-surface/95 px-5 py-3.5 backdrop-blur">
+      <div className="sticky bottom-6 z-10 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-line bg-surface/95 px-5 py-3.5 shadow-lg shadow-black/5 backdrop-blur">
         <div className="min-w-0 text-sm">
           {motsCles.length === 0 || lieux.length === 0 ? (
             <span className="text-muted">
@@ -538,7 +538,7 @@ export function LancementScan({ onTermine }: { onTermine: () => void }) {
           type="button"
           onClick={lancer}
           disabled={!pret}
-          className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
         >
           {envoi ? (
             <Loader2 size={14} className="animate-spin" aria-hidden="true" />

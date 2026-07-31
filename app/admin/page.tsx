@@ -94,7 +94,7 @@ export default function PageAdmin() {
         <Navigation />
 
         <header className="mb-8">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <Crown size={13} aria-hidden="true" /> Administration
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
@@ -191,7 +191,7 @@ export default function PageAdmin() {
                       return `${r.ajoutes} crédits ajoutés à ${r.email} — nouveau solde : ${r.solde}.`;
                     })
                   }
-                  className="flex h-[38px] items-center gap-2 rounded-lg bg-teal px-4 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:opacity-40"
+                  className="flex h-[38px] items-center gap-2 rounded-lg bg-teal px-4 text-sm font-medium text-white transition hover:bg-teal-hover disabled:opacity-40"
                 >
                   {occupe === "credit" && (
                     <Loader2 size={14} className="animate-spin" aria-hidden="true" />
@@ -277,10 +277,10 @@ export default function PageAdmin() {
                 <table className="w-full text-xs">
                   <thead className="sticky top-0">
                     <tr>
-                      <th className="border-b border-line bg-surface py-2 text-left font-mono text-[10px] uppercase tracking-[0.1em] font-normal text-muted">
+                      <th className="border-b border-line bg-surface py-2 text-left font-mono text-[11px] uppercase tracking-[0.1em] font-normal text-muted">
                         Compte
                       </th>
-                      <th className="border-b border-line bg-surface py-2 text-right font-mono text-[10px] uppercase tracking-[0.1em] font-normal text-muted">
+                      <th className="border-b border-line bg-surface py-2 text-right font-mono text-[11px] uppercase tracking-[0.1em] font-normal text-muted">
                         Crédits
                       </th>
                     </tr>
@@ -341,7 +341,7 @@ export default function PageAdmin() {
                       return r.message;
                     })
                   }
-                  className="flex h-[38px] items-center gap-2 rounded-lg bg-danger px-4 text-sm font-medium text-ink transition hover:opacity-90 disabled:opacity-40"
+                  className="flex h-[38px] items-center gap-2 rounded-lg bg-danger px-4 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-40"
                 >
                   {occupe === "purge" && (
                     <Loader2 size={14} className="animate-spin" aria-hidden="true" />

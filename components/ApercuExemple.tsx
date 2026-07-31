@@ -47,7 +47,7 @@ export function ApercuExemple() {
           >
             <div className="flex items-center gap-4">
               <div className="min-w-0 flex-1">
-                <p className="text-[15px] font-medium">{exemple.societe}</p>
+                <p className="text-[16px] font-medium">{exemple.societe}</p>
                 <p className="mt-0.5 text-xs text-muted">{exemple.contact}</p>
               </div>
               <BarreScore valeur={exemple.score} />

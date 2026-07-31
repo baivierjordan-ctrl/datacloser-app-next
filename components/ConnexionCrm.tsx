@@ -92,7 +92,7 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
                   : "Adresse effacée.";
               })
             }
-            className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
           >
             {occupe === "sauvegarde" ? (
               <Loader2 size={14} className="animate-spin" aria-hidden="true" />
@@ -118,7 +118,7 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
         </div>
 
         {enregistree && (
-          <p className="mt-3 truncate font-mono text-[11px] text-muted">
+          <p className="mt-3 truncate font-mono text-[12px] text-muted">
             Enregistrée : {enregistree}
           </p>
         )}

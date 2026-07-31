@@ -35,7 +35,7 @@ export function DemarrageRapide({
       {/* Un halo discret distingue le raccourci du formulaire qu'il remplit. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-16 -top-20 size-56 rounded-full bg-teal/10 blur-3xl"
+        className="pointer-events-none absolute -left-16 -top-20 size-56 rounded-full bg-vif/25 blur-3xl"
       />
       <h2 className="relative flex items-center gap-2 text-sm font-medium">
         <Sparkles size={14} className="text-teal" aria-hidden="true" />
@@ -71,7 +71,7 @@ export function DemarrageRapide({
             setEnCours(false);
           }
         }}
-        className="relative flex w-full items-center gap-3 rounded-lg bg-teal px-4 py-3.5 text-left text-ink transition hover:bg-teal-hover disabled:opacity-60"
+        className="relative flex w-full items-center gap-3 rounded-lg bg-teal px-4 py-3.5 text-left text-white transition hover:bg-teal-hover disabled:opacity-60"
       >
         {enCours ? (
           <Loader2 size={18} className="shrink-0 animate-spin" aria-hidden="true" />
@@ -79,10 +79,10 @@ export function DemarrageRapide({
           <Target size={18} className="shrink-0" aria-hidden="true" />
         )}
         <span>
-          <span className="block text-[15px] font-semibold">
+          <span className="block text-[16px] font-semibold">
             {enCours ? "Analyse de votre profil…" : "Chasser mes clients idéaux"}
           </span>
-          <span className="mt-0.5 block text-xs text-ink/70">
+          <span className="mt-0.5 block text-xs text-white/70">
             Métiers et zones déduits de votre profil d&apos;entreprise.
           </span>
         </span>

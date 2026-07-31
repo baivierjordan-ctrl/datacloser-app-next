@@ -94,7 +94,7 @@ export function HistoriqueChasses({
               className="flex w-full items-center gap-4 px-5 py-4 text-left"
             >
               <div className="min-w-0 flex-1">
-                <h3 className="truncate text-[15px] font-medium">
+                <h3 className="truncate text-[16px] font-medium">
                   {scan.mots_cles.join(", ") || scan.nom_fichier || "Chasse"}
                 </h3>
                 <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
@@ -122,7 +122,7 @@ export function HistoriqueChasses({
             </button>
 
             {estOuvert && (
-              <div className="border-t border-line bg-ink/60 px-5 py-4">
+              <div className="border-t border-line bg-ink px-5 py-4">
                 <div className="mb-1 flex flex-wrap gap-2">
                   <button
                     type="button"

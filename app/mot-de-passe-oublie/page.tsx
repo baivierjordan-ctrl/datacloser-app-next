@@ -32,7 +32,7 @@ export default function PageMotDePasseOublie() {
     <main className="flex min-h-screen items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
         <MarqueEnTete />
-        <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+        <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
           <KeyRound size={13} aria-hidden="true" /> Mot de passe
         </p>
         <h1 className="mb-1 text-[28px] font-semibold leading-[1.12] sm:text-[32px]">
@@ -81,7 +81,7 @@ export default function PageMotDePasseOublie() {
                 type="button"
                 onClick={valider}
                 disabled={email.trim() === "" || enCours}
-                className="flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <KeyRound size={15} aria-hidden="true" />
                 {enCours ? "Envoi…" : "Recevoir le lien"}

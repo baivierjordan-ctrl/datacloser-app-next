@@ -83,7 +83,7 @@ export function ListeCampagnes({
         </p>
         <Link
           href="/outreach?vue=creation"
-          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
         >
           Créer une campagne
           <ArrowRight size={14} aria-hidden="true" />
@@ -112,7 +112,7 @@ export function ListeCampagnes({
               className="flex w-full items-center gap-4 px-5 py-4 text-left"
             >
               <div className="min-w-0 flex-1">
-                <h3 className="truncate text-[15px] font-medium">{campagne.nom}</h3>
+                <h3 className="truncate text-[16px] font-medium">{campagne.nom}</h3>
                 <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
                   <span className={COULEUR_STATUT[campagne.statut] ?? "text-muted"}>
                     {LIBELLES_CAMPAGNE[campagne.statut] ?? campagne.statut}
@@ -151,7 +151,7 @@ export function ListeCampagnes({
             </button>
 
             {estOuverte && (
-              <div className="border-t border-line bg-ink/60 px-5 py-4">
+              <div className="border-t border-line bg-ink px-5 py-4">
                 <div className="mb-4 flex flex-wrap items-center gap-2">
                   {campagne.statut === "active" ? (
                     <button
@@ -191,7 +191,7 @@ export function ListeCampagnes({
                         onClick={() =>
                           agir(campagne.id, () => supprimerCampagne(campagne.id))
                         }
-                        className="rounded-lg bg-danger px-3 py-1.5 font-medium text-ink transition hover:opacity-90 disabled:opacity-40"
+                        className="rounded-lg bg-danger px-3 py-1.5 font-medium text-white transition hover:opacity-90 disabled:opacity-40"
                       >
                         {occupee === campagne.id ? "Suppression…" : "Confirmer"}
                       </button>
@@ -272,10 +272,10 @@ export function ListeCampagnes({
                               )}
                               {ligne.email_genere && (
                                 <>
-                                  <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-teal">
+                                  <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-teal">
                                     Message envoyé
                                   </p>
-                                  <pre className="max-h-64 overflow-y-auto whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed text-content-soft">
+                                  <pre className="max-h-64 overflow-y-auto whitespace-pre-wrap break-words font-mono text-[12px] leading-relaxed text-content-soft">
                                     {ligne.email_genere}
                                   </pre>
                                 </>

@@ -46,7 +46,7 @@ export function Aide({ titre, children }: { titre: string; children: React.React
         aria-expanded={ouvert}
         aria-label={`Aide : ${titre}`}
         className={`inline-flex transition ${
-          ouvert ? "text-teal" : "text-muted/60 hover:text-muted"
+          ouvert ? "text-teal" : "text-muted hover:text-muted"
         }`}
       >
         <HelpCircle size={13} aria-hidden="true" />
@@ -55,7 +55,7 @@ export function Aide({ titre, children }: { titre: string; children: React.React
       {ouvert && (
         <span
           role="tooltip"
-          className="apparition absolute left-1/2 top-full z-30 mt-2 w-72 -translate-x-1/2 rounded-xl border border-line bg-surface p-4 text-left shadow-lg shadow-black/40"
+          className="apparition absolute left-1/2 top-full z-30 mt-2 w-72 -translate-x-1/2 rounded-xl border border-line bg-surface p-4 text-left shadow-lg shadow-slate-900/10"
         >
           <span className="mb-1.5 block text-xs font-medium text-content">
             {titre}

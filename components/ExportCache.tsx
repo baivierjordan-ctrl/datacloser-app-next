@@ -129,7 +129,7 @@ export function ExportCache() {
               <button
                 type="button"
                 onClick={telecharger}
-                className="flex items-center gap-2 rounded-lg bg-teal px-3 py-1.5 text-xs font-medium text-ink transition hover:bg-teal-hover"
+                className="flex items-center gap-2 rounded-lg bg-teal px-3 py-1.5 text-xs font-medium text-white transition hover:bg-teal-hover"
               >
                 <Download size={12} aria-hidden="true" />
                 Télécharger en CSV

@@ -69,7 +69,7 @@ export function ConsoleScan({ id, actif }: { id: string; actif: boolean }) {
         suivreLeBas.current =
           el.scrollHeight - el.scrollTop - el.clientHeight < 40;
       }}
-      className="mt-3 max-h-72 overflow-y-auto rounded-lg border border-line bg-ink p-3 font-mono text-[11px] leading-relaxed text-muted"
+      className="mt-3 max-h-72 overflow-y-auto rounded-lg border border-line bg-ink p-3 font-mono text-[12px] leading-relaxed text-muted"
       role="log"
       aria-live="polite"
       aria-label="Journal de la chasse"

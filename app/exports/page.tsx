@@ -79,7 +79,7 @@ export default function PageExports() {
         <Navigation />
 
         <div className="mb-6">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <FileSpreadsheet size={13} aria-hidden="true" /> Exports
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
@@ -143,7 +143,7 @@ export default function PageExports() {
             </p>
             <Link
               href="/radar"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
             >
               Lancer une chasse
               <ArrowRight size={14} aria-hidden="true" />
@@ -158,7 +158,7 @@ export default function PageExports() {
                   className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-line bg-surface px-5 py-4 transition-colors hover:border-line-hover"
                 >
                   <div className="min-w-0">
-                    <h2 className="truncate text-[15px] font-medium">
+                    <h2 className="truncate text-[16px] font-medium">
                       {scan.titre}
                     </h2>
                     <p className="mt-1 text-xs text-muted">

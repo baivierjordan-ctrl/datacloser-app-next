@@ -180,7 +180,7 @@ export function LinkBuilding() {
         type="button"
         onClick={lancer}
         disabled={actif || envoi || sujets.trim() === ""}
-        className="mt-4 flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:opacity-40"
+        className="mt-4 flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:opacity-40"
       >
         {actif || envoi ? (
           <Loader2 size={14} className="animate-spin" aria-hidden="true" />
@@ -192,7 +192,7 @@ export function LinkBuilding() {
 
       {etat && etat.journal.length > 0 && (
         <div className="mt-4 max-h-56 overflow-y-auto rounded-lg border border-line bg-ink p-3">
-          <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed text-muted">
+          <pre className="whitespace-pre-wrap break-words font-mono text-[12px] leading-relaxed text-muted">
             {etat.journal.join("\n")}
           </pre>
           <div ref={finJournal} />

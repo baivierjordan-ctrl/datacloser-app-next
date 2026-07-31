@@ -245,7 +245,7 @@ export function CreationCampagne({
             {modeles.variables.map((v) => (
               <code
                 key={v}
-                className="rounded border border-line px-1.5 py-0.5 font-mono text-[11px] text-teal"
+                className="rounded border border-line px-1.5 py-0.5 font-mono text-[12px] text-teal"
               >
                 {v}
               </code>
@@ -269,7 +269,7 @@ export function CreationCampagne({
         <textarea
           id="corps"
           rows={12}
-          className={`${champ} resize-y font-mono text-[13px] leading-relaxed`}
+          className={`${champ} resize-y font-mono text-[14px] leading-relaxed`}
           value={corps}
           onChange={(e) => {
             setCorps(e.target.value);
@@ -369,7 +369,7 @@ export function CreationCampagne({
         </p>
       )}
 
-      <div className="sticky bottom-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface/95 px-5 py-3.5 backdrop-blur">
+      <div className="sticky bottom-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface/95 px-5 py-3.5 shadow-lg shadow-black/5 backdrop-blur">
         <span className="text-sm text-muted">
           <span className="font-mono tabular-nums text-content">
             {destinataires}
@@ -384,7 +384,7 @@ export function CreationCampagne({
           type="button"
           onClick={lancer}
           disabled={!pretALancer}
-          className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
         >
           {envoiEnCours ? (
             <Loader2 size={14} className="animate-spin" aria-hidden="true" />
@@ -421,7 +421,7 @@ function ChampsRelance({
       />
       <textarea
         rows={6}
-        className={`${champ} resize-y font-mono text-[13px] leading-relaxed`}
+        className={`${champ} resize-y font-mono text-[14px] leading-relaxed`}
         value={valeur.corps}
         onChange={(e) => onChange({ ...valeur, corps: e.target.value })}
         placeholder="Corps du message"

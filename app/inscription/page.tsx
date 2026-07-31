@@ -50,7 +50,7 @@ export default function PageInscription() {
       <div className="flex flex-1 items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
         <MarqueEnTete />
-        <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+        <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
           <UserPlus size={13} aria-hidden="true" /> Inscription
         </p>
         <h1 className="mb-1 text-[28px] font-semibold leading-[1.12] sm:text-[32px]">
@@ -147,7 +147,7 @@ export default function PageInscription() {
             type="button"
             onClick={valider}
             disabled={!pret}
-            className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
+            className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
           >
             <UserPlus size={15} aria-hidden="true" />
             {enCours ? "Création…" : "Créer mon compte"}
@@ -165,14 +165,14 @@ export default function PageInscription() {
 
       <aside
         aria-hidden="true"
-        className="relative hidden flex-1 items-center justify-center overflow-hidden border-l border-line bg-surface/40 lg:flex"
+        className="relative hidden flex-1 items-center justify-center overflow-hidden bg-encre lg:flex"
       >
         <div className="max-w-md px-12">
-          <IllustrationRadar classe="mx-auto mb-8 w-64 text-content" />
-          <p className="text-center font-display text-xl font-semibold leading-snug">
+          <IllustrationRadar classe="mx-auto mb-8 w-64 text-white/70" />
+          <p className="text-center font-display text-xl font-semibold leading-snug text-white">
             Votre marché, balayé en continu.
           </p>
-          <p className="mt-3 text-center text-sm leading-relaxed text-muted">
+          <p className="mt-3 text-center text-sm leading-relaxed text-white/60">
             Le moteur détecte les entreprises, vérifie les décideurs et leurs
             emails, puis rédige une accroche à partir de leur propre site.
           </p>

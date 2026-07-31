@@ -57,7 +57,7 @@ export default function PagePartenariat() {
         <Navigation />
 
         <header className="mb-6">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <Handshake size={13} aria-hidden="true" /> Partenariat
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
@@ -98,14 +98,14 @@ export default function PagePartenariat() {
                 </li>
               </ul>
 
-              <p className="mt-4 break-all rounded-lg border border-line bg-ink px-3 py-2 font-mono text-[11px] text-content">
+              <p className="mt-4 break-all rounded-lg border border-line bg-ink px-3 py-2 font-mono text-[12px] text-content">
                 {donnees.lien_parrainage}
               </p>
 
               <button
                 type="button"
                 onClick={() => copier(donnees.lien_parrainage)}
-                className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover"
+                className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
               >
                 {copie ? (
                   <>

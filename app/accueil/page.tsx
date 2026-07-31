@@ -75,7 +75,7 @@ export default function PageAccueil() {
         <Navigation />
 
         <header className="mb-8">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <Radar size={13} aria-hidden="true" /> Tableau de bord
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
@@ -130,7 +130,7 @@ export default function PageAccueil() {
                           aria-hidden="true"
                           className={`mt-px flex size-[18px] shrink-0 items-center justify-center rounded-full border ${
                             etape.faite
-                              ? "border-teal bg-teal text-ink"
+                              ? "border-teal bg-teal text-white"
                               : "border-line-hover"
                           }`}
                         >

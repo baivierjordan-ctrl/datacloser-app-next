@@ -91,7 +91,7 @@ function Outreach() {
         <Navigation />
 
         <header className="mb-6">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <Send size={13} aria-hidden="true" /> Outreach
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">

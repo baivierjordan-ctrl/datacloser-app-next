@@ -95,7 +95,7 @@ export default function PageAssistant() {
         <Navigation />
 
         <header className="mb-6">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <MessageSquare size={13} aria-hidden="true" /> Assistant
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
@@ -191,12 +191,12 @@ export default function PageAssistant() {
               onClick={() => envoyer(saisie)}
               disabled={saisie.trim() === "" || enCours}
               aria-label="Envoyer la question"
-              className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-teal text-ink transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-30"
+              className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-teal text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-30"
             >
               <ArrowUp size={16} aria-hidden="true" />
             </button>
           </div>
-          <p className="mt-2 text-center text-[11px] text-muted">
+          <p className="mt-2 text-center text-[12px] text-muted">
             Les réponses peuvent comporter des erreurs. Vérifiez ce qui compte.
           </p>
         </div>

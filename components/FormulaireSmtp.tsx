@@ -79,7 +79,7 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
 
   return (
     <section className="rounded-xl border border-line bg-surface p-5">
-      <h2 className="mb-1 text-[15px] font-medium">Serveur d&apos;envoi</h2>
+      <h2 className="mb-1 text-[16px] font-medium">Serveur d&apos;envoi</h2>
       <p className="mb-5 flex items-center gap-1.5 text-xs text-muted">
         <Lock size={11} aria-hidden="true" />
         Le mot de passe est chiffré avant d&apos;être stocké.
@@ -163,7 +163,7 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
         </label>
       </div>
 
-      <h3 className="mb-3 mt-6 text-[15px] font-medium">Rythme d&apos;envoi</h3>
+      <h3 className="mb-3 mt-6 text-[16px] font-medium">Rythme d&apos;envoi</h3>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <label className="flex flex-col gap-1.5">
@@ -247,7 +247,7 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
           type="button"
           onClick={valider}
           disabled={enCours}
-          className="rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:opacity-50"
+          className="rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:opacity-50"
         >
           {enCours ? "Enregistrement…" : "Enregistrer"}
         </button>

@@ -148,7 +148,7 @@ export default function PageEntreprise() {
         <Navigation />
 
         <header className="mb-6">
-          <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal">
+          <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
             <Building2 size={13} aria-hidden="true" /> Mon entreprise
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
@@ -180,7 +180,7 @@ export default function PageEntreprise() {
               </div>
               <div className="h-1.5 overflow-hidden rounded-full bg-ink">
                 <div
-                  className="h-full rounded-full bg-teal transition-all"
+                  className="h-full rounded-full bg-vif transition-all"
                   style={{ width: `${completion}%` }}
                   role="progressbar"
                   aria-valuenow={completion}
@@ -317,12 +317,12 @@ export default function PageEntreprise() {
               </p>
             )}
 
-            <div className="sticky bottom-6 flex items-center justify-end rounded-xl border border-line bg-surface/95 px-5 py-3.5 backdrop-blur">
+            <div className="sticky bottom-6 flex items-center justify-end rounded-xl border border-line bg-surface/95 px-5 py-3.5 shadow-lg shadow-black/5 backdrop-blur">
               <button
                 type="button"
                 onClick={enregistrer}
                 disabled={enregistrement}
-                className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-ink transition hover:bg-teal-hover disabled:opacity-50"
+                className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:opacity-50"
               >
                 {enregistrement && (
                   <Loader2 size={14} className="animate-spin" aria-hidden="true" />

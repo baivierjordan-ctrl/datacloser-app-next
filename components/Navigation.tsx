@@ -111,7 +111,7 @@ export function Navigation() {
   const dansLeMenu = entrees.some((e) => e.href === chemin);
 
   return (
-    <header className="sticky top-0 z-20 -mx-6 mb-8 flex items-center justify-between gap-4 border-b border-line bg-ink/85 px-6 py-3 backdrop-blur-md">
+    <header className="sticky top-0 z-20 -mx-6 mb-8 flex items-center justify-between gap-4 border-b border-line bg-surface/90 px-6 py-3 backdrop-blur-md">
       <div className="flex min-w-0 flex-1 items-center gap-5">
         <Link
           href="/accueil"
@@ -142,7 +142,7 @@ export function Navigation() {
                 {actif && (
                   <span
                     aria-hidden="true"
-                    className="absolute inset-x-0 -bottom-3 h-px bg-teal"
+                    className="absolute inset-x-0 -bottom-3 h-0.5 rounded-full bg-vif"
                   />
                 )}
               </Link>
@@ -189,7 +189,7 @@ export function Navigation() {
           {ouvert && (
             <div
               role="menu"
-              className="apparition absolute right-0 top-full z-30 mt-2 w-56 overflow-hidden rounded-xl border border-line bg-surface shadow-lg shadow-black/40"
+              className="apparition absolute right-0 top-full z-30 mt-2 w-56 overflow-hidden rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/10"
             >
               <p className="truncate border-b border-line px-4 py-3 text-xs text-muted">
                 {compte}

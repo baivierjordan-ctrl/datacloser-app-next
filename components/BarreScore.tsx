@@ -21,7 +21,7 @@ export function BarreScore({ valeur }: { valeur: number }) {
             key={i}
             style={{ height: `${8 + i * 0.9}px` }}
             className={`w-[3px] rounded-full transition-colors ${
-              i < valeur ? "bg-teal" : "bg-line"
+              i < valeur ? "bg-vif" : "bg-line"
             }`}
           />
         ))}

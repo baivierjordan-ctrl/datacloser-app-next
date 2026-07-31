@@ -26,7 +26,7 @@ export function PiedDePage() {
           <p className="mt-2 text-xs text-muted">
             © {new Date().getFullYear()} DataCloser — Jordan Baivier, Belgique.
           </p>
-          <p className="mt-1 font-mono text-[11px] text-muted/70">
+          <p className="mt-1 font-mono text-[12px] text-muted">
             Marque déposée BOIP n°160599
           </p>
         </div>

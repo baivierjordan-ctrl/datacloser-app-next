@@ -70,7 +70,7 @@ export function BlocConseils() {
     <section className="mb-5" aria-labelledby="conseils">
       <h2
         id="conseils"
-        className="mb-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-teal"
+        className="mb-3 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal"
       >
         <Compass size={13} aria-hidden="true" /> Ce que je vous conseille
       </h2>
@@ -108,7 +108,7 @@ export function BlocConseils() {
                   />
                   <h3 className="text-sm font-medium">{conseil.titre}</h3>
                   <span
-                    className={`font-mono text-[10px] uppercase tracking-[0.14em] ${style.teinte}`}
+                    className={`font-mono text-[11px] uppercase tracking-[0.14em] ${style.teinte}`}
                   >
                     {style.libelle}
                   </span>
@@ -134,7 +134,7 @@ export function BlocConseils() {
         </div>
       )}
 
-      <p className="mt-3 text-xs leading-relaxed text-muted/70">
+      <p className="mt-3 text-xs leading-relaxed text-muted">
         Ces conseils portent sur votre configuration, mesurée sur vos données.
         DataCloser n&apos;enregistre ni les ouvertures ni les réponses : aucun
         conseil ne prétend juger l&apos;efficacité réelle de vos messages.
