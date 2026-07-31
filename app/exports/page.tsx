@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Download, FileSpreadsheet } from "lucide-react";
+import { Eye, ArrowRight, Download, FileSpreadsheet } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { ConnexionCrm } from "@/components/ConnexionCrm";
 import { PiedDePage } from "@/components/PiedDePage";
@@ -165,15 +165,26 @@ export default function PageExports() {
                     </p>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => telecharger(scan.fichier)}
-                    disabled={enCours === scan.fichier}
-                    className="flex shrink-0 items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-line-hover hover:text-content disabled:opacity-50"
-                  >
-                    <Download size={14} aria-hidden="true" />
-                    {enCours === scan.fichier ? "Préparation…" : "Télécharger"}
-                  </button>
+                  <div className="flex shrink-0 items-center gap-2">
+                    {/* Consulter réutilise l'écran Radar : mêmes chiffres,
+                        même échantillon, sans dupliquer une vue. */}
+                    <Link
+                      href={`/radar?fichier=${encodeURIComponent(scan.fichier)}`}
+                      className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-teal/40 hover:text-teal"
+                    >
+                      <Eye size={14} aria-hidden="true" />
+                      Consulter
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => telecharger(scan.fichier)}
+                      disabled={enCours === scan.fichier}
+                      className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-line-hover hover:text-content disabled:opacity-50"
+                    >
+                      <Download size={14} aria-hidden="true" />
+                      {enCours === scan.fichier ? "Préparation…" : "Télécharger"}
+                    </button>
+                  </div>
                 </article>
               ))}
             </div>

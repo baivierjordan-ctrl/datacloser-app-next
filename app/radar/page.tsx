@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { ApercuExemple } from "@/components/ApercuExemple";
 import { LancementScan } from "@/components/LancementScan";
@@ -14,8 +14,12 @@ import type { Lead } from "@/lib/types";
 
 type Etat = "chargement" | "pret" | "vide" | "erreur";
 
-export default function PageRadar() {
+function ContenuRadar() {
   const router = useRouter();
+  // Un fichier précis peut être demandé depuis Exports ; sans lui,
+  // le plus récent s'affiche comme avant.
+  const parametres = useSearchParams();
+  const fichierDemande = parametres.get("fichier") ?? undefined;
   const [leads, setLeads] = useState<Lead[]>([]);
   const [etat, setEtat] = useState<Etat>("chargement");
   const [message, setMessage] = useState("");
@@ -25,7 +29,7 @@ export default function PageRadar() {
   const [vue, setVue] = useState<"resultats" | "chasse">("resultats");
 
   function chargerLeads() {
-    recupererLeads()
+    recupererLeads(fichierDemande)
       .then((reponse) => {
         setLeads(reponse.leads);
         setFichier(reponse.fichier);
@@ -41,7 +45,7 @@ export default function PageRadar() {
       return;
     }
     let annule = false;
-    recupererLeads()
+    recupererLeads(fichierDemande)
       .then((reponse) => {
         if (annule) return;
         setLeads(reponse.leads);
@@ -61,7 +65,7 @@ export default function PageRadar() {
     return () => {
       annule = true;
     };
-  }, [router]);
+  }, [router, fichierDemande]);
 
 
   return (
@@ -164,5 +168,13 @@ export default function PageRadar() {
         <PiedDePage />
       </div>
     </main>
+  );
+}
+
+export default function PageRadar() {
+  return (
+    <Suspense fallback={null}>
+      <ContenuRadar />
+    </Suspense>
   );
 }

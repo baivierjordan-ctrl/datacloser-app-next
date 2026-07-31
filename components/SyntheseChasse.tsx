@@ -48,6 +48,20 @@ export function SyntheseChasse({
     .sort((a, b) => b.score - a.score)
     .slice(0, 3);
 
+  if (leads.length === 0) {
+    return (
+      <div className="rounded-xl border border-warn/30 bg-warn/5 px-5 py-8 text-center">
+        <p className="text-sm text-content">Ce fichier ne contient aucune ligne.</p>
+        <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-muted">
+          Cela arrive quand une chasse est interrompue avant d&apos;écrire ses
+          résultats — le fichier est créé au départ, les lignes arrivent à la
+          fin. Relancez la chasse avec les mêmes réglages depuis l&apos;onglet
+          « Nouvelle chasse » : elle régénérera le fichier.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-5">
       <section className="grid gap-4 sm:grid-cols-3">
