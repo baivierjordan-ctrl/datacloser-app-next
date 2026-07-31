@@ -445,3 +445,9 @@ export async function recupererSecteurs(): Promise<SecteurRapide[]> {
 export function proposerPlanIcp(): Promise<PlanIcp> {
   return envoyer("/radar/plan-icp", {});
 }
+
+/** Solde de crédits, lu en direct. */
+export async function recupererCredits(): Promise<number> {
+  const d = await appeler<{ credits: number }>("/credits");
+  return d.credits ?? 0;
+}

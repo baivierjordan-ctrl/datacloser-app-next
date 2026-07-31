@@ -12,7 +12,8 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { Marque } from "@/components/Marque";
-import { effacerSession, lireSession } from "@/lib/session";
+import { recupererCredits } from "@/lib/api";
+import { ecrireSession, effacerSession, lireSession } from "@/lib/session";
 
 /**
  * Les cinq sections du travail quotidien restent dans la barre. Les
@@ -42,13 +43,33 @@ export function Navigation() {
   const [ouvert, setOuvert] = useState(false);
   const zone = useRef<HTMLDivElement>(null);
 
+  // Le solde enregistré à la connexion vieillit dès la première chasse.
+  // On l'affiche d'abord pour éviter un vide, puis on le remplace par la
+  // valeur réelle — et on rafraîchit à chaque changement de page, seul
+  // moment où une action a pu le faire bouger.
   useEffect(() => {
     const session = lireSession();
-    if (session) {
-      setCompte(session.email);
-      setCredits(session.credits);
-    }
-  }, []);
+    if (!session) return;
+
+    setCompte(session.email);
+    setCredits(session.credits);
+
+    let annule = false;
+    recupererCredits()
+      .then((solde) => {
+        if (annule) return;
+        setCredits(solde);
+        const courante = lireSession();
+        if (courante && courante.credits !== solde) {
+          ecrireSession({ ...courante, credits: solde });
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      annule = true;
+    };
+  }, [chemin]);
 
   // Le menu se referme au clic à côté et à la touche Échap : sans cela
   // il resterait ouvert derrière la page suivante.
