@@ -9,6 +9,7 @@ import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererAccueil } from "@/lib/api";
 import { dateSeule } from "@/lib/dates";
+import { useDeclarerContexte } from "@/lib/contexte-assistant";
 import { lireSession } from "@/lib/session";
 import type { Accueil } from "@/lib/types";
 
@@ -68,6 +69,28 @@ export default function PageAccueil() {
         setErreur(e.message);
       });
   }, [router]);
+
+  useDeclarerContexte(
+    donnees
+      ? {
+          ecran: "son tableau de bord",
+          details: [
+            `${donnees.credits} crédits, ${donnees.entreprises_analysees} entreprises analysées`,
+            `${donnees.emails_envoyes} emails envoyés, ${donnees.reponses} réponses reçues`,
+            `${donnees.campagnes_actives} campagne(s) active(s) sur ${donnees.campagnes}`,
+            donnees.conseils.length
+              ? `Conseil prioritaire : ${donnees.conseils[0].titre} — ${donnees.conseils[0].constat}`
+              : "Aucun défaut détecté dans sa configuration",
+          ],
+          suggestions: [
+            "Que dois-je faire en priorité ?",
+            "Mon taux de réponse est-il normal ?",
+            "Comment obtenir plus de réponses ?",
+          ],
+        }
+      : null,
+    [donnees],
+  );
 
   return (
     <main className="min-h-screen px-6 pb-16 pt-6">

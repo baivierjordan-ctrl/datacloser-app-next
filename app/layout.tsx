@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { EnregistrerServiceWorker } from "@/components/EnregistrerServiceWorker";
 import { BulleAssistant } from "@/components/BulleAssistant";
+import { FournisseurContexteAssistant } from "@/lib/contexte-assistant";
 import { InviteInstallation } from "@/components/InviteInstallation";
 
 export const metadata: Metadata = {
@@ -49,8 +50,10 @@ export default function RootLayout({
       </head>
       <body>
         <EnregistrerServiceWorker />
-        {children}
-        <BulleAssistant />
+        <FournisseurContexteAssistant>
+          {children}
+          <BulleAssistant />
+        </FournisseurContexteAssistant>
         <InviteInstallation />
       </body>
     </html>

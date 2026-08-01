@@ -412,8 +412,9 @@ export function recupererAccueil(): Promise<Accueil> {
 export function interrogerAssistant(
   question: string,
   historique: TourConversation[],
+  contexte = "",
 ): Promise<{ reponse: string }> {
-  return envoyer("/assistant", { question, historique });
+  return envoyer("/assistant", { question, historique, contexte });
 }
 
 /** Questions de départ, adaptées à l'avancement du compte. */
@@ -597,6 +598,7 @@ export async function interrogerAvecFichier(
   question: string,
   fichier: File,
   historique: TourConversation[],
+  contexte = "",
 ): Promise<{ reponse: string; fichier: string; analyse: boolean }> {
   const session = lireSession();
   if (!session) throw new SessionExpiree();
@@ -604,6 +606,7 @@ export async function interrogerAvecFichier(
   const corps = new FormData();
   corps.append("question", question);
   corps.append("historique", JSON.stringify(historique));
+  corps.append("contexte", contexte);
   corps.append("fichier", fichier);
 
   const reponse = await fetch(`${BASE}/assistant/fichier`, {

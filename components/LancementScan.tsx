@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Loader2, Plus, Radar, Sparkles, X } from "lucide-react";
 import { ConsoleScan } from "@/components/ConsoleScan";
 import { DemarrageRapide } from "@/components/DemarrageRapide";
+import { useDeclarerContexte } from "@/lib/contexte-assistant";
 import { HistoriqueChasses } from "@/components/HistoriqueChasses";
 import {
   annulerScan,
@@ -215,6 +216,28 @@ export function LancementScan({
     }
     return <div className="h-40 animate-pulse rounded-xl border border-line bg-surface" />;
   }
+
+  // L'assistant voit le ciblage en préparation : « ces mots-clés
+  // sont-ils bons ? » devient une question sur ceux-ci.
+  useDeclarerContexte(
+    {
+      ecran: "l'écran de lancement d'une chasse",
+      details: [
+        motsCles.length
+          ? `Métiers ciblés : ${motsCles.join(", ")}`
+          : "Aucun métier saisi",
+        lieux.length ? `Zones : ${lieux.join(", ")}` : "Aucune zone choisie",
+        `Mode : ${mode || "non choisi"}`,
+        actif ? "Une chasse est en cours" : "Aucune chasse en cours",
+      ],
+      suggestions: [
+        "Ces mots-clés sont-ils bien choisis ?",
+        "Quelles autres zones cibler ?",
+        "Maps ou Search pour ce métier ?",
+      ],
+    },
+    [motsCles, lieux, mode, actif],
+  );
 
   const villesProposees = options.villes[pays] ?? [];
   const pret = motsCles.length > 0 && lieux.length > 0 && !actif && !envoi;

@@ -14,6 +14,10 @@ import {
   interrogerAssistant,
   interrogerAvecFichier,
 } from "@/lib/api";
+import {
+  formaterContexte,
+  useContexteAssistant,
+} from "@/lib/contexte-assistant";
 import { lireSession } from "@/lib/session";
 import type { TourConversation } from "@/lib/types";
 
@@ -50,6 +54,7 @@ function Attente() {
 }
 
 export function BulleAssistant() {
+  const contexte = useContexteAssistant();
   const [connecte, setConnecte] = useState(false);
   const [ouvert, setOuvert] = useState(false);
   const [tours, setTours] = useState<TourConversation[]>([]);
@@ -77,8 +82,8 @@ export function BulleAssistant() {
     return () => document.removeEventListener("keydown", auClavier);
   }, [ouvert]);
 
-  async function envoyer() {
-    const question = saisie.trim();
+  async function envoyer(texte?: string) {
+    const question = (texte ?? saisie).trim();
     if ((!question && !fichier) || enCours) return;
 
     setErreur("");
@@ -92,9 +97,12 @@ export function BulleAssistant() {
     setEnCours(true);
 
     try {
+      // L'écran est transmis à chaque envoi : l'utilisateur peut avoir
+      // navigué entre deux questions.
+      const ecran = formaterContexte(contexte);
       const { reponse } = fichier
-        ? await interrogerAvecFichier(question, fichier, avant)
-        : await interrogerAssistant(question, avant);
+        ? await interrogerAvecFichier(question, fichier, avant, ecran)
+        : await interrogerAssistant(question, avant, ecran);
       setTours((p) => [...p, { role: "assistant", contenu: reponse }]);
       setFichier(null);
     } catch (e) {
@@ -166,11 +174,30 @@ export function BulleAssistant() {
 
       <div className="flex-1 overflow-y-auto px-4 py-3">
         {tours.length === 0 && (
-          <p className="text-xs leading-relaxed text-muted">
-            Posez une question sur votre prospection, ou joignez un fichier de
-            leads pour que je l&apos;analyse. Les tableaux CSV et Excel se
-            lisent directement.
-          </p>
+          <>
+            <p className="text-xs leading-relaxed text-muted">
+              {contexte
+                ? `Je vois ce que vous avez sous les yeux : ${contexte.ecran}.`
+                : "Posez une question sur votre prospection, ou joignez un fichier de leads pour que je l'analyse."}
+            </p>
+
+            {/* Les suggestions viennent de l'écran : une question posée
+                au bon moment vaut mieux qu'un champ vide. */}
+            {contexte?.suggestions?.length ? (
+              <div className="mt-3 flex flex-col gap-1.5">
+                {contexte.suggestions.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    onClick={() => envoyer(suggestion)}
+                    className="rounded-lg border border-line px-3 py-2 text-left text-xs text-content-soft transition hover:border-teal/40 hover:text-content"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </>
         )}
 
         <div className="flex flex-col gap-3">
@@ -261,7 +288,7 @@ export function BulleAssistant() {
 
         <button
           type="button"
-          onClick={envoyer}
+          onClick={() => envoyer()}
           disabled={(saisie.trim() === "" && !fichier) || enCours}
           aria-label="Envoyer"
           className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-teal text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-30"

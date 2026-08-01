@@ -14,6 +14,7 @@ import {
   recupererQualifications,
   recupererScans,
 } from "@/lib/api";
+import { useDeclarerContexte } from "@/lib/contexte-assistant";
 import type { Modeles, Qualification, Relance } from "@/lib/types";
 
 interface Props {
@@ -117,6 +118,32 @@ export function CreationCampagne({
     corps.trim() !== "" &&
     destinataires > 0 &&
     !envoiEnCours;
+
+  // L'assistant voit le message en cours de rédaction : « ce message
+  // est-il bon ? » cesse d'être une question abstraite.
+  useDeclarerContexte(
+    {
+      ecran: "la création d'une campagne d'emails",
+      details: [
+        sujet ? `Objet rédigé : « ${sujet} »` : "Aucun objet rédigé",
+        corps
+          ? `Corps du message (${corps.split(/\s+/).filter(Boolean).length} mots) :\n${corps.slice(0, 900)}`
+          : "Aucun message rédigé",
+        fichier
+          ? `Destinataires issus du scan « ${fichier} »`
+          : "Aucun scan sélectionné",
+        avecRelance
+          ? `Relances activées${avecJ9 ? ", J+9" : ""}${avecJ14 ? ", J+14" : ""}`
+          : "Relances désactivées",
+      ],
+      suggestions: [
+        "Ce message obtiendra-t-il des réponses ?",
+        "Comment améliorer mon objet ?",
+        "À quelle fréquence relancer ?",
+      ],
+    },
+    [sujet, corps, fichier, avecRelance, avecJ9, avecJ14],
+  );
 
   async function lancer() {
     setErreur("");

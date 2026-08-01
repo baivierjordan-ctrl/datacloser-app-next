@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Download, Loader2, Search } from "lucide-react";
 import { Aide } from "@/components/Aide";
 import { recupererContenuFichier, telechargerExport } from "@/lib/api";
+import { useDeclarerContexte } from "@/lib/contexte-assistant";
 import type { ContenuFichier } from "@/lib/types";
 
 /**
@@ -52,6 +53,27 @@ export function TableauFichier({
   }, [contenu, recherche]);
 
   const titre = fichier.replace(/\.csv$/i, "").replace(/_/g, " ");
+
+  // L'assistant voit le fichier ouvert : « lesquels contacter en
+  // premier ? » devient une question sur ces leads-là.
+  useDeclarerContexte(
+    contenu
+      ? {
+          ecran: `le fichier de leads « ${titre} »`,
+          details: [
+            `${contenu.total} entreprises, dont ${contenu.contactables} contactables`,
+            `Qualité des emails : ${contenu.qualite.verifie} vérifiés, ${contenu.qualite.catchall} catch-all, ${contenu.qualite.introuvable} introuvables`,
+            `Colonnes disponibles : ${contenu.colonnes.slice(0, 12).join(", ")}`,
+          ],
+          suggestions: [
+            "Ces leads correspondent-ils à ma cible ?",
+            "Par lesquels commencer ?",
+            "Que faire des catch-all ?",
+          ],
+        }
+      : null,
+    [contenu, titre],
+  );
 
   return (
     <div>
