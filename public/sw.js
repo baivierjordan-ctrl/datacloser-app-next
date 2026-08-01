@@ -1,34 +1,26 @@
 /**
- * Service worker de désinstallation.
+ * Service worker minimal.
  *
- * Les versions précédentes de ce fichier empêchaient l'application de
- * charger. Un service worker déjà enregistré ne disparaît pas quand on
- * cesse de l'enregistrer : le navigateur garde l'ancien. Le seul moyen
- * de le retirer chez les utilisateurs est de publier une version qui se
- * désinstalle elle-même.
+ * Chrome n'affiche « Installer l'application » que si un service worker
+ * déclare un gestionnaire de requêtes. Celui-ci en déclare un vide.
  *
- * C'est ce que fait ce fichier, et rien d'autre.
+ * Il ne met RIEN en cache et n'appelle jamais respondWith : le
+ * navigateur gère les requêtes lui-même, ce qu'il fait mieux. Un
+ * tableau de bord affiche des crédits, des campagnes en cours, des
+ * réponses reçues — servir une version périmée de ces chiffres serait
+ * pire que de ne rien afficher.
  *
- * Conséquence assumée : Chrome ne proposera plus « Installer
- * l'application » automatiquement. L'ajout à l'écran d'accueil reste
- * possible par le menu du navigateur, et une application qui se lance
- * vaut mieux qu'un bouton d'installation.
+ * Hors ligne, l'application ne fonctionne donc pas. C'est assumé :
+ * chaque écran a besoin de l'API pour dire quoi que ce soit de vrai.
  */
 
 self.addEventListener("install", () => self.skipWaiting());
 
 self.addEventListener("activate", (evenement) => {
-  evenement.waitUntil(
-    (async () => {
-      // Vider les caches éventuellement laissés derrière.
-      const noms = await caches.keys();
-      await Promise.all(noms.map((n) => caches.delete(n)));
+  evenement.waitUntil(self.clients.claim());
+});
 
-      // Se désinscrire, puis recharger les pages ouvertes pour qu'elles
-      // repartent sans intermédiaire.
-      await self.registration.unregister();
-      const clients = await self.clients.matchAll({ type: "window" });
-      clients.forEach((client) => client.navigate(client.url));
-    })(),
-  );
+self.addEventListener("fetch", () => {
+  // Volontairement vide : déclaré pour le critère d'installation,
+  // sans jamais intercepter quoi que ce soit.
 });

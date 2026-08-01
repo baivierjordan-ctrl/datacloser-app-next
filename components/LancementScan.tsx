@@ -236,7 +236,7 @@ export function LancementScan({
         "Maps ou Search pour ce métier ?",
       ],
     },
-    [motsCles, lieux, mode, actif],
+    [motsCles.join("|"), lieux.join("|"), mode, actif],
   );
 
   const villesProposees = options.villes[pays] ?? [];

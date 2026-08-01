@@ -62,11 +62,19 @@ export function useDeclarerContexte(
 ) {
   const { definir } = useContext(Contexte);
 
+  // Les dépendances sont réduites à une chaîne. Un appelant qui passe un
+  // tableau ou un objet recréé à chaque rendu — « [motsCles, lieux] »
+  // par exemple — déclencherait sinon une boucle infinie : l'identité
+  // change à chaque fois, l'effet se rejoue, l'écran finit par ne plus
+  // répondre. Comparer le contenu plutôt que la référence rend ce piège
+  // impossible.
+  const signature = JSON.stringify(dependances);
+
   useEffect(() => {
     definir(contexte);
     return () => definir(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependances);
+  }, [signature]);
 }
 
 /** Met le contexte en forme pour le moteur. */
