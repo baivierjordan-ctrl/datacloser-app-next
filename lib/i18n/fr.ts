@@ -537,6 +537,83 @@ export const fr = {
   "fichier.entreprises": "entreprises",
   "fichier.contactables": "contactables",
   "fichier.qualiteLabel": "vérifiés, catch-all, introuvables",
+
+  // ── Assistant ──
+  "assistant.eyebrow": "Assistant",
+  "assistant.titre": "Une question sur votre prospection ?",
+  "assistant.intro":
+    "L'assistant connaît votre activité : ses réponses portent sur votre cas, pas sur la prospection en général. Joignez un fichier de leads pour qu'il l'analyse.",
+  "assistant.pourCommencer": "Pour commencer",
+  "assistant.reserve": "Les réponses peuvent comporter des erreurs. Vérifiez ce qui compte.",
+  "assistant.redige": "L'assistant rédige sa réponse",
+  "assistant.redigeCourt": "L'assistant rédige",
+  "assistant.retirerFichier": "Retirer le fichier",
+  "assistant.joindreFichier": "Joindre un fichier",
+  "assistant.question": "Posez votre question…",
+  "assistant.questionCourt": "Votre question…",
+  "assistant.questionLabel": "Votre question",
+  "assistant.envoyer": "Envoyer la question",
+  "assistant.envoyerCourt": "Envoyer",
+  "assistant.analyseFichier": "Analyse ce fichier",
+  "assistant.fichierTropGros": "Fichier trop volumineux. Maximum 5 Mo.",
+  "assistant.ouvrir": "Ouvrir l'assistant",
+  "assistant.pleinEcran": "Ouvrir en plein écran",
+  "assistant.fermer": "Fermer",
+  "assistant.accueilBulle":
+    "Posez une question sur votre prospection, ou joignez un fichier de leads pour que je l'analyse.",
+
+  // ── Boutique ──
+  "boutique.eyebrow": "Boutique",
+  "boutique.titre": "Recharger vos crédits",
+  "boutique.soldeAvant": "Solde actuel :",
+  "boutique.soldeApres": "crédits. Les crédits achetés n'expirent pas.",
+  "boutique.codePromo": "Vous avez un code promotionnel ?",
+  "boutique.codeExemple": "PRODUCTHUNT",
+  "boutique.codeLabel": "Code promotionnel",
+  "boutique.appliquer": "Appliquer",
+  "boutique.enProfiter": "En profiter",
+  "boutique.abonnements": "Abonnements",
+  "boutique.recharges": "Recharges ponctuelles",
+  "boutique.stripe":
+    "Le paiement est traité par Stripe. Nous n'avons accès à aucune donnée bancaire.",
+
+  // ── Partenariat ──
+  "partenariat.eyebrow": "Partenariat",
+  "partenariat.titre": "Parrainage et affiliation",
+  "partenariat.intro":
+    "Deux programmes distincts : l'un rémunère en crédits, l'autre en commissions.",
+  "partenariat.parrainage": "Parrainage",
+  "partenariat.parrainageDetail":
+    "Pour les utilisateurs réguliers qui veulent prospecter sans payer.",
+  "partenariat.lienCopie": "Lien copié",
+  "partenariat.copierLien": "Copier mon lien",
+  "partenariat.copieEchouee":
+    "La copie automatique a échoué. Sélectionnez le lien à la main.",
+  "partenariat.affiliation": "Affiliation",
+  "partenariat.affiliationDetail":
+    "Pour les agences, formateurs et créateurs de contenu B2B.",
+  "partenariat.vagues":
+    "Le programme ouvre par vagues. Écrivez-nous pour rejoindre la liste d'attente.",
+  "partenariat.rejoindre": "Rejoindre la liste",
+  "partenariat.mailSujet": "Programme d'affiliation DataCloser",
+  "partenariat.mailCorps":
+    "Bonjour,\n\nJe souhaite rejoindre le programme d'affiliation DataCloser.\n\nMerci.",
+
+  // ── Désinscription ──
+  // Cette page est vue par le prospect, pas par le client : sa langue
+  // devrait suivre celle du message reçu (paramètre lang du lien).
+  "desinscription.enCours": "Enregistrement de votre demande…",
+  "desinscription.fait": "C'est fait.",
+  "desinscription.confirmation":
+    "ne recevra plus aucun message de prospection envoyé via DataCloser, quel que soit l'expéditeur.",
+  "desinscription.enFile":
+    "Un message déjà en file d'envoi au moment de votre demande pourrait encore arriver dans les prochaines minutes. Aucun autre ne suivra.",
+  "desinscription.echec": "L'enregistrement a échoué.",
+  "desinscription.rechargez": "Rechargez cette page, ou écrivez à",
+  "desinscription.traiteeManuellement": ": votre demande sera traitée manuellement.",
+  "desinscription.absente": "Adresse manquante",
+  "desinscription.absenteDetail":
+    "Ce lien ne contient pas d'adresse à désinscrire. Utilisez le lien figurant au bas de l'email que vous avez reçu, ou écrivez à",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;

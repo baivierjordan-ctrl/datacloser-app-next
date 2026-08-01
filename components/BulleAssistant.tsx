@@ -21,6 +21,7 @@ import {
   useContexteAssistant,
 } from "@/lib/contexte-assistant";
 import { lireSession } from "@/lib/session";
+import { useLangue } from "@/lib/i18n";
 import type { ActionAssistant, TourConversation } from "@/lib/types";
 
 /**
@@ -48,9 +49,9 @@ const ECRANS_PUBLICS = [
   "/desinscription",
 ];
 
-function Attente() {
+function Attente({ libelle }: { libelle: string }) {
   return (
-    <span className="flex gap-1 py-1" aria-label="L'assistant rédige">
+    <span className="flex gap-1 py-1" aria-label={libelle}>
       {[0, 1, 2].map((i) => (
         <span
           key={i}
@@ -66,6 +67,7 @@ function Attente() {
 }
 
 export function BulleAssistant() {
+  const { t } = useLangue();
   const chemin = usePathname();
   const contexte = useContexteAssistant();
   const [connecte, setConnecte] = useState(false);
@@ -114,7 +116,7 @@ export function BulleAssistant() {
     setErreur("");
     const avant = tours;
     const libelle = fichier
-      ? `${question || "Analyse ce fichier"}\n📎 ${fichier.name}`
+      ? `${question || t("assistant.analyseFichier")}\n📎 ${fichier.name}`
       : question;
 
     setTours([...avant, { role: "utilisateur", contenu: libelle }]);
@@ -167,7 +169,7 @@ export function BulleAssistant() {
           setOuvert(true);
           setHalo(false);
         }}
-        aria-label="Ouvrir l'assistant"
+        aria-label={t("assistant.ouvrir")}
         className="group fixed bottom-6 right-6 z-40 flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-white shadow-xl shadow-teal/25 transition hover:bg-teal-hover hover:shadow-teal/40"
       >
         {/* Halo pulsant : sur un écran dense, une pastille unie se
@@ -189,16 +191,16 @@ export function BulleAssistant() {
   return (
     <div
       role="dialog"
-      aria-label="Assistant"
+      aria-label={t("assistant.eyebrow")}
       className="apparition fixed inset-x-4 bottom-5 z-40 mx-auto flex max-h-[min(32rem,75vh)] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20 sm:inset-x-auto sm:right-5 sm:mx-0 sm:w-96"
     >
       <header className="flex items-center gap-2 border-b border-line px-4 py-3">
         <MessageSquare size={15} className="text-teal" aria-hidden="true" />
-        <p className="flex-1 text-sm font-medium">Assistant</p>
+        <p className="flex-1 text-sm font-medium">{t("assistant.eyebrow")}</p>
         <Link
           href="/assistant"
           onClick={() => setOuvert(false)}
-          aria-label="Ouvrir en plein écran"
+          aria-label={t("assistant.pleinEcran")}
           className="text-muted transition hover:text-content"
         >
           <Maximize2 size={15} aria-hidden="true" />
@@ -206,7 +208,7 @@ export function BulleAssistant() {
         <button
           type="button"
           onClick={() => setOuvert(false)}
-          aria-label="Fermer"
+          aria-label={t("assistant.fermer")}
           className="text-muted transition hover:text-content"
         >
           <X size={16} aria-hidden="true" />
@@ -219,7 +221,7 @@ export function BulleAssistant() {
             <p className="text-xs leading-relaxed text-muted">
               {contexte
                 ? `Je vois ce que vous avez sous les yeux : ${contexte.ecran}.`
-                : "Posez une question sur votre prospection, ou joignez un fichier de leads pour que je l'analyse."}
+                : t("assistant.accueilBulle")}
             </p>
 
             {/* Les suggestions viennent de l'écran : une question posée
@@ -280,7 +282,7 @@ export function BulleAssistant() {
           {enCours && (
             <div className="flex justify-start">
               <div className="rounded-2xl rounded-bl-md border border-line bg-ink px-3 py-2">
-                <Attente />
+                <Attente libelle={t("assistant.redigeCourt")} />
               </div>
             </div>
           )}
@@ -303,7 +305,7 @@ export function BulleAssistant() {
           <button
             type="button"
             onClick={() => setFichier(null)}
-            aria-label="Retirer le fichier"
+            aria-label={t("assistant.retirerFichier")}
             className="shrink-0 text-muted transition hover:text-content"
           >
             <X size={13} aria-hidden="true" />
@@ -324,7 +326,7 @@ export function BulleAssistant() {
         <button
           type="button"
           onClick={() => champFichier.current?.click()}
-          aria-label="Joindre un fichier"
+          aria-label={t("assistant.joindreFichier")}
           className="flex size-8 shrink-0 items-center justify-center rounded-lg text-muted transition hover:text-teal"
         >
           <Paperclip size={16} aria-hidden="true" />
@@ -340,8 +342,8 @@ export function BulleAssistant() {
               envoyer();
             }
           }}
-          placeholder="Votre question…"
-          aria-label="Votre question"
+          placeholder={t("assistant.questionCourt")}
+          aria-label={t("assistant.questionLabel")}
           className="max-h-28 flex-1 resize-none bg-transparent px-1 py-1.5 text-[13px] text-content outline-none placeholder:text-muted"
         />
 
@@ -349,7 +351,7 @@ export function BulleAssistant() {
           type="button"
           onClick={() => envoyer()}
           disabled={(saisie.trim() === "" && !fichier) || enCours}
-          aria-label="Envoyer"
+          aria-label={t("assistant.envoyerCourt")}
           className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-teal text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-30"
         >
           <ArrowUp size={15} aria-hidden="true" />

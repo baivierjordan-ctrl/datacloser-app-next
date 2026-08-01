@@ -8,8 +8,10 @@ import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererPartenariat } from "@/lib/api";
 import { lireSession } from "@/lib/session";
 import type { Partenariat } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
 export default function PagePartenariat() {
+  const { t } = useLangue();
   const router = useRouter();
   const [donnees, setDonnees] = useState<Partenariat | null>(null);
   const [copie, setCopie] = useState(false);
@@ -37,17 +39,17 @@ export default function PagePartenariat() {
       setCopie(true);
       setTimeout(() => setCopie(false), 2000);
     } catch {
-      setErreur("La copie automatique a échoué. Sélectionnez le lien à la main.");
+      setErreur(t("partenariat.copieEchouee"));
     }
   }
 
   const mailto = donnees
     ? `mailto:${donnees.affiliation.contact}` +
       "?subject=" +
-      encodeURIComponent("Programme d'affiliation DataCloser") +
+      encodeURIComponent(t("partenariat.mailSujet")) +
       "&body=" +
       encodeURIComponent(
-        "Bonjour,\n\nJe souhaite rejoindre le programme d'affiliation DataCloser.\n\nMerci.",
+        t("partenariat.mailCorps"),
       )
     : "";
 
@@ -58,14 +60,13 @@ export default function PagePartenariat() {
 
         <header className="mb-6">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <Handshake size={13} aria-hidden="true" /> Partenariat
+            <Handshake size={13} aria-hidden="true" /> {t("partenariat.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Parrainage et affiliation
+            {t("partenariat.titre")}
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Deux programmes distincts : l&apos;un rémunère en crédits, l&apos;autre
-            en commissions.
+            {t("partenariat.intro")}
           </p>
         </header>
 
@@ -81,10 +82,9 @@ export default function PagePartenariat() {
         {donnees ? (
           <div className="grid gap-4 sm:grid-cols-2">
             <section className="rounded-xl border border-line bg-surface p-5">
-              <h2 className="text-sm font-medium">Parrainage</h2>
+              <h2 className="text-sm font-medium">{t("partenariat.parrainage")}</h2>
               <p className="mt-1 text-xs text-muted">
-                Pour les utilisateurs réguliers qui veulent prospecter sans
-                payer.
+                {t("partenariat.parrainageDetail")}
               </p>
 
               <ul className="mt-4 flex flex-col gap-2 text-xs text-muted">
@@ -109,20 +109,20 @@ export default function PagePartenariat() {
               >
                 {copie ? (
                   <>
-                    <Check size={14} aria-hidden="true" /> Lien copié
+                    <Check size={14} aria-hidden="true" /> {t("partenariat.lienCopie")}
                   </>
                 ) : (
                   <>
-                    <Copy size={14} aria-hidden="true" /> Copier mon lien
+                    <Copy size={14} aria-hidden="true" /> {t("partenariat.copierLien")}
                   </>
                 )}
               </button>
             </section>
 
             <section className="rounded-xl border border-line bg-surface p-5">
-              <h2 className="text-sm font-medium">Affiliation</h2>
+              <h2 className="text-sm font-medium">{t("partenariat.affiliation")}</h2>
               <p className="mt-1 text-xs text-muted">
-                Pour les agences, formateurs et créateurs de contenu B2B.
+                {t("partenariat.affiliationDetail")}
               </p>
 
               <ul className="mt-4 flex flex-col gap-2 text-xs text-muted">
@@ -137,15 +137,14 @@ export default function PagePartenariat() {
               </ul>
 
               <p className="mt-4 rounded-lg border border-line bg-ink px-3 py-2 text-xs text-muted">
-                Le programme ouvre par vagues. Écrivez-nous pour rejoindre la
-                liste d&apos;attente.
+                {t("partenariat.vagues")}
               </p>
 
               <a
                 href={mailto}
                 className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-content transition hover:border-teal"
               >
-                <Mail size={14} aria-hidden="true" /> Rejoindre la liste
+                <Mail size={14} aria-hidden="true" /> {t("partenariat.rejoindre")}
               </a>
             </section>
           </div>

@@ -12,6 +12,7 @@ import {
   recupererSuggestions,
 } from "@/lib/api";
 import { lireSession } from "@/lib/session";
+import { useLangue } from "@/lib/i18n";
 import type { TourConversation } from "@/lib/types";
 
 /**
@@ -21,9 +22,9 @@ import type { TourConversation } from "@/lib/types";
  * texte au fil de l'eau : sans repère visible, l'attente passe pour une
  * panne. C'est la seule animation de l'écran.
  */
-function Attente() {
+function Attente({ libelle }: { libelle: string }) {
   return (
-    <span className="flex gap-1 py-1" aria-label="L'assistant rédige sa réponse">
+    <span className="flex gap-1 py-1" aria-label={libelle}>
       {[0, 1, 2].map((i) => (
         <span
           key={i}
@@ -40,6 +41,7 @@ function Attente() {
 
 export default function PageAssistant() {
   const router = useRouter();
+  const { t } = useLangue();
   const [tours, setTours] = useState<TourConversation[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [saisie, setSaisie] = useState("");
@@ -73,7 +75,7 @@ export default function PageAssistant() {
     setSaisie("");
     const avant = tours;
     const libelle = fichier
-      ? `${propre || "Analyse ce fichier"}\n📎 ${fichier.name}`
+      ? `${propre || t("assistant.analyseFichier")}\n📎 ${fichier.name}`
       : propre;
     setTours([...avant, { role: "utilisateur", contenu: libelle }]);
     setEnCours(true);
@@ -105,15 +107,13 @@ export default function PageAssistant() {
 
         <header className="mb-6">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <MessageSquare size={13} aria-hidden="true" /> Assistant
+            <MessageSquare size={13} aria-hidden="true" /> {t("assistant.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Une question sur votre prospection ?
+            {t("assistant.titre")}
           </h1>
           <p className="mt-2 text-sm text-muted">
-            L&apos;assistant connaît votre activité : ses réponses portent sur
-            votre cas, pas sur la prospection en général. Joignez un fichier de
-            leads pour qu&apos;il l&apos;analyse.
+            {t("assistant.intro")}
           </p>
         </header>
 
@@ -121,7 +121,7 @@ export default function PageAssistant() {
           <div className="mb-6">
             <p className="mb-3 flex items-center gap-2 text-xs text-muted">
               <Sparkles size={13} className="text-teal" aria-hidden="true" />
-              Pour commencer
+              {t("assistant.pourCommencer")}
             </p>
             <div className="flex flex-col gap-2">
               {suggestions.map((suggestion, rang) => (
@@ -162,7 +162,7 @@ export default function PageAssistant() {
           {enCours && (
             <div className="flex justify-start">
               <div className="rounded-2xl rounded-bl-md border border-line bg-surface px-4 py-3">
-                <Attente />
+                <Attente libelle={t("assistant.redige")} />
               </div>
             </div>
           )}
@@ -189,7 +189,7 @@ export default function PageAssistant() {
               <button
                 type="button"
                 onClick={() => setFichier(null)}
-                aria-label="Retirer le fichier"
+                aria-label={t("assistant.retirerFichier")}
                 className="shrink-0 text-muted transition hover:text-content"
               >
                 <X size={13} aria-hidden="true" />
@@ -205,7 +205,7 @@ export default function PageAssistant() {
               onChange={(e) => {
                 const f = e.target.files?.[0] ?? null;
                 if (f && f.size > 5 * 1024 * 1024) {
-                  setErreur("Fichier trop volumineux. Maximum 5 Mo.");
+                  setErreur(t("assistant.fichierTropGros"));
                 } else if (f) {
                   setErreur("");
                   setFichier(f);
@@ -216,7 +216,7 @@ export default function PageAssistant() {
             <button
               type="button"
               onClick={() => champFichier.current?.click()}
-              aria-label="Joindre un fichier"
+              aria-label={t("assistant.joindreFichier")}
               className="flex size-9 shrink-0 items-center justify-center rounded-lg text-muted transition hover:text-teal"
             >
               <Paperclip size={16} aria-hidden="true" />
@@ -232,22 +232,22 @@ export default function PageAssistant() {
                   envoyer(saisie);
                 }
               }}
-              placeholder="Posez votre question…"
-              aria-label="Votre question"
+              placeholder={t("assistant.question")}
+              aria-label={t("assistant.questionLabel")}
               className="max-h-40 flex-1 resize-none bg-transparent px-3 py-2 text-sm text-content outline-none placeholder:text-muted"
             />
             <button
               type="button"
               onClick={() => envoyer(saisie)}
               disabled={(saisie.trim() === "" && !fichier) || enCours}
-              aria-label="Envoyer la question"
+              aria-label={t("assistant.envoyer")}
               className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-teal text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-30"
             >
               <ArrowUp size={16} aria-hidden="true" />
             </button>
           </div>
           <p className="mt-2 text-center text-[12px] text-muted">
-            Les réponses peuvent comporter des erreurs. Vérifiez ce qui compte.
+            {t("assistant.reserve")}
           </p>
         </div>
 

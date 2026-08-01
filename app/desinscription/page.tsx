@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useLangue } from "@/lib/i18n";
 import { Check, Loader2, MailX } from "lucide-react";
 import { MarqueEnTete } from "@/components/Marque";
 import { desinscrire } from "@/lib/api";
@@ -18,6 +19,7 @@ import { desinscrire } from "@/lib/api";
  * du procédé dilatoire.
  */
 function ContenuDesinscription() {
+  const { t } = useLangue();
   const parametres = useSearchParams();
   const email = parametres.get("unsubscribe")?.trim() ?? "";
 
@@ -45,7 +47,7 @@ function ContenuDesinscription() {
           {etat === "cours" && (
             <p className="flex items-center gap-3 text-sm text-muted">
               <Loader2 size={16} className="animate-spin" aria-hidden="true" />
-              Enregistrement de votre demande…
+              {t("desinscription.enCours")}
             </p>
           )}
 
@@ -53,17 +55,14 @@ function ContenuDesinscription() {
             <>
               <p className="flex items-center gap-2.5 text-base font-medium">
                 <Check size={18} className="shrink-0 text-ok" aria-hidden="true" />
-                C&apos;est fait.
+                {t("desinscription.fait")}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-content-soft">
-                <span className="font-mono text-[13px]">{email}</span> ne
-                recevra plus aucun message de prospection envoyé via
-                DataCloser, quel que soit l&apos;expéditeur.
+                <span className="font-mono text-[13px]">{email}</span>{" "}
+                {t("desinscription.confirmation")}
               </p>
               <p className="mt-3 text-xs leading-relaxed text-muted">
-                Un message déjà en file d&apos;envoi au moment de votre demande
-                pourrait encore arriver dans les prochaines minutes. Aucun
-                autre ne suivra.
+                {t("desinscription.enFile")}
               </p>
             </>
           )}
@@ -72,31 +71,29 @@ function ContenuDesinscription() {
             <>
               <p className="flex items-center gap-2.5 text-base font-medium text-danger">
                 <MailX size={18} className="shrink-0" aria-hidden="true" />
-                L&apos;enregistrement a échoué.
+                {t("desinscription.echec")}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-content-soft">
                 {erreur}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted">
-                Rechargez cette page, ou écrivez à{" "}
+                {t("desinscription.rechargez")}{" "}
                 <a
                   href="mailto:hello@data-closer.com?subject=Désinscription"
                   className="text-teal hover:underline"
                 >
                   hello@data-closer.com
                 </a>{" "}
-                : votre demande sera traitée manuellement.
+                {t("desinscription.traiteeManuellement")}
               </p>
             </>
           )}
 
           {etat === "absent" && (
             <>
-              <p className="text-base font-medium">Adresse manquante</p>
+              <p className="text-base font-medium">{t("desinscription.absente")}</p>
               <p className="mt-3 text-sm leading-relaxed text-content-soft">
-                Ce lien ne contient pas d&apos;adresse à désinscrire. Utilisez
-                le lien figurant au bas de l&apos;email que vous avez reçu, ou
-                écrivez à{" "}
+                {t("desinscription.absenteDetail")}{" "}
                 <a
                   href="mailto:hello@data-closer.com?subject=Désinscription"
                   className="text-teal hover:underline"

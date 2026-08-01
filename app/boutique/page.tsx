@@ -7,6 +7,7 @@ import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import { SessionExpiree, recupererBoutique, verifierPromo } from "@/lib/api";
 import { lireSession } from "@/lib/session";
+import { useLangue } from "@/lib/i18n";
 import type { Boutique, Offre } from "@/lib/types";
 
 const champ =
@@ -52,6 +53,7 @@ function CarteOffre({ offre, mise }: { offre: Offre; mise: boolean }) {
 
 export default function PageBoutique() {
   const router = useRouter();
+  const { t } = useLangue();
   const [donnees, setDonnees] = useState<Boutique | null>(null);
   const [vue, setVue] = useState<"abonnements" | "packs">("abonnements");
   const [code, setCode] = useState("");
@@ -102,18 +104,18 @@ export default function PageBoutique() {
 
         <header className="mb-6">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <Coins size={13} aria-hidden="true" /> Boutique
+            <Coins size={13} aria-hidden="true" /> {t("boutique.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Recharger vos crédits
+            {t("boutique.titre")}
           </h1>
           {donnees && (
             <p className="mt-2 text-sm text-muted">
-              Solde actuel :{" "}
+              {t("boutique.soldeAvant")}{" "}
               <span className="font-mono tabular-nums text-content">
                 {donnees.credits}
               </span>{" "}
-              crédits. Les crédits achetés n&apos;expirent pas.
+              {t("boutique.soldeApres")}
             </p>
           )}
         </header>
@@ -130,7 +132,7 @@ export default function PageBoutique() {
         <section className="mb-5 rounded-xl border border-line bg-surface p-5">
           <h2 className="mb-3 flex items-center gap-2 text-sm font-medium">
             <Ticket size={14} className="text-teal" aria-hidden="true" />
-            Vous avez un code promotionnel ?
+            {t("boutique.codePromo")}
           </h2>
           <div className="flex flex-wrap gap-2">
             <input
@@ -138,8 +140,8 @@ export default function PageBoutique() {
               value={code}
               onChange={(e) => setCode(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && code.trim() && appliquer()}
-              placeholder="PRODUCTHUNT"
-              aria-label="Code promotionnel"
+              placeholder={t("boutique.codeExemple")}
+              aria-label={t("boutique.codeLabel")}
             />
             <button
               type="button"
@@ -147,7 +149,7 @@ export default function PageBoutique() {
               disabled={code.trim() === ""}
               className="rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-line-hover hover:text-content disabled:cursor-not-allowed disabled:opacity-40"
             >
-              Appliquer
+              {t("boutique.appliquer")}
             </button>
           </div>
 
@@ -167,7 +169,7 @@ export default function PageBoutique() {
                 rel="noopener noreferrer"
                 className="mt-3 inline-block rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
               >
-                En profiter
+                {t("boutique.enProfiter")}
               </a>
             </div>
           )}
@@ -186,7 +188,7 @@ export default function PageBoutique() {
                   : "text-muted hover:text-content"
               }`}
             >
-              {cible === "abonnements" ? "Abonnements" : "Recharges ponctuelles"}
+              {cible === "abonnements" ? t("boutique.abonnements") : t("boutique.recharges")}
             </button>
           ))}
         </div>
@@ -217,8 +219,7 @@ export default function PageBoutique() {
         )}
 
         <p className="mt-6 text-center text-xs text-muted">
-          Le paiement est traité par Stripe. Nous n&apos;avons accès à aucune
-          donnée bancaire.
+          {t("boutique.stripe")}
         </p>
         <PiedDePage />
       </div>

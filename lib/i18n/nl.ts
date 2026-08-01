@@ -536,4 +536,79 @@ export const nl: Traductions = {
   "fichier.entreprises": "ondernemingen",
   "fichier.contactables": "contacteerbaar",
   "fichier.qualiteLabel": "geverifieerd, catch-all, onvindbaar",
+
+  // ── Assistent ──
+  "assistant.eyebrow": "Assistent",
+  "assistant.titre": "Een vraag over uw prospectie?",
+  "assistant.intro":
+    "De assistent kent uw activiteit: zijn antwoorden gaan over uw geval, niet over prospectie in het algemeen. Voeg een leadbestand toe zodat hij het kan analyseren.",
+  "assistant.pourCommencer": "Om te beginnen",
+  "assistant.reserve": "Antwoorden kunnen fouten bevatten. Controleer wat belangrijk is.",
+  "assistant.redige": "De assistent schrijft zijn antwoord",
+  "assistant.redigeCourt": "De assistent schrijft",
+  "assistant.retirerFichier": "Bestand verwijderen",
+  "assistant.joindreFichier": "Een bestand toevoegen",
+  "assistant.question": "Stel uw vraag…",
+  "assistant.questionCourt": "Uw vraag…",
+  "assistant.questionLabel": "Uw vraag",
+  "assistant.envoyer": "De vraag versturen",
+  "assistant.envoyerCourt": "Versturen",
+  "assistant.analyseFichier": "Analyseer dit bestand",
+  "assistant.fichierTropGros": "Bestand te groot. Maximaal 5 MB.",
+  "assistant.ouvrir": "De assistent openen",
+  "assistant.pleinEcran": "Op volledig scherm openen",
+  "assistant.fermer": "Sluiten",
+  "assistant.accueilBulle":
+    "Stel een vraag over uw prospectie, of voeg een leadbestand toe zodat ik het analyseer.",
+
+  // ── Winkel ──
+  "boutique.eyebrow": "Winkel",
+  "boutique.titre": "Uw credits bijladen",
+  "boutique.soldeAvant": "Huidig saldo:",
+  "boutique.soldeApres": "credits. Gekochte credits vervallen niet.",
+  "boutique.codePromo": "Hebt u een promotiecode?",
+  "boutique.codeExemple": "PRODUCTHUNT",
+  "boutique.codeLabel": "Promotiecode",
+  "boutique.appliquer": "Toepassen",
+  "boutique.enProfiter": "Hiervan profiteren",
+  "boutique.abonnements": "Abonnementen",
+  "boutique.recharges": "Eenmalige bijladingen",
+  "boutique.stripe":
+    "De betaling wordt verwerkt door Stripe. Wij hebben geen toegang tot bankgegevens.",
+
+  // ── Partnerschap ──
+  "partenariat.eyebrow": "Partnerschap",
+  "partenariat.titre": "Doorverwijzing en affiliatie",
+  "partenariat.intro":
+    "Twee afzonderlijke programma's: het ene vergoedt in credits, het andere in commissies.",
+  "partenariat.parrainage": "Doorverwijzing",
+  "partenariat.parrainageDetail":
+    "Voor vaste gebruikers die willen prospecteren zonder te betalen.",
+  "partenariat.lienCopie": "Link gekopieerd",
+  "partenariat.copierLien": "Mijn link kopiëren",
+  "partenariat.copieEchouee":
+    "Automatisch kopiëren is mislukt. Selecteer de link handmatig.",
+  "partenariat.affiliation": "Affiliatie",
+  "partenariat.affiliationDetail":
+    "Voor bureaus, opleiders en makers van B2B-content.",
+  "partenariat.vagues":
+    "Het programma opent in golven. Schrijf ons om op de wachtlijst te komen.",
+  "partenariat.rejoindre": "Op de lijst komen",
+  "partenariat.mailSujet": "Affiliatieprogramma DataCloser",
+  "partenariat.mailCorps":
+    "Goedendag,\n\nIk wil graag deelnemen aan het affiliatieprogramma van DataCloser.\n\nMet dank.",
+
+  // ── Uitschrijving ──
+  "desinscription.enCours": "Uw aanvraag wordt geregistreerd…",
+  "desinscription.fait": "Het is in orde.",
+  "desinscription.confirmation":
+    "ontvangt geen enkel prospectiebericht meer dat via DataCloser wordt verzonden, ongeacht de afzender.",
+  "desinscription.enFile":
+    "Een bericht dat op het ogenblik van uw aanvraag al in de verzendwachtrij stond, kan de komende minuten nog aankomen. Er volgt geen enkel ander.",
+  "desinscription.echec": "De registratie is mislukt.",
+  "desinscription.rechargez": "Herlaad deze pagina, of schrijf naar",
+  "desinscription.traiteeManuellement": ": uw aanvraag wordt dan handmatig verwerkt.",
+  "desinscription.absente": "Ontbrekend adres",
+  "desinscription.absenteDetail":
+    "Deze link bevat geen adres om uit te schrijven. Gebruik de link onderaan de e-mail die u hebt ontvangen, of schrijf naar",
 };

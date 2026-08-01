@@ -535,4 +535,79 @@ export const en: Traductions = {
   "fichier.entreprises": "companies",
   "fichier.contactables": "contactable",
   "fichier.qualiteLabel": "verified, catch-all, unreachable",
+
+  // ── Assistant ──
+  "assistant.eyebrow": "Assistant",
+  "assistant.titre": "A question about your prospecting?",
+  "assistant.intro":
+    "The assistant knows your business: its answers are about your case, not prospecting in general. Attach a lead file for it to analyse.",
+  "assistant.pourCommencer": "To get started",
+  "assistant.reserve": "Answers may contain errors. Check what matters.",
+  "assistant.redige": "The assistant is writing its reply",
+  "assistant.redigeCourt": "The assistant is writing",
+  "assistant.retirerFichier": "Remove the file",
+  "assistant.joindreFichier": "Attach a file",
+  "assistant.question": "Ask your question…",
+  "assistant.questionCourt": "Your question…",
+  "assistant.questionLabel": "Your question",
+  "assistant.envoyer": "Send the question",
+  "assistant.envoyerCourt": "Send",
+  "assistant.analyseFichier": "Analyse this file",
+  "assistant.fichierTropGros": "File too large. Maximum 5 MB.",
+  "assistant.ouvrir": "Open the assistant",
+  "assistant.pleinEcran": "Open full screen",
+  "assistant.fermer": "Close",
+  "assistant.accueilBulle":
+    "Ask a question about your prospecting, or attach a lead file for me to analyse.",
+
+  // ── Store ──
+  "boutique.eyebrow": "Store",
+  "boutique.titre": "Top up your credits",
+  "boutique.soldeAvant": "Current balance:",
+  "boutique.soldeApres": "credits. Purchased credits do not expire.",
+  "boutique.codePromo": "Have a promotional code?",
+  "boutique.codeExemple": "PRODUCTHUNT",
+  "boutique.codeLabel": "Promotional code",
+  "boutique.appliquer": "Apply",
+  "boutique.enProfiter": "Take advantage",
+  "boutique.abonnements": "Subscriptions",
+  "boutique.recharges": "One-off top-ups",
+  "boutique.stripe":
+    "Payment is handled by Stripe. We have no access to any banking data.",
+
+  // ── Partnership ──
+  "partenariat.eyebrow": "Partnership",
+  "partenariat.titre": "Referral and affiliation",
+  "partenariat.intro":
+    "Two separate programmes: one pays in credits, the other in commission.",
+  "partenariat.parrainage": "Referral",
+  "partenariat.parrainageDetail":
+    "For regular users who want to prospect without paying.",
+  "partenariat.lienCopie": "Link copied",
+  "partenariat.copierLien": "Copy my link",
+  "partenariat.copieEchouee":
+    "Automatic copying failed. Select the link by hand.",
+  "partenariat.affiliation": "Affiliation",
+  "partenariat.affiliationDetail":
+    "For agencies, trainers and B2B content creators.",
+  "partenariat.vagues":
+    "The programme opens in waves. Write to us to join the waiting list.",
+  "partenariat.rejoindre": "Join the list",
+  "partenariat.mailSujet": "DataCloser affiliate programme",
+  "partenariat.mailCorps":
+    "Hello,\n\nI would like to join the DataCloser affiliate programme.\n\nThank you.",
+
+  // ── Unsubscribe ──
+  "desinscription.enCours": "Recording your request…",
+  "desinscription.fait": "Done.",
+  "desinscription.confirmation":
+    "will no longer receive any prospecting message sent through DataCloser, whoever the sender.",
+  "desinscription.enFile":
+    "A message already queued for sending when you made your request may still arrive in the next few minutes. No other will follow.",
+  "desinscription.echec": "Recording failed.",
+  "desinscription.rechargez": "Reload this page, or write to",
+  "desinscription.traiteeManuellement": ": your request will be handled manually.",
+  "desinscription.absente": "Missing address",
+  "desinscription.absenteDetail":
+    "This link contains no address to unsubscribe. Use the link at the bottom of the email you received, or write to",
 };
