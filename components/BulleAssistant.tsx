@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   ArrowUp,
   Maximize2,
@@ -37,6 +38,16 @@ import type { ActionAssistant, TourConversation } from "@/lib/types";
 
 const TAILLE_MAX_MO = 5;
 
+// Écrans publics : l'assistant y promettrait une aide à quelqu'un qui
+// n'a pas encore de compte, et il n'aurait rien à lui dire.
+const ECRANS_PUBLICS = [
+  "/",
+  "/connexion",
+  "/inscription",
+  "/mot-de-passe-oublie",
+  "/desinscription",
+];
+
 function Attente() {
   return (
     <span className="flex gap-1 py-1" aria-label="L'assistant rédige">
@@ -55,6 +66,7 @@ function Attente() {
 }
 
 export function BulleAssistant() {
+  const chemin = usePathname();
   const contexte = useContexteAssistant();
   const [connecte, setConnecte] = useState(false);
   const [ouvert, setOuvert] = useState(false);
@@ -70,7 +82,7 @@ export function BulleAssistant() {
   const bas = useRef<HTMLDivElement>(null);
   const champFichier = useRef<HTMLInputElement>(null);
 
-  useEffect(() => setConnecte(Boolean(lireSession())), []);
+  useEffect(() => setConnecte(Boolean(lireSession())), [chemin]);
 
   // Le halo attire l'oeil quelques secondes, puis se tait : une
   // animation permanente sur un tableau de bord devient une gêne.
@@ -145,8 +157,7 @@ export function BulleAssistant() {
     setFichier(f);
   }
 
-  // Rien à proposer à quelqu'un qui n'est pas connecté.
-  if (!connecte) return null;
+  if (!connecte || ECRANS_PUBLICS.includes(chemin)) return null;
 
   if (!ouvert) {
     return (
@@ -179,7 +190,7 @@ export function BulleAssistant() {
     <div
       role="dialog"
       aria-label="Assistant"
-      className="apparition fixed bottom-5 right-5 z-40 flex max-h-[min(32rem,80vh)] w-[min(24rem,calc(100vw-2.5rem))] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20"
+      className="apparition fixed inset-x-4 bottom-5 z-40 mx-auto flex max-h-[min(32rem,75vh)] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20 sm:inset-x-auto sm:right-5 sm:mx-0 sm:w-96"
     >
       <header className="flex items-center gap-2 border-b border-line px-4 py-3">
         <MessageSquare size={15} className="text-teal" aria-hidden="true" />

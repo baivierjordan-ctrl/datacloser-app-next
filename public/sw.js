@@ -24,8 +24,15 @@ self.addEventListener("activate", (evenement) => {
   evenement.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("fetch", (evenement) => {
-  // Le réseau, toujours. Ce gestionnaire existe pour satisfaire le
-  // critère d'installation, pas pour intercepter quoi que ce soit.
-  evenement.respondWith(fetch(evenement.request));
+self.addEventListener("fetch", () => {
+  // Volontairement vide.
+  //
+  // La version précédente appelait respondWith(fetch(...)), ce qui
+  // faisait transiter TOUT le trafic par ce fichier : au moindre
+  // hoquet réseau, la page entière échouait avec « This page couldn't
+  // load » là où le navigateur aurait simplement réessayé.
+  //
+  // Un gestionnaire déclaré suffit au critère d'installation de
+  // Chrome. Ne pas appeler respondWith laisse le navigateur gérer la
+  // requête lui-même, ce qu'il fait mieux que nous.
 });
