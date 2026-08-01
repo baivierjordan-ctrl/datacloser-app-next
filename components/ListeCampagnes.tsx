@@ -9,7 +9,8 @@ import {
   supprimerCampagne,
 } from "@/lib/api";
 import { dateCourte, dateHeure } from "@/lib/dates";
-import { LIBELLES_CAMPAGNE, type Campagne, type LogEnvoi } from "@/lib/types";
+import { type Campagne, type LogEnvoi } from "@/lib/types";
+import { useLangue, type Cle } from "@/lib/i18n";
 
 // Un envoi n'est pas un destinataire : les relances J+4, J+9 et J+14
 // incrementent le compteur d'envois sans ajouter personne a la campagne.
@@ -29,6 +30,7 @@ export function ListeCampagnes({
   campagnes: Campagne[];
   onChangement?: () => void;
 }) {
+  const { t } = useLangue();
   const [ouverte, setOuverte] = useState<string | null>(null);
   const [logs, setLogs] = useState<Record<string, LogEnvoi[]>>({});
   const [chargement, setChargement] = useState<string | null>(null);
@@ -75,17 +77,15 @@ export function ListeCampagnes({
   if (campagnes.length === 0) {
     return (
       <div className="rounded-xl border border-line bg-surface px-5 py-10 text-center">
-        <p className="text-sm text-content">Aucune campagne pour l&apos;instant.</p>
+        <p className="text-sm text-content">{t("liste.vide")}</p>
         <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-muted">
-          Une campagne écrit un message pour chaque destinataire à partir de son
-          site, puis l&apos;envoie depuis votre adresse, en respectant un délai
-          entre chaque envoi.
+          {t("liste.videDetail")}
         </p>
         <Link
           href="/outreach?vue=creation"
           className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
         >
-          Créer une campagne
+          {t("liste.creer")}
           <ArrowRight size={14} aria-hidden="true" />
         </Link>
       </div>
@@ -115,29 +115,29 @@ export function ListeCampagnes({
                 <h3 className="truncate text-[16px] font-medium">{campagne.nom}</h3>
                 <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
                   <span className={COULEUR_STATUT[campagne.statut] ?? "text-muted"}>
-                    {LIBELLES_CAMPAGNE[campagne.statut] ?? campagne.statut}
+                    {t(`campagneStatut.${campagne.statut}` as Cle) ?? campagne.statut}
                   </span>
                   <span>
                     <span className="font-mono tabular-nums">
                       {campagne.total_leads}
                     </span>
-                    {" destinataires"}
+                    {t("liste.destinatairesSuffixe")}
                   </span>
                   <span>
                     <span className="font-mono tabular-nums">
                       {campagne.envoyes}
                     </span>
-                    {campagne.envoyes > 1 ? " envois" : " envoi"}
+                    {campagne.envoyes > 1 ? t("liste.envois") : t("liste.envoi")}
                   </span>
                   {campagne.echecs > 0 && (
                     <span className="text-danger">
                       <span className="font-mono tabular-nums">
                         {campagne.echecs}
                       </span>{" "}
-                      en échec
+                      {t("liste.enEchec")}
                     </span>
                   )}
-                  <span>Créée le {dateCourte(campagne.created_at)}</span>
+                  <span>{t("liste.creeeLe")} {dateCourte(campagne.created_at)}</span>
                 </p>
               </div>
 
@@ -164,7 +164,7 @@ export function ListeCampagnes({
                       }
                       className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-warn/40 hover:text-warn disabled:opacity-40"
                     >
-                      <Pause size={12} aria-hidden="true" /> Mettre en pause
+                      <Pause size={12} aria-hidden="true" /> {t("liste.pause")}
                     </button>
                   ) : campagne.statut === "pausee" ? (
                     <button
@@ -177,14 +177,13 @@ export function ListeCampagnes({
                       }
                       className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-teal/40 hover:text-teal disabled:opacity-40"
                     >
-                      <Play size={12} aria-hidden="true" /> Reprendre les envois
+                      <Play size={12} aria-hidden="true" /> {t("liste.reprendre")}
                     </button>
                   ) : null}
 
                   {aSupprimer === campagne.id ? (
                     <span className="flex flex-wrap items-center gap-2 text-xs text-danger">
-                      Supprimer définitivement cette campagne, sa file
-                      d&apos;envoi et son journal ?
+                      {t("liste.confirmerSuppression")}
                       <button
                         type="button"
                         disabled={occupee === campagne.id}
@@ -193,14 +192,14 @@ export function ListeCampagnes({
                         }
                         className="rounded-lg bg-danger px-3 py-1.5 font-medium text-white transition hover:opacity-90 disabled:opacity-40"
                       >
-                        {occupee === campagne.id ? "Suppression…" : "Confirmer"}
+                        {occupee === campagne.id ? t("liste.suppression") : t("liste.confirmer")}
                       </button>
                       <button
                         type="button"
                         onClick={() => setASupprimer(null)}
                         className="rounded-lg border border-line px-3 py-1.5 text-muted transition hover:text-content"
                       >
-                        Annuler
+                        {t("liste.annuler")}
                       </button>
                     </span>
                   ) : (
@@ -209,20 +208,20 @@ export function ListeCampagnes({
                       onClick={() => setASupprimer(campagne.id)}
                       className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-danger/40 hover:text-danger"
                     >
-                      <Trash2 size={12} aria-hidden="true" /> Supprimer
+                      <Trash2 size={12} aria-hidden="true" /> {t("liste.supprimer")}
                     </button>
                   )}
                 </div>
 
                 {chargement === campagne.id ? (
-                  <p className="text-xs text-muted">Chargement du journal…</p>
+                  <p className="text-xs text-muted">{t("liste.chargementJournal")}</p>
                 ) : erreur ? (
                   <p role="alert" className="text-xs text-danger">
                     {erreur}
                   </p>
                 ) : !journal || journal.length === 0 ? (
                   <p className="text-xs text-muted">
-                    Aucun envoi enregistré pour cette campagne.
+                    {t("liste.journalVide")}
                   </p>
                 ) : (
                   <ul className="flex flex-col">
@@ -267,10 +266,10 @@ export function ListeCampagnes({
                                 <MailCheck size={12} aria-hidden="true" />
                               )}
                               {ligne.erreur
-                                ? "échec"
+                                ? t("liste.echec")
                                 : ligne.repondu_at
-                                  ? "répondu"
-                                  : ligne.statut || "envoyé"}
+                                  ? t("liste.repondu")
+                                  : ligne.statut || t("liste.envoye")}
                             </span>
                           </button>
 
@@ -284,7 +283,7 @@ export function ListeCampagnes({
                               {ligne.email_genere && (
                                 <>
                                   <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-teal">
-                                    Message envoyé
+                                    {t("liste.messageEnvoye")}
                                   </p>
                                   <pre className="max-h-64 overflow-y-auto whitespace-pre-wrap break-words font-mono text-[12px] leading-relaxed text-content-soft">
                                     {ligne.email_genere}

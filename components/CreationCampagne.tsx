@@ -15,6 +15,7 @@ import {
   recupererScans,
 } from "@/lib/api";
 import { useDeclarerContexte } from "@/lib/contexte-assistant";
+import { useLangue } from "@/lib/i18n";
 import type { Modeles, Qualification, Relance } from "@/lib/types";
 
 interface Props {
@@ -37,6 +38,7 @@ export function CreationCampagne({
   modeleInitial?: string;
   actionInitiale?: "objets" | "reecrire";
 }) {
+  const { t } = useLangue();
   const [scans, setScans] = useState<string[]>([]);
   const [fichier, setFichier] = useState(sourceInitiale ?? "");
   const [nom, setNom] = useState("");
@@ -175,7 +177,7 @@ export function CreationCampagne({
   if (scans.length === 0 && !erreur) {
     return (
       <p className="rounded-xl border border-line bg-surface px-5 py-10 text-center text-sm text-muted">
-        Aucun scan disponible. Lancez d&apos;abord une recherche depuis Radar.
+        {t("campagne.aucunScan")}
       </p>
     );
   }
@@ -185,8 +187,7 @@ export function CreationCampagne({
       {!smtpConfigure && (
         <p className="flex items-start gap-2 rounded-lg border border-warn/30 bg-warn/5 px-3 py-2 text-xs text-warn">
           <AlertTriangle size={14} className="mt-px shrink-0" aria-hidden="true" />
-          Renseignez votre serveur d&apos;envoi dans Réglages avant de lancer une
-          campagne.
+          {t("campagne.smtpAvant")}
         </p>
       )}
 
@@ -194,19 +195,19 @@ export function CreationCampagne({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={etiquette} htmlFor="nom-campagne">
-              Nom de la campagne
+              {t("campagne.nom")}
             </label>
             <input
               id="nom-campagne"
               className={champ}
               value={nom}
               onChange={(e) => setNom(e.target.value)}
-              placeholder="Prospection chauffagistes Charleroi"
+              placeholder={t("campagne.nomExemple")}
             />
           </div>
           <div>
             <label className={etiquette} htmlFor="scan-source">
-              Scan source
+              {t("campagne.scanSource")}
             </label>
             <select
               id="scan-source"
@@ -226,24 +227,20 @@ export function CreationCampagne({
 
       <section className="rounded-xl border border-line bg-surface p-5">
         <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
-          Destinataires
-          <Aide titre="Pourquoi filtrer par qualification">
-            Envoyer aux adresses introuvables nuit à la réputation de votre
-            domaine : les serveurs finissent par vous classer en spam. Les
-            qualifications fiables sont cochées d&apos;office ; élargissez en
-            connaissance de cause.
+          {t("campagne.destinataires")}
+          <Aide titre={t("campagne.aideQualifTitre")}>
+            {t("campagne.aideQualifTexte")}
           </Aide>
         </h2>
         <p className="mb-4 text-xs text-muted">
-          Les qualifications les plus fiables sont cochées par défaut. Élargissez
-          pour augmenter le volume.
+          {t("campagne.qualifDefaut")}
         </p>
 
         {chargementQualifs ? (
           <div className="h-16 animate-pulse rounded-lg border border-line" />
         ) : qualifications.length === 0 ? (
           <p className="text-xs text-muted">
-            Ce scan ne contient aucune adresse email exploitable.
+            {t("campagne.aucuneAdresse")}
           </p>
         ) : (
           <div className="flex flex-col gap-2">
@@ -276,7 +273,7 @@ export function CreationCampagne({
       </section>
 
       <section className="rounded-xl border border-line bg-surface p-5">
-        <h2 className="mb-1 text-sm font-medium">Message</h2>
+        <h2 className="mb-1 text-sm font-medium">{t("campagne.message")}</h2>
         {modeles && (
           <p className="mb-4 flex flex-wrap gap-1.5">
             {modeles.variables.map((v) => (
@@ -291,7 +288,7 @@ export function CreationCampagne({
         )}
 
         <label className={etiquette} htmlFor="sujet">
-          Objet
+          {t("campagne.objet")}
         </label>
         <input
           id="sujet"
@@ -301,7 +298,7 @@ export function CreationCampagne({
         />
 
         <label className={etiquette} htmlFor="corps">
-          Corps du message
+          {t("campagne.corps")}
         </label>
         <textarea
           id="corps"
@@ -329,19 +326,18 @@ export function CreationCampagne({
         >
           {modeleEnregistre ? (
             <>
-              <Check size={13} aria-hidden="true" /> Modèle enregistré
+              <Check size={13} aria-hidden="true" /> {t("campagne.modeleEnregistre")}
             </>
           ) : (
             <>
-              <Save size={13} aria-hidden="true" /> Enregistrer comme modèle par défaut
+              <Save size={13} aria-hidden="true" /> {t("campagne.enregistrerModele")}
             </>
           )}
         </button>
 
         {origineModele && (
           <p className="mt-3 rounded-lg border border-teal/30 bg-teal/5 px-3 py-2 text-xs text-muted">
-            Modèle repris de « {origineModele} », votre campagne qui obtient le
-            meilleur taux de réponse. Ajustez-le avant de lancer.
+            {t("campagne.origineAvant")} {origineModele}{t("campagne.origineApres")}
           </p>
         )}
 
@@ -384,22 +380,18 @@ export function CreationCampagne({
             checked={avecRelance}
             onChange={(e) => setAvecRelance(e.target.checked)}
           />
-          Activer les relances
-          <Aide titre="Comment fonctionnent les relances">
-            La relance J+4 part quatre jours après le premier message, et
-            uniquement aux destinataires qui l&apos;ont reçu sans répondre.
-            J+9 et J+14 suivent la même logique en cascade. Les relances ne
-            coûtent aucun crédit : seul le premier message est facturé.
+          {t("campagne.activerRelances")}
+          <Aide titre={t("campagne.aideRelanceTitre")}>
+            {t("campagne.aideRelanceTexte")}
           </Aide>
         </label>
         <p className="mt-1.5 text-xs text-muted">
-          La relance part 4 jours après le premier message, et uniquement aux
-          destinataires l&apos;ayant reçu.
+          {t("campagne.relanceDetail")}
         </p>
 
         {avecRelance && (
           <div className="mt-4 flex flex-col gap-4 border-l border-line pl-4">
-            <ChampsRelance titre="Relance J+4" valeur={j4} onChange={setJ4} />
+            <ChampsRelance titre={t("campagne.relanceJ4")} valeur={j4} onChange={setJ4} />
 
             <label className="flex cursor-pointer items-center gap-3 text-sm">
               <input
@@ -408,10 +400,10 @@ export function CreationCampagne({
                 checked={avecJ9}
                 onChange={(e) => setAvecJ9(e.target.checked)}
               />
-              Ajouter une relance J+9
+              {t("campagne.ajouterJ9")}
             </label>
             {avecJ9 && (
-              <ChampsRelance titre="Relance J+9" valeur={j9} onChange={setJ9} />
+              <ChampsRelance titre={t("campagne.relanceJ9")} valeur={j9} onChange={setJ9} />
             )}
 
             {avecJ9 && (
@@ -422,11 +414,11 @@ export function CreationCampagne({
                   checked={avecJ14}
                   onChange={(e) => setAvecJ14(e.target.checked)}
                 />
-                Ajouter une relance J+14
+                {t("campagne.ajouterJ14")}
               </label>
             )}
             {avecJ9 && avecJ14 && (
-              <ChampsRelance titre="Relance J+14" valeur={j14} onChange={setJ14} />
+              <ChampsRelance titre={t("campagne.relanceJ14")} valeur={j14} onChange={setJ14} />
             )}
           </div>
         )}
@@ -445,15 +437,14 @@ export function CreationCampagne({
         <div className="min-w-0 text-sm">
           <p className="text-content">
             <span className="font-mono tabular-nums">{destinataires}</span>{" "}
-            {destinataires > 1 ? "destinataires" : "destinataire"} ·{" "}
+            {destinataires > 1 ? t("outreach.destinataires") : t("outreach.destinataire")} ·{" "}
             <span className="font-mono tabular-nums text-teal">
               {destinataires}
             </span>{" "}
-            {destinataires > 1 ? "crédits" : "crédit"}
+            {destinataires > 1 ? t("campagne.credits") : t("campagne.credit")}
           </p>
           <p className="mt-0.5 text-xs text-muted">
-            Seul le premier message est facturé. Les relances éventuelles ne
-            coûtent rien de plus.
+            {t("campagne.factureRappel")}
           </p>
         </div>
         <button
@@ -467,7 +458,7 @@ export function CreationCampagne({
           ) : (
             <Send size={14} aria-hidden="true" />
           )}
-          {envoiEnCours ? "Création…" : "Lancer la campagne"}
+          {envoiEnCours ? t("campagne.creation") : t("campagne.lancer")}
         </button>
       </div>
     </div>
@@ -483,6 +474,7 @@ function ChampsRelance({
   valeur: Relance;
   onChange: (r: Relance) => void;
 }) {
+  const { t } = useLangue();
   const champ =
     "w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-content outline-none transition focus:border-teal";
   return (
@@ -492,16 +484,16 @@ function ChampsRelance({
         className={`${champ} mb-2`}
         value={valeur.sujet}
         onChange={(e) => onChange({ ...valeur, sujet: e.target.value })}
-        placeholder="Objet"
-        aria-label={`${titre} — objet`}
+        placeholder={t("campagne.objet")}
+        aria-label={`${titre} ${t("campagne.suffixeObjet")}`}
       />
       <textarea
         rows={6}
         className={`${champ} resize-y font-mono text-[14px] leading-relaxed`}
         value={valeur.corps}
         onChange={(e) => onChange({ ...valeur, corps: e.target.value })}
-        placeholder="Corps du message"
-        aria-label={`${titre} — corps`}
+        placeholder={t("campagne.corps")}
+        aria-label={`${titre} ${t("campagne.suffixeCorps")}`}
       />
     </div>
   );

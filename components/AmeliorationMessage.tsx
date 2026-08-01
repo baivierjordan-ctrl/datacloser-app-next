@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Loader2, Sparkles, Type, X } from "lucide-react";
 import { ameliorerMessage, proposerObjets } from "@/lib/api";
 import type { PropositionMessage } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
 /**
  * Réécriture du modèle par le moteur.
@@ -41,6 +42,7 @@ export function AmeliorationMessage({
   const [objets, setObjets] = useState<string[]>([]);
   const [objetsEnCours, setObjetsEnCours] = useState(false);
 
+  const { t } = useLangue();
   const pret = sujet.trim() !== "" && corps.trim() !== "";
 
   // Un conseil peut demander l'action directement : arriver sur la page
@@ -100,7 +102,7 @@ export function AmeliorationMessage({
       {actionAuChargement && attente && (
         <p className="mb-3 flex items-center gap-2 text-xs text-teal">
           <Loader2 size={13} className="animate-spin" aria-hidden="true" />
-          Préparation de la proposition demandée depuis vos conseils…
+          {t("amelio.preparation")}
         </p>
       )}
 
@@ -116,7 +118,7 @@ export function AmeliorationMessage({
         ) : (
           <Sparkles size={13} aria-hidden="true" />
         )}
-        {enCours ? "Réécriture en cours…" : "Proposer une version améliorée"}
+        {enCours ? t("amelio.reecritureEnCours") : t("amelio.reecrire")}
       </button>
 
       <button
@@ -130,16 +132,15 @@ export function AmeliorationMessage({
         ) : (
           <Type size={13} aria-hidden="true" />
         )}
-        {objetsEnCours ? "Recherche…" : "Proposer d'autres objets"}
+        {objetsEnCours ? t("amelio.rechercheObjets") : t("amelio.autresObjets")}
       </button>
       </div>
 
       {objets.length > 0 && (
         <div className="apparition mt-4 rounded-xl border border-line bg-surface p-4">
-          <p className="mb-1 text-sm font-medium">Autres objets possibles</p>
+          <p className="mb-1 text-sm font-medium">{t("amelio.objetsTitre")}</p>
           <p className="mb-3 text-xs text-muted">
-            Trois angles différents. Changez-en un sur deux entre vos
-            campagnes : c&apos;est la seule façon de savoir ce qui fait ouvrir.
+            {t("amelio.objetsDetail")}
           </p>
           <div className="flex flex-col gap-2">
             {objets.map((o) => (
@@ -161,7 +162,7 @@ export function AmeliorationMessage({
 
       {!pret && (
         <p className="mt-2 text-xs text-muted">
-          Rédigez d&apos;abord un objet et un message.
+          {t("amelio.redigezDabord")}
         </p>
       )}
 
@@ -173,13 +174,12 @@ export function AmeliorationMessage({
 
       {proposition && (
         <div className="apparition mt-4 rounded-xl border border-teal/30 bg-teal/5 p-5">
-          <p className="text-sm font-medium">Trois angles possibles</p>
+          <p className="text-sm font-medium">{t("amelio.troisAngles")}</p>
           <p className="mt-1 text-xs text-muted">
             {proposition.diagnostic_utilise
-              ? "Écrits en tenant compte des résultats mesurés sur vos envois. "
+              ? t("amelio.avecDiagnostic")
               : ""}
-            Comparez-les : c&apos;est le choix qui vous apprendra ce qui parle
-            à vos prospects.
+            {t("amelio.comparez")}
           </p>
 
           <div className="mt-4 flex flex-col gap-3">
@@ -188,9 +188,9 @@ export function AmeliorationMessage({
                 version.angle.toLowerCase() ===
                 proposition.recommande.toLowerCase();
               const alertes = [
-                version.mesures.friction.length > 0 && "demande de sortir de l'email",
-                version.mesures.corps_long && "trop long",
-                version.mesures.objet_tronque_mobile && "objet trop long",
+                version.mesures.friction.length > 0 && t("amelio.alerteFriction"),
+                version.mesures.corps_long && t("amelio.alerteLong"),
+                version.mesures.objet_tronque_mobile && t("amelio.alerteObjetLong"),
               ].filter(Boolean);
 
               return (
@@ -204,11 +204,11 @@ export function AmeliorationMessage({
                     <h4 className="text-sm font-medium">{version.angle}</h4>
                     {conseille && (
                       <span className="rounded-full bg-teal/15 px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-teal">
-                        conseillé
+                        {t("amelio.conseille")}
                       </span>
                     )}
                     <span className="ml-auto font-mono text-[11px] text-muted">
-                      {version.mesures.mots_corps} mots
+                      {version.mesures.mots_corps} {t("amelio.mots")}
                     </span>
                   </div>
 
@@ -219,7 +219,7 @@ export function AmeliorationMessage({
                   )}
 
                   <p className="mt-3 text-sm">
-                    <span className="text-muted">Objet : </span>
+                    <span className="text-muted">{t("amelio.objet")}</span>
                     {version.sujet}
                   </p>
                   <pre className="mt-2 max-h-52 overflow-y-auto whitespace-pre-wrap break-words border-t border-line pt-3 font-mono text-[13px] leading-relaxed text-content-soft">
@@ -231,7 +231,7 @@ export function AmeliorationMessage({
                       l'utilisateur reste juge. */}
                   {alertes.length > 0 && (
                     <p className="mt-2 text-xs text-warn">
-                      À vérifier : {alertes.join(", ")}.
+                      {t("amelio.aVerifier")} {alertes.join(", ")}.
                     </p>
                   )}
 
@@ -244,7 +244,7 @@ export function AmeliorationMessage({
                     className="mt-3 flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
                   >
                     <Check size={14} aria-hidden="true" />
-                    Utiliser cette version
+                    {t("amelio.utiliser")}
                   </button>
                 </article>
               );
@@ -254,7 +254,7 @@ export function AmeliorationMessage({
           {proposition.changements.length > 0 && (
             <>
               <p className="mb-2 mt-4 text-xs text-muted">
-                Ce qui change par rapport à votre message
+                {t("amelio.changements")}
               </p>
               <ul className="flex flex-col gap-1.5">
                 {proposition.changements.map((c) => (
@@ -280,10 +280,10 @@ export function AmeliorationMessage({
               className="flex items-center gap-2 text-xs text-muted transition hover:text-content"
             >
               <X size={13} aria-hidden="true" />
-              Garder mon message
+              {t("amelio.garder")}
             </button>
             <p className="text-xs text-muted">
-              Relisez avant de remplacer : ce message partira de votre adresse.
+              {t("amelio.relisez")}
             </p>
           </div>
         </div>

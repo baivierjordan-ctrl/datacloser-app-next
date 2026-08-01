@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AlertTriangle, Check, ClipboardCheck, Loader2 } from "lucide-react";
 import { auditerMessage } from "@/lib/api";
 import type { AuditMessage } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
 /**
  * Audit du message, sur cinq axes.
@@ -23,9 +24,9 @@ import type { AuditMessage } from "@/lib/types";
  * chiffre instable invite à optimiser contre du bruit.
  */
 const ETATS = {
-  respecte: { libelle: "Respecté", couleur: "text-ok", puce: "bg-ok" },
-  ameliorable: { libelle: "Améliorable", couleur: "text-warn", puce: "bg-warn" },
-  manque: { libelle: "À corriger", couleur: "text-danger", puce: "bg-danger" },
+  respecte: { cle: "audit.respecte", couleur: "text-ok", puce: "bg-ok" },
+  ameliorable: { cle: "audit.ameliorable", couleur: "text-warn", puce: "bg-warn" },
+  manque: { cle: "audit.manque", couleur: "text-danger", puce: "bg-danger" },
 } as const;
 
 export function AuditMessageBloc({
@@ -40,6 +41,7 @@ export function AuditMessageBloc({
   /** Transmet les corrections relevées, pour la réécriture. */
   onRemarques?: (remarques: string[]) => void;
 }) {
+  const { t } = useLangue();
   const [audit, setAudit] = useState<AuditMessage | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState("");
@@ -70,23 +72,23 @@ export function AuditMessageBloc({
   const faits = m
     ? [
         m.friction.length > 0 &&
-          `Le message demande de sortir de l'email (${m.friction.join(", ")}) : chaque étape supplémentaire coûte des réponses.`,
+          `${t("audit.frictionAvant")}${m.friction.join(", ")}${t("audit.frictionApres")}`,
         m.promesse_chiffree &&
-          "Promesse chiffrée : elle fait lire le message comme une publicité.",
+          t("audit.promesseChiffree"),
         m.objet_tronque_mobile &&
-          `Objet de ${m.longueur_objet} caractères : coupé sur téléphone au-delà de 60.`,
+          `${t("audit.objetTronqueAvant")} ${m.longueur_objet} ${t("audit.objetTronqueApres")}`,
         m.corps_long &&
-          `Message de ${m.mots_corps} mots : au-delà de 120, il se lit en diagonale.`,
+          `${t("audit.corpsLongAvant")} ${m.mots_corps} ${t("audit.corpsLongApres")}`,
         m.declencheurs.length > 0 &&
-          `Termes surveillés par les filtres : ${m.declencheurs.join(", ")}.`,
+          `${t("audit.declencheurs")} ${m.declencheurs.join(", ")}.`,
         m.questions === 0 &&
-          "Aucune question : rien n'invite le destinataire à répondre.",
+          t("audit.aucuneQuestion"),
         m.liens > 1 &&
-          `${m.liens} liens : au-delà d'un seul, la délivrabilité se dégrade.`,
+          `${m.liens} ${t("audit.liensApres")}`,
         !m.personnalise &&
-          "Pas de variable d'accroche : tous vos destinataires reçoivent le même texte.",
-        m.majuscules_objet && "Objet à forte proportion de majuscules.",
-        m.exclamations > 1 && `${m.exclamations} points d'exclamation.`,
+          t("audit.pasPersonnalise"),
+        m.majuscules_objet && t("audit.majuscules"),
+        m.exclamations > 1 && `${m.exclamations} ${t("audit.exclamations")}`,
       ].filter(Boolean)
     : [];
 
@@ -103,7 +105,7 @@ export function AuditMessageBloc({
         ) : (
           <ClipboardCheck size={13} aria-hidden="true" />
         )}
-        {enCours ? "Analyse en cours…" : "Auditer mon message"}
+        {enCours ? t("audit.enCours") : t("audit.bouton")}
       </button>
 
       {erreur && (
@@ -122,7 +124,7 @@ export function AuditMessageBloc({
             <div className="mt-4 rounded-lg border border-warn/30 bg-warn/5 p-4">
               <p className="mb-2 flex items-center gap-2 text-xs font-medium text-warn">
                 <AlertTriangle size={13} aria-hidden="true" />
-                Constats mesurés sur votre texte
+                {t("audit.constats")}
               </p>
               <ul className="flex flex-col gap-1.5">
                 {faits.map((f) => (
@@ -135,8 +137,7 @@ export function AuditMessageBloc({
           )}
 
           <p className="mt-3 font-mono text-xs text-muted">
-            {audit.axes.filter((a) => a.verdict === "respecte").length} critère(s)
-            sur {audit.axes.length} respecté(s)
+            {audit.axes.filter((a) => a.verdict === "respecte").length} {t("audit.critereAvant")} {audit.axes.length} {t("audit.critereApres")}
           </p>
 
           <div className="mt-4 flex flex-col gap-3">
@@ -155,7 +156,7 @@ export function AuditMessageBloc({
                       ETATS[axe.verdict]?.couleur ?? "text-muted"
                     }`}
                   >
-                    {ETATS[axe.verdict]?.libelle ?? ""}
+                    {ETATS[axe.verdict] ? t(ETATS[axe.verdict].cle) : ""}
                   </span>
                 </div>
                 <p className="mt-1.5 text-xs leading-relaxed text-content-soft">
@@ -163,7 +164,7 @@ export function AuditMessageBloc({
                 </p>
                 {axe.correction && (
                   <p className="mt-2 border-t border-line pt-2 text-xs leading-relaxed text-muted">
-                    <span className="text-teal">À faire : </span>
+                    <span className="text-teal">{t("audit.aFaire")}</span>
                     {axe.correction}
                   </p>
                 )}
@@ -173,7 +174,7 @@ export function AuditMessageBloc({
 
           {audit.priorite && (
             <div className="mt-4 rounded-lg border border-teal/30 bg-teal/5 p-4">
-              <p className="text-xs font-medium text-teal">Par quoi commencer</p>
+              <p className="text-xs font-medium text-teal">{t("audit.parOuCommencer")}</p>
               <p className="mt-1.5 text-sm leading-relaxed text-content-soft">
                 {audit.priorite}
               </p>
@@ -182,12 +183,12 @@ export function AuditMessageBloc({
 
           {audit.corrige_corps && (
             <div className="mt-4 rounded-lg border border-line bg-ink p-4">
-              <p className="text-sm font-medium">Version corrigée</p>
+              <p className="text-sm font-medium">{t("audit.versionCorrigee")}</p>
               <p className="mt-1 text-xs text-muted">
-                Applique les cinq remarques ci-dessus.
+                {t("audit.appliqueRemarques")}
               </p>
               <p className="mt-3 text-sm">
-                <span className="text-muted">Objet : </span>
+                <span className="text-muted">{t("audit.objet")}</span>
                 {audit.corrige_sujet}
               </p>
               <pre className="mt-2 max-h-56 overflow-y-auto whitespace-pre-wrap break-words border-t border-line pt-3 font-mono text-[13px] leading-relaxed text-content-soft">
@@ -202,16 +203,13 @@ export function AuditMessageBloc({
                 className="mt-3 flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
               >
                 <Check size={14} aria-hidden="true" />
-                Appliquer ces corrections
+                {t("audit.appliquer")}
               </button>
             </div>
           )}
 
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Les constats chiffrés sont mesurés sur votre texte. Les
-            appréciations viennent du moteur et reposent sur les pratiques
-            connues, pas sur l&apos;observation de vos destinataires : seul un
-            essai comparé tranchera.
+            {t("audit.reserve")}
           </p>
         </div>
       )}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AlertTriangle, ChevronRight, Eye, Loader2, Shuffle } from "lucide-react";
 import { genererApercu } from "@/lib/api";
 import type { ApercuEmail } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
 /**
  * Aperçu de l'email tel qu'il partira, construit sur un destinataire réel
@@ -22,6 +23,7 @@ export function ApercuOutreach({
   sujet: string;
   corps: string;
 }) {
+  const { t } = useLangue();
   const [apercu, setApercu] = useState<ApercuEmail | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState("");
@@ -63,7 +65,7 @@ export function ApercuOutreach({
           ) : (
             <Shuffle size={14} aria-hidden="true" />
           )}
-          {enCours ? "Construction…" : "Aperçu au hasard"}
+          {enCours ? t("apercu.construction") : t("apercu.auHasard")}
         </button>
 
         {apercu && (
