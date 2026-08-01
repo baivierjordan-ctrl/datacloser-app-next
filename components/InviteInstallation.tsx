@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Download, Share, X } from "lucide-react";
+import { Share, X } from "lucide-react";
 
 /**
  * Invite à installer l'application sur l'écran d'accueil.
@@ -23,14 +23,7 @@ import { Download, Share, X } from "lucide-react";
 const CLE_REFUS = "datacloser.installation.refusee";
 const DELAI_AVANT_INVITE = 8000;
 
-interface EvenementInstallation extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-}
-
 export function InviteInstallation() {
-  const [evenement, setEvenement] = useState<EvenementInstallation | null>(null);
-  const [surIphone, setSurIphone] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -42,44 +35,18 @@ export function InviteInstallation() {
 
     if (installee || localStorage.getItem(CLE_REFUS)) return;
 
-    // iOS ne fournit aucun événement d'installation : Safari impose de
-    // passer par son menu de partage. On explique la manœuvre plutôt
-    // que de laisser l'utilisateur sans issue.
-    const iphone =
-      /iphone|ipad|ipod/i.test(navigator.userAgent) &&
-      /safari/i.test(navigator.userAgent) &&
-      !/crios|fxios/i.test(navigator.userAgent);
-
-    if (iphone) {
-      setSurIphone(true);
-      const minuteur = setTimeout(() => setVisible(true), DELAI_AVANT_INVITE);
-      return () => clearTimeout(minuteur);
-    }
-
-    function capter(e: Event) {
-      // Empêche l'invite native de Chrome : on choisit le moment.
-      e.preventDefault();
-      setEvenement(e as EvenementInstallation);
-      setTimeout(() => setVisible(true), DELAI_AVANT_INVITE);
-    }
-
-    window.addEventListener("beforeinstallprompt", capter);
-    return () => window.removeEventListener("beforeinstallprompt", capter);
+    // L'application n'enregistre plus de service worker — celui-ci
+    // l'empêchait de charger. Chrome n'émet donc plus
+    // « beforeinstallprompt », et aucun bouton d'installation ne peut
+    // être déclenché depuis la page. On explique la manœuvre par le
+    // menu du navigateur, qui reste possible partout.
+    const minuteur = setTimeout(() => setVisible(true), DELAI_AVANT_INVITE);
+    return () => clearTimeout(minuteur);
   }, []);
 
   function refuser() {
     localStorage.setItem(CLE_REFUS, "1");
     setVisible(false);
-  }
-
-  async function installer() {
-    if (!evenement) return;
-    setVisible(false);
-    await evenement.prompt();
-    const { outcome } = await evenement.userChoice;
-    // Un refus dans la boîte native vaut refus : ne pas réinsister.
-    if (outcome === "dismissed") localStorage.setItem(CLE_REFUS, "1");
-    setEvenement(null);
   }
 
   if (!visible) return null;
@@ -95,39 +62,23 @@ export function InviteInstallation() {
           aria-hidden="true"
           className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-teal"
         >
-          {surIphone ? <Share size={16} /> : <Download size={16} />}
+          <Share size={16} />
         </span>
 
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium">DataCloser sur votre écran</p>
-          {surIphone ? (
-            <p className="mt-1 text-xs leading-relaxed text-muted">
-              Appuyez sur le bouton Partager de Safari, puis sur « Sur
-              l&apos;écran d&apos;accueil ».
-            </p>
-          ) : (
-            <p className="mt-1 text-xs leading-relaxed text-muted">
-              Ouvrez vos chasses et vos campagnes en un geste, sans passer par
-              le navigateur.
-            </p>
-          )}
+          <p className="mt-1 text-xs leading-relaxed text-muted">
+            Ouvrez le menu de votre navigateur, puis « Ajouter à l&apos;écran
+            d&apos;accueil » : vos chasses et vos campagnes en un geste.
+          </p>
 
           <div className="mt-3 flex flex-wrap gap-2">
-            {!surIphone && (
-              <button
-                type="button"
-                onClick={installer}
-                className="rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
-              >
-                Installer
-              </button>
-            )}
             <button
               type="button"
               onClick={refuser}
               className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-content"
             >
-              {surIphone ? "Compris" : "Plus tard"}
+              Compris
             </button>
           </div>
         </div>
