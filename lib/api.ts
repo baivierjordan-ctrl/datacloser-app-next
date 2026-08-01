@@ -1,5 +1,6 @@
 import type {
   Accueil,
+  ActionAssistant,
   AuditMessage,
   ModeleCampagne,
   PropositionMessage,
@@ -413,7 +414,7 @@ export function interrogerAssistant(
   question: string,
   historique: TourConversation[],
   contexte = "",
-): Promise<{ reponse: string }> {
+): Promise<{ reponse: string; actions: ActionAssistant[] }> {
   return envoyer("/assistant", { question, historique, contexte });
 }
 
@@ -599,7 +600,12 @@ export async function interrogerAvecFichier(
   fichier: File,
   historique: TourConversation[],
   contexte = "",
-): Promise<{ reponse: string; fichier: string; analyse: boolean }> {
+): Promise<{
+  reponse: string;
+  fichier: string;
+  analyse: boolean;
+  actions: ActionAssistant[];
+}> {
   const session = lireSession();
   if (!session) throw new SessionExpiree();
 

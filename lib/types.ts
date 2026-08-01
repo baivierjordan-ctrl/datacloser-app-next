@@ -437,3 +437,10 @@ export interface AuditMessage {
     promesse_chiffree: boolean;
   };
 }
+
+/** Action proposée par l'assistant, cohérente avec sa réponse et l'écran. */
+export interface ActionAssistant {
+  type: "chasse" | "message" | "profil";
+  libelle: string;
+  lien: string;
+}

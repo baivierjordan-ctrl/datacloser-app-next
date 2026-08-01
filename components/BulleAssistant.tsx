@@ -7,6 +7,7 @@ import {
   Maximize2,
   MessageSquare,
   Paperclip,
+  Wand2,
   X,
 } from "lucide-react";
 import {
@@ -19,7 +20,7 @@ import {
   useContexteAssistant,
 } from "@/lib/contexte-assistant";
 import { lireSession } from "@/lib/session";
-import type { TourConversation } from "@/lib/types";
+import type { ActionAssistant, TourConversation } from "@/lib/types";
 
 /**
  * Assistant accessible depuis n'importe quel écran.
@@ -58,6 +59,9 @@ export function BulleAssistant() {
   const [connecte, setConnecte] = useState(false);
   const [ouvert, setOuvert] = useState(false);
   const [tours, setTours] = useState<TourConversation[]>([]);
+  // Les actions se rapportent à la dernière réponse : les conserver
+  // au-delà proposerait un bouton sans rapport avec ce qui est affiché.
+  const [actions, setActions] = useState<ActionAssistant[]>([]);
   const [saisie, setSaisie] = useState("");
   const [fichier, setFichier] = useState<File | null>(null);
   const [enCours, setEnCours] = useState(false);
@@ -67,6 +71,15 @@ export function BulleAssistant() {
   const champFichier = useRef<HTMLInputElement>(null);
 
   useEffect(() => setConnecte(Boolean(lireSession())), []);
+
+  // Le halo attire l'oeil quelques secondes, puis se tait : une
+  // animation permanente sur un tableau de bord devient une gêne.
+  const [halo, setHalo] = useState(true);
+  useEffect(() => {
+    if (!halo) return;
+    const minuteur = setTimeout(() => setHalo(false), 12_000);
+    return () => clearTimeout(minuteur);
+  }, [halo]);
 
   useEffect(() => {
     if (ouvert) bas.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -93,6 +106,7 @@ export function BulleAssistant() {
       : question;
 
     setTours([...avant, { role: "utilisateur", contenu: libelle }]);
+    setActions([]);
     setSaisie("");
     setEnCours(true);
 
@@ -100,10 +114,12 @@ export function BulleAssistant() {
       // L'écran est transmis à chaque envoi : l'utilisateur peut avoir
       // navigué entre deux questions.
       const ecran = formaterContexte(contexte);
-      const { reponse } = fichier
+      const resultat = fichier
         ? await interrogerAvecFichier(question, fichier, avant, ecran)
         : await interrogerAssistant(question, avant, ecran);
+      const { reponse } = resultat;
       setTours((p) => [...p, { role: "assistant", contenu: reponse }]);
+      setActions(resultat.actions ?? []);
       setFichier(null);
     } catch (e) {
       if (e instanceof SessionExpiree) {
@@ -136,11 +152,25 @@ export function BulleAssistant() {
     return (
       <button
         type="button"
-        onClick={() => setOuvert(true)}
+        onClick={() => {
+          setOuvert(true);
+          setHalo(false);
+        }}
         aria-label="Ouvrir l'assistant"
-        className="fixed bottom-5 right-5 z-40 flex size-12 items-center justify-center rounded-full bg-teal text-white shadow-lg shadow-slate-900/20 transition hover:bg-teal-hover"
+        className="group fixed bottom-6 right-6 z-40 flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-white shadow-xl shadow-teal/25 transition hover:bg-teal-hover hover:shadow-teal/40"
       >
+        {/* Halo pulsant : sur un écran dense, une pastille unie se
+            confond avec le reste. Il s'arrête au premier survol pour ne
+            pas devenir une gêne permanente. */}
+        {halo && (
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 animate-ping rounded-full bg-teal/40 group-hover:hidden"
+            style={{ animationDuration: "2.5s" }}
+          />
+        )}
         <MessageSquare size={20} aria-hidden="true" />
+        <span className="text-sm font-medium">Assistant</span>
       </button>
     );
   }
@@ -217,6 +247,24 @@ export function BulleAssistant() {
               </div>
             </div>
           ))}
+
+          {/* Conseiller sans permettre d'agir laisse l'utilisateur
+              recopier à la main ce qui vient d'être dit. */}
+          {actions.length > 0 && !enCours && (
+            <div className="flex flex-wrap gap-2">
+              {actions.map((action) => (
+                <Link
+                  key={action.type}
+                  href={action.lien}
+                  onClick={() => setOuvert(false)}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-teal px-3 py-1.5 text-xs font-medium text-white transition hover:bg-teal-hover"
+                >
+                  <Wand2 size={12} aria-hidden="true" />
+                  {action.libelle}
+                </Link>
+              ))}
+            </div>
+          )}
 
           {enCours && (
             <div className="flex justify-start">
