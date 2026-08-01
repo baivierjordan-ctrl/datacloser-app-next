@@ -1,5 +1,7 @@
 "use client";
 
+import { useLangue } from "@/lib/i18n";
+
 import { useEffect, useRef, useState } from "react";
 import { Link2, Loader2, Play } from "lucide-react";
 import { etatBacklinks, lancerBacklinks } from "@/lib/api";
@@ -22,6 +24,7 @@ const SUJETS_PAR_DEFAUT: Record<string, string> = {
  * ne l'interrompt pas.
  */
 export function LinkBuilding() {
+  const { t } = useLangue();
   const [langue, setLangue] = useState("fr");
   const [sujets, setSujets] = useState(SUJETS_PAR_DEFAUT.fr);
   const [maximum, setMaximum] = useState(20);
@@ -96,18 +99,16 @@ export function LinkBuilding() {
     <section className="rounded-xl border border-line bg-surface p-5">
       <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
         <Link2 size={14} className="text-teal" aria-hidden="true" />
-        Link Building
+        {t("lb.titre")}
       </h2>
       <p className="mb-4 text-xs leading-relaxed text-muted">
-        Cherche des sites susceptibles d&apos;accepter un lien vers
-        DataCloser, vérifie leur autorité et trouve un contact. La recherche
-        continue si vous fermez cette page.
+        {t("lb.detail")}
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={etiquette} htmlFor="lb-sujets">
-            Sujets, un par ligne
+            {t("lb.sujets")}
           </label>
           <textarea
             id="lb-sujets"
@@ -121,7 +122,7 @@ export function LinkBuilding() {
         <div className="flex flex-col gap-3">
           <div>
             <label className={etiquette} htmlFor="lb-langue">
-              Langue cible
+              {t("lb.langueCible")}
             </label>
             <select
               id="lb-langue"
@@ -132,8 +133,8 @@ export function LinkBuilding() {
                 setSujets(SUJETS_PAR_DEFAUT[e.target.value] ?? "");
               }}
             >
-              <option value="fr">Français</option>
-              <option value="nl">Néerlandais</option>
+              <option value="fr">{t("lb.francais")}</option>
+              <option value="nl">{t("lb.neerlandais")}</option>
             </select>
           </div>
 
@@ -198,7 +199,7 @@ export function LinkBuilding() {
         ) : (
           <Play size={14} aria-hidden="true" />
         )}
-        {actif ? "Recherche en cours…" : "Lancer la recherche"}
+        {actif ? t("lb.enCours") : t("lb.lancer")}
       </button>
 
       {etat && etat.journal.length > 0 && (

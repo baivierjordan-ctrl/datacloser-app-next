@@ -1,5 +1,7 @@
 "use client";
 
+import { useLangue } from "@/lib/i18n";
+
 import { useEffect, useState } from "react";
 import { Download, Share, X } from "lucide-react";
 
@@ -29,6 +31,7 @@ interface EvenementInstallation extends Event {
 }
 
 export function InviteInstallation() {
+  const { t } = useLangue();
   const [evenement, setEvenement] = useState<EvenementInstallation | null>(null);
   const [surIphone, setSurIphone] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -87,7 +90,7 @@ export function InviteInstallation() {
   return (
     <div
       role="dialog"
-      aria-label="Installer DataCloser"
+      aria-label={t("install.installerLabel")}
       className="apparition fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-xl border border-line bg-surface p-4 shadow-lg shadow-slate-900/10"
     >
       <div className="flex items-start gap-3">
@@ -99,16 +102,14 @@ export function InviteInstallation() {
         </span>
 
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium">DataCloser sur votre écran</p>
+          <p className="text-sm font-medium">{t("install.titre")}</p>
           {surIphone ? (
             <p className="mt-1 text-xs leading-relaxed text-muted">
-              Appuyez sur le bouton Partager de Safari, puis sur « Sur
-              l&apos;écran d&apos;accueil ».
+              {t("install.safari")}
             </p>
           ) : (
             <p className="mt-1 text-xs leading-relaxed text-muted">
-              Ouvrez vos chasses et vos campagnes en un geste, sans passer par
-              le navigateur.
+              {t("install.detail")}
             </p>
           )}
 
@@ -119,7 +120,7 @@ export function InviteInstallation() {
                 onClick={installer}
                 className="rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
               >
-                Installer
+                {t("install.installer")}
               </button>
             )}
             <button
@@ -135,7 +136,7 @@ export function InviteInstallation() {
         <button
           type="button"
           onClick={refuser}
-          aria-label="Fermer"
+          aria-label={t("install.fermer")}
           className="shrink-0 text-muted transition hover:text-content"
         >
           <X size={16} aria-hidden="true" />

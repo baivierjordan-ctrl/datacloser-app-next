@@ -614,6 +614,61 @@ export const fr = {
   "desinscription.absente": "Adresse manquante",
   "desinscription.absenteDetail":
     "Ce lien ne contient pas d'adresse à désinscrire. Utilisez le lien figurant au bas de l'email que vous avez reçu, ou écrivez à",
+
+  // ── Administration ──
+  "admin.reservee": "Cette page est réservée à l'administration.",
+  "admin.eyebrow": "Administration",
+  "admin.titre": "Tour de contrôle",
+  "admin.leadsCache": "leads en cache global",
+  "admin.comptes": "comptes",
+  "admin.agentsActifs": "agents autonomes actifs",
+  "admin.crediter": "Créditer un compte",
+  "admin.compte": "Compte",
+  "admin.credits": "Crédits",
+  "admin.compteExemple": "client@exemple.be",
+  "admin.boutonCrediter": "Créditer",
+  "admin.agent": "Agent autonome",
+  "admin.agentDetail":
+    "Chaque nuit, l'agent lit le profil du compte, lance une chasse et met les meilleurs leads en file d'envoi. Il n'envoie jamais lui-même.",
+  "admin.activer": "Activer",
+  "admin.desactiver": "Désactiver",
+  "admin.agentAvant": "Agent",
+  "admin.agentActive": "activé",
+  "admin.agentDesactive": "désactivé",
+  "admin.agentPour": "pour",
+  "admin.titreComptes": "Comptes",
+  "admin.purge": "Purger le cache des leads non vérifiés",
+  "admin.purgeDetail":
+    "Supprime définitivement du cache global les leads dont l'email n'a jamais été vérifié. Ils seront re-soumis à l'enrichissement au prochain scan. Irréversible.",
+  "admin.purgeConfirmation": "Recopiez PURGER pour confirmer",
+  "admin.boutonPurger": "Purger",
+
+  // ── Mode d'emploi ──
+  "guide.eyebrow": "Mode d'emploi",
+  "guide.titre": "Comment utiliser DataCloser",
+  "guide.intro":
+    "Quinze minutes de lecture pour tout comprendre. Vous pouvez aussi n'ouvrir que la section qui vous manque.",
+  "guide.sommaire": "Sommaire",
+
+  // ── Invitation à installer ──
+  "install.titre": "DataCloser sur votre écran",
+  "install.safari": "Appuyez sur le bouton Partager de Safari, puis sur « Sur l'écran d'accueil ».",
+  "install.detail":
+    "Ouvrez vos chasses et vos campagnes en un geste, sans passer par le navigateur.",
+  "install.installer": "Installer",
+  "install.installerLabel": "Installer DataCloser",
+  "install.fermer": "Fermer",
+
+  // ── Link Building (admin) ──
+  "lb.titre": "Link Building",
+  "lb.detail":
+    "Cherche des sites susceptibles d'accepter un lien vers DataCloser, vérifie leur autorité et trouve un contact. La recherche continue si vous fermez cette page.",
+  "lb.sujets": "Sujets, un par ligne",
+  "lb.langueCible": "Langue cible",
+  "lb.francais": "Français",
+  "lb.neerlandais": "Néerlandais",
+  "lb.lancer": "Lancer la recherche",
+  "lb.enCours": "Recherche en cours…",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;

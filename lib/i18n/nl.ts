@@ -611,4 +611,59 @@ export const nl: Traductions = {
   "desinscription.absente": "Ontbrekend adres",
   "desinscription.absenteDetail":
     "Deze link bevat geen adres om uit te schrijven. Gebruik de link onderaan de e-mail die u hebt ontvangen, of schrijf naar",
+
+  // ── Beheer ──
+  "admin.reservee": "Deze pagina is voorbehouden aan het beheer.",
+  "admin.eyebrow": "Beheer",
+  "admin.titre": "Controletoren",
+  "admin.leadsCache": "leads in de globale cache",
+  "admin.comptes": "accounts",
+  "admin.agentsActifs": "actieve autonome agenten",
+  "admin.crediter": "Een account crediteren",
+  "admin.compte": "Account",
+  "admin.credits": "Credits",
+  "admin.compteExemple": "klant@voorbeeld.be",
+  "admin.boutonCrediter": "Crediteren",
+  "admin.agent": "Autonome agent",
+  "admin.agentDetail":
+    "Elke nacht leest de agent het profiel van het account, start een zoekactie en plaatst de beste leads in de verzendwachtrij. Hij verstuurt zelf nooit.",
+  "admin.activer": "Inschakelen",
+  "admin.desactiver": "Uitschakelen",
+  "admin.agentAvant": "Agent",
+  "admin.agentActive": "ingeschakeld",
+  "admin.agentDesactive": "uitgeschakeld",
+  "admin.agentPour": "voor",
+  "admin.titreComptes": "Accounts",
+  "admin.purge": "De cache van niet-geverifieerde leads leegmaken",
+  "admin.purgeDetail":
+    "Verwijdert definitief uit de globale cache de leads waarvan het e-mailadres nooit is geverifieerd. Ze worden bij de volgende zoekactie opnieuw ter verrijking aangeboden. Onomkeerbaar.",
+  "admin.purgeConfirmation": "Typ PURGER over om te bevestigen",
+  "admin.boutonPurger": "Leegmaken",
+
+  // ── Handleiding ──
+  "guide.eyebrow": "Handleiding",
+  "guide.titre": "Hoe DataCloser gebruiken",
+  "guide.intro":
+    "Vijftien minuten lezen om alles te begrijpen. U kunt ook enkel het onderdeel openen dat u nodig hebt.",
+  "guide.sommaire": "Inhoud",
+
+  // ── Installatie-uitnodiging ──
+  "install.titre": "DataCloser op uw scherm",
+  "install.safari": "Tik op de knop Delen in Safari en vervolgens op « Zet op beginscherm ».",
+  "install.detail":
+    "Open uw zoekacties en campagnes met één handeling, zonder via de browser te gaan.",
+  "install.installer": "Installeren",
+  "install.installerLabel": "DataCloser installeren",
+  "install.fermer": "Sluiten",
+
+  // ── Link Building (beheer) ──
+  "lb.titre": "Link Building",
+  "lb.detail":
+    "Zoekt websites die een link naar DataCloser zouden aanvaarden, controleert hun autoriteit en vindt een contactpersoon. De zoekopdracht loopt door als u deze pagina sluit.",
+  "lb.sujets": "Onderwerpen, één per regel",
+  "lb.langueCible": "Doeltaal",
+  "lb.francais": "Frans",
+  "lb.neerlandais": "Nederlands",
+  "lb.lancer": "De zoekopdracht starten",
+  "lb.enCours": "Bezig met zoeken…",
 };

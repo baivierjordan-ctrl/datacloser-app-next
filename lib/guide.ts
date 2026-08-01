@@ -25,6 +25,9 @@ export interface SectionGuide {
   passages: Passage[];
 }
 
+import { SECTIONS_NL } from "./guide-nl";
+import { SECTIONS_EN } from "./guide-en";
+
 export const SECTIONS: SectionGuide[] = [
   {
     cle: "principe",
@@ -226,3 +229,16 @@ export const SECTIONS: SectionGuide[] = [
     ],
   },
 ];
+
+/**
+ * Le mode d'emploi selon la langue.
+ *
+ * Le contenu vit dans un fichier par langue plutôt que dans le
+ * dictionnaire : ce sont des pages de prose, pas des libellés, et les
+ * mêler aux clés d'interface rendrait les deux illisibles.
+ */
+export function sectionsGuide(langue: "fr" | "nl" | "en"): SectionGuide[] {
+  if (langue === "nl") return SECTIONS_NL;
+  if (langue === "en") return SECTIONS_EN;
+  return SECTIONS;
+}

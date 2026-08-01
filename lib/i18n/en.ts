@@ -610,4 +610,59 @@ export const en: Traductions = {
   "desinscription.absente": "Missing address",
   "desinscription.absenteDetail":
     "This link contains no address to unsubscribe. Use the link at the bottom of the email you received, or write to",
+
+  // ── Administration ──
+  "admin.reservee": "This page is reserved for administration.",
+  "admin.eyebrow": "Administration",
+  "admin.titre": "Control tower",
+  "admin.leadsCache": "leads in the global cache",
+  "admin.comptes": "accounts",
+  "admin.agentsActifs": "active autonomous agents",
+  "admin.crediter": "Credit an account",
+  "admin.compte": "Account",
+  "admin.credits": "Credits",
+  "admin.compteExemple": "client@example.com",
+  "admin.boutonCrediter": "Credit",
+  "admin.agent": "Autonomous agent",
+  "admin.agentDetail":
+    "Each night, the agent reads the account profile, runs a hunt and queues the best leads for sending. It never sends anything itself.",
+  "admin.activer": "Enable",
+  "admin.desactiver": "Disable",
+  "admin.agentAvant": "Agent",
+  "admin.agentActive": "enabled",
+  "admin.agentDesactive": "disabled",
+  "admin.agentPour": "for",
+  "admin.titreComptes": "Accounts",
+  "admin.purge": "Purge the cache of unverified leads",
+  "admin.purgeDetail":
+    "Permanently removes from the global cache the leads whose email has never been verified. They will be resubmitted for enrichment on the next hunt. Irreversible.",
+  "admin.purgeConfirmation": "Type PURGER to confirm",
+  "admin.boutonPurger": "Purge",
+
+  // ── User guide ──
+  "guide.eyebrow": "User guide",
+  "guide.titre": "How to use DataCloser",
+  "guide.intro":
+    "Fifteen minutes of reading to understand everything. You can also open only the section you need.",
+  "guide.sommaire": "Contents",
+
+  // ── Install prompt ──
+  "install.titre": "DataCloser on your screen",
+  "install.safari": "Tap the Share button in Safari, then \u201cAdd to Home Screen\u201d.",
+  "install.detail":
+    "Open your hunts and campaigns in one gesture, without going through the browser.",
+  "install.installer": "Install",
+  "install.installerLabel": "Install DataCloser",
+  "install.fermer": "Close",
+
+  // ── Link Building (admin) ──
+  "lb.titre": "Link Building",
+  "lb.detail":
+    "Looks for sites likely to accept a link to DataCloser, checks their authority and finds a contact. The search carries on if you close this page.",
+  "lb.sujets": "Topics, one per line",
+  "lb.langueCible": "Target language",
+  "lb.francais": "French",
+  "lb.neerlandais": "Dutch",
+  "lb.lancer": "Start the search",
+  "lb.enCours": "Searching…",
 };

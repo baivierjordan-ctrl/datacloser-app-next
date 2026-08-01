@@ -6,7 +6,8 @@ import Link from "next/link";
 import { AlertTriangle, ArrowRight, BookOpen } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
-import { SECTIONS } from "@/lib/guide";
+import { sectionsGuide } from "@/lib/guide";
+import { useLangue } from "@/lib/i18n";
 import { lireSession } from "@/lib/session";
 
 /**
@@ -22,6 +23,8 @@ import { lireSession } from "@/lib/session";
  */
 export default function PageGuide() {
   const router = useRouter();
+  const { t, langue } = useLangue();
+  const SECTIONS = sectionsGuide(langue);
   const [active, setActive] = useState(SECTIONS[0].cle);
 
   useEffect(() => {
@@ -53,20 +56,19 @@ export default function PageGuide() {
 
         <header className="mb-8">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <BookOpen size={13} aria-hidden="true" /> Mode d&apos;emploi
+            <BookOpen size={13} aria-hidden="true" /> {t("guide.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Comment utiliser DataCloser
+            {t("guide.titre")}
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-            Quinze minutes de lecture pour tout comprendre. Vous pouvez aussi
-            n&apos;ouvrir que la section qui vous manque.
+            {t("guide.intro")}
           </p>
         </header>
 
         <div className="flex gap-10">
           <nav
-            aria-label="Sommaire"
+            aria-label={t("guide.sommaire")}
             className="sticky top-24 hidden h-fit w-56 shrink-0 lg:block"
           >
             <ul className="flex flex-col gap-0.5 border-l border-line">
