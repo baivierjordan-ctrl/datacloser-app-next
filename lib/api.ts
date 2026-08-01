@@ -591,3 +591,37 @@ export async function desinscrire(email: string): Promise<void> {
     );
   }
 }
+
+/** Pose une question accompagnée d'un fichier. Lu et analysé côté serveur. */
+export async function interrogerAvecFichier(
+  question: string,
+  fichier: File,
+  historique: TourConversation[],
+): Promise<{ reponse: string; fichier: string; analyse: boolean }> {
+  const session = lireSession();
+  if (!session) throw new SessionExpiree();
+
+  const corps = new FormData();
+  corps.append("question", question);
+  corps.append("historique", JSON.stringify(historique));
+  corps.append("fichier", fichier);
+
+  const reponse = await fetch(`${BASE}/assistant/fichier`, {
+    method: "POST",
+    // Pas de Content-Type : le navigateur pose la frontière multipart.
+    headers: { Authorization: `Bearer ${session.jeton}` },
+    body: corps,
+  });
+
+  if (reponse.status === 401) {
+    effacerSession();
+    throw new SessionExpiree();
+  }
+  if (!reponse.ok) {
+    const detail = await reponse.json().catch(() => null);
+    throw new Error(
+      messageErreur(detail?.detail, "L'analyse du fichier a échoué."),
+    );
+  }
+  return reponse.json();
+}

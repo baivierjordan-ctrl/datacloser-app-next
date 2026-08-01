@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowUp, MessageSquare, Sparkles } from "lucide-react";
+import { ArrowUp, MessageSquare, Paperclip, Sparkles, X } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import {
   SessionExpiree,
   interrogerAssistant,
+  interrogerAvecFichier,
   recupererSuggestions,
 } from "@/lib/api";
 import { lireSession } from "@/lib/session";
@@ -44,7 +45,9 @@ export default function PageAssistant() {
   const [saisie, setSaisie] = useState("");
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState("");
+  const [fichier, setFichier] = useState<File | null>(null);
   const bas = useRef<HTMLDivElement>(null);
+  const champFichier = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!lireSession()) {
@@ -64,16 +67,22 @@ export default function PageAssistant() {
 
   async function envoyer(question: string) {
     const propre = question.trim();
-    if (!propre || enCours) return;
+    if ((!propre && !fichier) || enCours) return;
 
     setErreur("");
     setSaisie("");
     const avant = tours;
-    setTours([...avant, { role: "utilisateur", contenu: propre }]);
+    const libelle = fichier
+      ? `${propre || "Analyse ce fichier"}\n📎 ${fichier.name}`
+      : propre;
+    setTours([...avant, { role: "utilisateur", contenu: libelle }]);
     setEnCours(true);
 
     try {
-      const { reponse } = await interrogerAssistant(propre, avant);
+      const { reponse } = fichier
+        ? await interrogerAvecFichier(propre, fichier, avant)
+        : await interrogerAssistant(propre, avant);
+      setFichier(null);
       setTours((p) => [...p, { role: "assistant", contenu: reponse }]);
     } catch (e) {
       if (e instanceof SessionExpiree) {
@@ -103,7 +112,8 @@ export default function PageAssistant() {
           </h1>
           <p className="mt-2 text-sm text-muted">
             L&apos;assistant connaît votre activité : ses réponses portent sur
-            votre cas, pas sur la prospection en général.
+            votre cas, pas sur la prospection en général. Joignez un fichier de
+            leads pour qu&apos;il l&apos;analyse.
           </p>
         </header>
 
@@ -170,7 +180,47 @@ export default function PageAssistant() {
         )}
 
         <div className="sticky bottom-6 mt-6">
+          {fichier && (
+            <div className="mb-2 flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2">
+              <Paperclip size={13} className="shrink-0 text-teal" aria-hidden="true" />
+              <span className="min-w-0 flex-1 truncate text-xs text-content-soft">
+                {fichier.name}
+              </span>
+              <button
+                type="button"
+                onClick={() => setFichier(null)}
+                aria-label="Retirer le fichier"
+                className="shrink-0 text-muted transition hover:text-content"
+              >
+                <X size={13} aria-hidden="true" />
+              </button>
+            </div>
+          )}
+
           <div className="flex items-end gap-2 rounded-xl border border-line bg-surface/95 p-2 backdrop-blur">
+            <input
+              ref={champFichier}
+              type="file"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0] ?? null;
+                if (f && f.size > 5 * 1024 * 1024) {
+                  setErreur("Fichier trop volumineux. Maximum 5 Mo.");
+                } else if (f) {
+                  setErreur("");
+                  setFichier(f);
+                }
+                e.target.value = "";
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => champFichier.current?.click()}
+              aria-label="Joindre un fichier"
+              className="flex size-9 shrink-0 items-center justify-center rounded-lg text-muted transition hover:text-teal"
+            >
+              <Paperclip size={16} aria-hidden="true" />
+            </button>
             <textarea
               rows={1}
               value={saisie}
@@ -189,7 +239,7 @@ export default function PageAssistant() {
             <button
               type="button"
               onClick={() => envoyer(saisie)}
-              disabled={saisie.trim() === "" || enCours}
+              disabled={(saisie.trim() === "" && !fichier) || enCours}
               aria-label="Envoyer la question"
               className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-teal text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-30"
             >
