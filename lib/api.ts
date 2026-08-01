@@ -576,3 +576,18 @@ export function auditerMessage(
 ): Promise<AuditMessage> {
   return envoyer("/outreach/auditer", { sujet, corps });
 }
+
+/** Retire une adresse de toute prospection. Public : aucun compte requis. */
+export async function desinscrire(email: string): Promise<void> {
+  const reponse = await fetch(`${BASE}/desinscription`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  if (!reponse.ok) {
+    const detail = await reponse.json().catch(() => null);
+    throw new Error(
+      messageErreur(detail?.detail, "L'enregistrement a échoué. Réessayez."),
+    );
+  }
+}

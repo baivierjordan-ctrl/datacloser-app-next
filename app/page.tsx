@@ -18,7 +18,12 @@ const champ =
  */
 function Racine() {
   const router = useRouter();
-  const jeton = useSearchParams().get("reset_token");
+  const parametres = useSearchParams();
+  const jeton = parametres.get("reset_token");
+  // Les emails de prospection portent le lien de désinscription sur la
+  // racine : même forme d'URL que l'application actuelle, pour que les
+  // 1155 messages déjà envoyés continuent de fonctionner après bascule.
+  const desinscription = parametres.get("unsubscribe");
 
   const [motDePasse, setMotDePasse] = useState("");
   const [confirmation, setConfirmation] = useState("");
@@ -27,10 +32,14 @@ function Racine() {
   const [erreur, setErreur] = useState("");
 
   useEffect(() => {
+    if (desinscription) {
+      router.replace(`/desinscription?unsubscribe=${encodeURIComponent(desinscription)}`);
+      return;
+    }
     if (!jeton) router.replace(lireSession() ? "/accueil" : "/connexion");
-  }, [jeton, router]);
+  }, [jeton, desinscription, router]);
 
-  if (!jeton) return null;
+  if (!jeton || desinscription) return null;
 
   const assezLong = motDePasse.length >= 8;
   const identiques = motDePasse !== "" && motDePasse === confirmation;
