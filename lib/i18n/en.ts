@@ -665,4 +665,9 @@ export const en: Traductions = {
   "lb.neerlandais": "Dutch",
   "lb.lancer": "Start the search",
   "lb.enCours": "Searching…",
+  "apercu.titre": "Preview before sending",
+  "apercu.detail":
+    "The email is built for a real recipient from this hunt, with your signature. Nothing is sent.",
+  "apercu.suivant": "Next recipient",
+  "apercu.objet": "Subject: ",
 };

@@ -46,11 +46,10 @@ export function ApercuOutreach({
     <section className="rounded-xl border border-line bg-surface p-5">
       <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
         <Eye size={14} className="text-teal" aria-hidden="true" />
-        Aperçu avant envoi
+        {t("apercu.titre")}
       </h2>
       <p className="mb-4 text-xs text-muted">
-        L&apos;email est construit sur un destinataire réel de ce scan, avec
-        votre signature. Rien n&apos;est envoyé.
+        {t("apercu.detail")}
       </p>
 
       <div className="flex flex-wrap gap-2">
@@ -75,7 +74,7 @@ export function ApercuOutreach({
             disabled={enCours}
             className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-line-hover hover:text-content disabled:cursor-not-allowed disabled:opacity-40"
           >
-            <ChevronRight size={14} aria-hidden="true" /> Destinataire suivant
+            <ChevronRight size={14} aria-hidden="true" /> {t("apercu.suivant")}
           </button>
         )}
       </div>
@@ -113,7 +112,7 @@ export function ApercuOutreach({
           {apercu.valide ? (
             <>
               <p className="mb-3 text-sm">
-                <span className="text-muted">Objet : </span>
+                <span className="text-muted">{t("apercu.objet")}</span>
                 {apercu.sujet}
               </p>
               <pre className="whitespace-pre-wrap break-words font-mono text-[13px] leading-relaxed text-content-soft">

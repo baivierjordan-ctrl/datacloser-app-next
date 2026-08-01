@@ -666,4 +666,9 @@ export const nl: Traductions = {
   "lb.neerlandais": "Nederlands",
   "lb.lancer": "De zoekopdracht starten",
   "lb.enCours": "Bezig met zoeken…",
+  "apercu.titre": "Voorbeeld vóór verzending",
+  "apercu.detail":
+    "De e-mail wordt opgebouwd voor een echte ontvanger uit deze zoekactie, met uw handtekening. Er wordt niets verzonden.",
+  "apercu.suivant": "Volgende ontvanger",
+  "apercu.objet": "Onderwerp: ",
 };

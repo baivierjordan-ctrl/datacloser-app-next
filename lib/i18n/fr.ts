@@ -669,6 +669,11 @@ export const fr = {
   "lb.neerlandais": "Néerlandais",
   "lb.lancer": "Lancer la recherche",
   "lb.enCours": "Recherche en cours…",
+  "apercu.titre": "Aperçu avant envoi",
+  "apercu.detail":
+    "L'email est construit sur un destinataire réel de ce scan, avec votre signature. Rien n'est envoyé.",
+  "apercu.suivant": "Destinataire suivant",
+  "apercu.objet": "Objet : ",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;
