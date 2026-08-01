@@ -8,7 +8,6 @@ import {
   useState,
 } from "react";
 import {
-  appliquerLangue,
   ecrireLangue,
   lireLangue,
   type Langue,
@@ -54,12 +53,19 @@ export function FournisseurLangue({
   useEffect(() => {
     const resolue = lireLangue();
     setLangue(resolue);
-    appliquerLangue(resolue);
 
-    // Une langue arrivée par l'URL doit être retenue, sans quoi elle
-    // serait perdue dès la première navigation interne.
-    const parametre = new URLSearchParams(window.location.search).get("lang");
-    if (parametre === resolue && resolue !== "fr") ecrireLangue(resolue);
+    // La langue est persistée systématiquement, et non seulement quand
+    // elle arrive par l'URL.
+    //
+    // lib/api.ts n'est pas un composant : il ne peut pas lire l'état de
+    // React et relit donc la préférence enregistrée à chaque appel. Tant
+    // que l'écriture dépendait de la présence du paramètre, un visiteur
+    // arrivé sur une page qui redirige (la racine renvoie vers l'accueil
+    // ou la connexion) voyait bien l'interface traduite — l'état React
+    // avait été fixé — mais partait avec un stockage vide : les requêtes
+    // au serveur repartaient en français, et le moteur rédigeait en
+    // français dans une interface néerlandaise.
+    ecrireLangue(resolue);
   }, []);
 
   const changer = useCallback((choix: Langue) => {
