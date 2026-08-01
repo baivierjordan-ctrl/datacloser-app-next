@@ -87,4 +87,80 @@ export const nl: Traductions = {
   "pied.confidentialite": "Privacybeleid",
   "pied.marque": "Gedeponeerd merk BOIP nr. 160599",
   "pied.legal": "Juridische informatie",
+
+  // ── Radar ──
+  "radar.eyebrow": "Radar",
+  "radar.titre": "Een zoekactie starten",
+  "radar.intro":
+    "Geef een beroep en een gebied op. De engine spoort de ondernemingen op, zoekt de beslisser, verifieert zijn e-mailadres en schrijft een openingszin op basis van hun website. Het resultaat wordt een bestand, raadpleegbaar bij Exports.",
+  "radar.termine": "Zoekactie voltooid.",
+  "radar.termineDetail": "Uw bestand staat klaar bij Exports.",
+  "radar.voirResultats": "Resultaten bekijken",
+
+  // Lopende zoekactie
+  "radar.entreprisesAnalysees": "geanalyseerde ondernemingen",
+  "radar.arreter": "Stoppen",
+  "radar.peutFermer": "U mag deze pagina sluiten: de zoekactie loopt door op onze servers.",
+  "radar.optionsIndisponibles": "De zoekopties konden niet worden geladen.",
+  "radar.reessayer": "Opnieuw proberen",
+
+  // Stap 1
+  "radar.etape1Titre": "Wie zoekt u?",
+  "radar.etape1Detail":
+    "Eén beroep per invoer. Kies liever « dakdekker » dan « bouw »: brede termen leveren gidsen op, beroepen leveren ondernemingen op.",
+  "radar.metiers": "Beroepen of trefwoorden",
+  "radar.metiersExemple": "verwarmingsinstallateur, loodgieter, dakdekker…",
+  "radar.ajouter": "Toevoegen",
+  "radar.proposerMetiers": "Verwante beroepen voorstellen",
+  "radar.recherche": "Bezig met zoeken…",
+
+  // Stap 2
+  "radar.etape2Titre": "Waar zoeken?",
+  "radar.etape2Detail":
+    "Elk beroep wordt in elke stad gezocht. Twee beroepen en drie steden geven zes zoekopdrachten — begin klein om de kwaliteit te beoordelen.",
+  "radar.pays": "Land",
+  "radar.mode": "Zoekmodus",
+  "radar.villes": "Steden",
+  "radar.zones": "Postcodes of gemeenten, gescheiden door komma's",
+  "radar.zonesExemple": "6180, 7100, Trazegnies",
+
+  // Stap 3
+  "radar.etape3Titre": "Instellingen",
+  "radar.etape3Detail": "Optioneel. De standaardwaarden volstaan voor een eerste zoekactie.",
+  "radar.resultatsPar": "Resultaten per trefwoord en per locatie:",
+  "radar.mapsLimite": "— Maps is beperkt tot",
+  "radar.nomFichier": "Bestandsnaam, optioneel",
+  "radar.nomFichierExemple": "verwarmingsinstallateurs_henegouwen",
+  "radar.chercherTel": "Ook telefoonnummers zoeken",
+  "radar.chercherTelCout": "(+10 credits per gevonden nummer)",
+  "radar.sansSite": "Controleren of er geen website is",
+
+  // Overzicht
+  "radar.incomplet": "Voeg minstens één beroep en één gebied toe om te starten.",
+  "radar.metierSingulier": "beroep",
+  "radar.metierPluriel": "beroepen",
+  "radar.zoneSingulier": "gebied",
+  "radar.zonePluriel": "gebieden",
+  "radar.resultats": "resultaten",
+  "radar.recherches": "zoekopdrachten",
+  "radar.coutRappel":
+    "Eén credit per onderneming met een geverifieerd e-mailadres. Ondernemingen zonder adres worden nooit aangerekend.",
+  "radar.lancer": "Zoekactie starten",
+  "radar.dejaEnCours": "Er loopt al een zoekactie",
+  "radar.vosChasses": "Uw zoekacties",
+
+  // Statussen
+  "scan.en_attente": "In wachtrij",
+  "scan.en_cours": "Bezig",
+  "scan.annulation_demandee": "Annulering gevraagd",
+  "scan.termine": "Voltooid",
+  "scan.erreur": "Mislukt",
+
+  // ── Overzicht zoekacties ──
+  "histo.chasse": "Zoekactie",
+  "histo.analysees": "geanalyseerd",
+  "histo.relancer": "Opnieuw uitvoeren met dezelfde instellingen",
+  "histo.telecharger": "Bestand downloaden",
+  "histo.fichierIndisponible":
+    "Dit bestand is niet meer beschikbaar. Voer de zoekactie opnieuw uit om het aan te maken.",
 };

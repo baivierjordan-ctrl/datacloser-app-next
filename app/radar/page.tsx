@@ -8,6 +8,7 @@ import { LancementScan } from "@/components/LancementScan";
 import { Navigation } from "@/components/Navigation";
 import { PiedDePage } from "@/components/PiedDePage";
 import { lireSession } from "@/lib/session";
+import { useLangue } from "@/lib/i18n";
 
 /**
  * Radar : on y chasse, rien d'autre.
@@ -19,6 +20,7 @@ import { lireSession } from "@/lib/session";
  */
 function ContenuRadar() {
   const router = useRouter();
+  const { t } = useLangue();
   const parametres = useSearchParams();
   const icpDemande = parametres.get("action") === "icp";
   const [termine, setTermine] = useState(false);
@@ -34,16 +36,13 @@ function ContenuRadar() {
 
         <header className="mb-8">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <Search size={13} aria-hidden="true" /> Radar
+            <Search size={13} aria-hidden="true" /> {t("radar.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Lancer une chasse
+            {t("radar.titre")}
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-            Indiquez un métier et une zone. Le moteur identifie les
-            entreprises, cherche le décideur, vérifie son email et rédige une
-            accroche à partir de leur site. Le résultat devient un fichier,
-            consultable dans Exports.
+            {t("radar.intro")}
           </p>
         </header>
 
@@ -52,9 +51,9 @@ function ContenuRadar() {
             <p className="flex items-center gap-2.5 text-sm">
               <Check size={16} className="shrink-0 text-ok" aria-hidden="true" />
               <span>
-                <span className="text-content">Chasse terminée.</span>{" "}
+                <span className="text-content">{t("radar.termine")}</span>{" "}
                 <span className="text-muted">
-                  Votre fichier vous attend dans Exports.
+                  {t("radar.termineDetail")}
                 </span>
               </span>
             </p>
@@ -62,7 +61,7 @@ function ContenuRadar() {
               href="/exports"
               className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
             >
-              Voir les résultats
+              {t("radar.voirResultats")}
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>

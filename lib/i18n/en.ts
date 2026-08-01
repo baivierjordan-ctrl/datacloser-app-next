@@ -86,4 +86,80 @@ export const en: Traductions = {
   "pied.confidentialite": "Privacy policy",
   "pied.marque": "Registered trade mark BOIP no. 160599",
   "pied.legal": "Legal information",
+
+  // ── Radar ──
+  "radar.eyebrow": "Radar",
+  "radar.titre": "Start a hunt",
+  "radar.intro":
+    "Enter a trade and an area. The engine identifies companies, finds the decision-maker, verifies their email and writes an opening line drawn from their website. The result becomes a file, available under Exports.",
+  "radar.termine": "Hunt complete.",
+  "radar.termineDetail": "Your file is waiting under Exports.",
+  "radar.voirResultats": "View results",
+
+  // Hunt in progress
+  "radar.entreprisesAnalysees": "companies analysed",
+  "radar.arreter": "Stop",
+  "radar.peutFermer": "You can close this page: the hunt continues on our servers.",
+  "radar.optionsIndisponibles": "Could not load the search options.",
+  "radar.reessayer": "Try again",
+
+  // Step 1
+  "radar.etape1Titre": "Who are you looking for?",
+  "radar.etape1Detail":
+    "One trade per entry. Prefer \u201croofer\u201d to \u201cconstruction\u201d: broad terms return directories, trades return companies.",
+  "radar.metiers": "Trades or keywords",
+  "radar.metiersExemple": "heating engineer, plumber, roofer…",
+  "radar.ajouter": "Add",
+  "radar.proposerMetiers": "Suggest related trades",
+  "radar.recherche": "Searching…",
+
+  // Step 2
+  "radar.etape2Titre": "Where should we look?",
+  "radar.etape2Detail":
+    "Each trade is searched in each city. Two trades and three cities make six searches — start small to judge the quality.",
+  "radar.pays": "Country",
+  "radar.mode": "Search mode",
+  "radar.villes": "Cities",
+  "radar.zones": "Postcodes or municipalities, separated by commas",
+  "radar.zonesExemple": "6180, 7100, Trazegnies",
+
+  // Step 3
+  "radar.etape3Titre": "Settings",
+  "radar.etape3Detail": "Optional. The default values suit a first hunt.",
+  "radar.resultatsPar": "Results per keyword and per location:",
+  "radar.mapsLimite": "— Maps is capped at",
+  "radar.nomFichier": "File name, optional",
+  "radar.nomFichierExemple": "heating_engineers_hainaut",
+  "radar.chercherTel": "Also look for phone numbers",
+  "radar.chercherTelCout": "(+10 credits per number found)",
+  "radar.sansSite": "Check whether there is no website",
+
+  // Summary
+  "radar.incomplet": "Add at least one trade and one area to start.",
+  "radar.metierSingulier": "trade",
+  "radar.metierPluriel": "trades",
+  "radar.zoneSingulier": "area",
+  "radar.zonePluriel": "areas",
+  "radar.resultats": "results",
+  "radar.recherches": "searches",
+  "radar.coutRappel":
+    "One credit per company whose email is verified. Companies without an address are never charged.",
+  "radar.lancer": "Start the hunt",
+  "radar.dejaEnCours": "A hunt is already running",
+  "radar.vosChasses": "Your hunts",
+
+  // Statuses
+  "scan.en_attente": "Queued",
+  "scan.en_cours": "Running",
+  "scan.annulation_demandee": "Cancellation requested",
+  "scan.termine": "Complete",
+  "scan.erreur": "Failed",
+
+  // ── Hunt history ──
+  "histo.chasse": "Hunt",
+  "histo.analysees": "analysed",
+  "histo.relancer": "Run again with the same settings",
+  "histo.telecharger": "Download the file",
+  "histo.fichierIndisponible":
+    "This file is no longer available. Run the hunt again to regenerate it.",
 };

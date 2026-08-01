@@ -173,6 +173,11 @@ export const SCAN_ACTIF: StatutScan[] = [
   "annulation_demandee",
 ];
 
+/**
+ * Conservé pour les appels hors interface (journaux, exports). Les
+ * écrans passent désormais par les clés `scan.*` du dictionnaire, qui
+ * suivent la langue choisie.
+ */
 export const LIBELLES_SCAN: Record<string, string> = {
   en_attente: "En attente",
   en_cours: "En cours",

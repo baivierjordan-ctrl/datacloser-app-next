@@ -6,7 +6,8 @@ import { ApercuExemple } from "@/components/ApercuExemple";
 import { ConsoleScan } from "@/components/ConsoleScan";
 import { recupererScansRadar, telechargerExport } from "@/lib/api";
 import { dateHeure } from "@/lib/dates";
-import { LIBELLES_SCAN, SCAN_ACTIF, type ScanRadar } from "@/lib/types";
+import { SCAN_ACTIF, type ScanRadar } from "@/lib/types";
+import { useLangue, type Cle } from "@/lib/i18n";
 
 const COULEUR: Record<string, string> = {
   en_cours: "text-teal",
@@ -28,6 +29,7 @@ export function HistoriqueChasses({
 }: {
   onRelancer: (scan: ScanRadar) => void;
 }) {
+  const { t } = useLangue();
   const [scans, setScans] = useState<ScanRadar[]>([]);
   const [ouvert, setOuvert] = useState<string | null>(null);
   const [chargement, setChargement] = useState(true);
@@ -95,18 +97,18 @@ export function HistoriqueChasses({
             >
               <div className="min-w-0 flex-1">
                 <h3 className="truncate text-[16px] font-medium">
-                  {scan.mots_cles.join(", ") || scan.nom_fichier || "Chasse"}
+                  {scan.mots_cles.join(", ") || scan.nom_fichier || t("histo.chasse")}
                 </h3>
                 <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
                   <span className={COULEUR[scan.statut] ?? "text-muted"}>
-                    {LIBELLES_SCAN[scan.statut] ?? scan.statut}
+                    {t(`scan.${scan.statut}` as Cle) ?? scan.statut}
                   </span>
                   {scan.lieux.length > 0 && <span>{scan.lieux.join(", ")}</span>}
                   <span>
                     <span className="font-mono tabular-nums">
                       {scan.leads_analyses}
                     </span>{" "}
-                    analysées
+                    {t("histo.analysees")}
                   </span>
                   <span>{dateHeure(scan.created_at)}</span>
                 </p>
@@ -129,8 +131,7 @@ export function HistoriqueChasses({
                     onClick={() => onRelancer(scan)}
                     className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-teal/40 hover:text-teal"
                   >
-                    <RotateCcw size={12} aria-hidden="true" /> Relancer avec les
-                    mêmes réglages
+                    <RotateCcw size={12} aria-hidden="true" /> {t("histo.relancer")}
                   </button>
 
                   {scan.nom_fichier && !actif && (
@@ -139,14 +140,13 @@ export function HistoriqueChasses({
                       onClick={() =>
                         telechargerExport(scan.nom_fichier).catch(() =>
                           setErreur(
-                            "Ce fichier n'est plus disponible. Relancez la chasse pour le régénérer.",
+                            t("histo.fichierIndisponible"),
                           ),
                         )
                       }
                       className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-line-hover hover:text-content"
                     >
-                      <Download size={12} aria-hidden="true" /> Télécharger le
-                      fichier
+                      <Download size={12} aria-hidden="true" /> {t("histo.telecharger")}
                     </button>
                   )}
                 </div>

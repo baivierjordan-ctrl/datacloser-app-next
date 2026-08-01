@@ -13,13 +13,13 @@ import {
   suggererMetiers,
 } from "@/lib/api";
 import {
-  LIBELLES_SCAN,
   SCAN_ACTIF,
   type OptionsRadar,
   type PlanIcp,
   type ScanRadar,
   type SecteurRapide,
 } from "@/lib/types";
+import { useLangue, type Cle } from "@/lib/i18n";
 
 const champ =
   "w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-content outline-none transition focus:border-teal";
@@ -58,6 +58,7 @@ export function LancementScan({
   onTermine: () => void;
   declencherIcp?: boolean;
 }) {
+  const { t } = useLangue();
   const [options, setOptions] = useState<OptionsRadar | null>(null);
   const [scans, setScans] = useState<ScanRadar[]>([]);
   const [actif, setActif] = useState<string | null>(null);
@@ -206,7 +207,7 @@ export function LancementScan({
       return (
         <div className="rounded-xl border border-danger/30 bg-danger/5 px-5 py-8 text-center">
           <p className="text-sm text-content">
-            Impossible de charger les options de recherche.
+            {t("radar.optionsIndisponibles")}
           </p>
           <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-muted">
             {erreur}
@@ -216,7 +217,7 @@ export function LancementScan({
             onClick={() => window.location.reload()}
             className="mt-5 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
           >
-            Réessayer
+            {t("radar.reessayer")}
           </button>
         </div>
       );
@@ -241,7 +242,7 @@ export function LancementScan({
             <div className="min-w-0">
               <p className="flex items-center gap-2 text-sm font-medium text-teal">
                 <Loader2 size={14} className="animate-spin" aria-hidden="true" />
-                {LIBELLES_SCAN[scanEnCours.statut] ?? scanEnCours.statut}
+                {t(`scan.${scanEnCours.statut}` as Cle) ?? scanEnCours.statut}
               </p>
               <p className="mt-1 truncate text-xs text-muted">
                 {scanEnCours.mots_cles.join(", ")} — {scanEnCours.lieux.join(", ")}
@@ -250,7 +251,7 @@ export function LancementScan({
                 <span className="font-display text-[32px] font-semibold leading-none tabular-nums text-content">
                   {scanEnCours.leads_analyses}
                 </span>
-                <span className="text-xs text-muted">entreprises analysées</span>
+                <span className="text-xs text-muted">{t("radar.entreprisesAnalysees")}</span>
               </p>
             </div>
             {scanEnCours.statut !== "annulation_demandee" && (
@@ -259,7 +260,7 @@ export function LancementScan({
                 onClick={() => annulerScan(scanEnCours.id).catch(() => {})}
                 className="flex shrink-0 items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-danger/40 hover:text-danger"
               >
-                <X size={12} aria-hidden="true" /> Arrêter
+                <X size={12} aria-hidden="true" /> {t("radar.arreter")}
               </button>
             )}
           </div>
@@ -268,7 +269,7 @@ export function LancementScan({
           </div>
 
           <p className="relative z-10 mt-3 text-xs text-muted">
-            Vous pouvez fermer cette page : la chasse continue sur nos serveurs.
+            {t("radar.peutFermer")}
           </p>
         </section>
       )}
@@ -282,11 +283,11 @@ export function LancementScan({
       <section className="rounded-xl border border-line bg-surface p-5">
         <EnTeteEtape
           numero={1}
-          titre="Qui cherchez-vous ?"
-          detail="Un métier par entrée. Préférez « couvreur » à « bâtiment » : les termes larges ramènent des annuaires, les métiers ramènent des entreprises."
+          titre={t("radar.etape1Titre")}
+          detail={t("radar.etape1Detail")}
         />
         <label className={etiquette} htmlFor="mot-cle">
-          Métiers ou mots-clés
+          {t("radar.metiers")}
         </label>
         <div className="flex gap-2">
           <input
@@ -300,14 +301,14 @@ export function LancementScan({
                 ajouterMot();
               }
             }}
-            placeholder="chauffagiste, plombier, couvreur…"
+            placeholder={t("radar.metiersExemple")}
           />
           <button
             type="button"
             onClick={ajouterMot}
             className="flex shrink-0 items-center gap-1.5 rounded-lg border border-line px-3 text-sm text-muted transition hover:border-line-hover hover:text-content"
           >
-            <Plus size={14} aria-hidden="true" /> Ajouter
+            <Plus size={14} aria-hidden="true" /> {t("radar.ajouter")}
           </button>
         </div>
 
@@ -348,7 +349,7 @@ export function LancementScan({
               ) : (
                 <Sparkles size={13} aria-hidden="true" />
               )}
-              {chargeProposes ? "Recherche…" : "Proposer des métiers proches"}
+              {chargeProposes ? t("radar.recherche") : t("radar.proposerMetiers")}
             </button>
 
             {proposes.length > 0 && (
@@ -375,13 +376,13 @@ export function LancementScan({
       <section className="rounded-xl border border-line bg-surface p-5">
         <EnTeteEtape
           numero={2}
-          titre="Où chercher ?"
-          detail="Chaque métier sera cherché dans chaque ville. Deux métiers et trois villes font six recherches — commencez petit pour juger la qualité."
+          titre={t("radar.etape2Titre")}
+          detail={t("radar.etape2Detail")}
         />
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={etiquette} htmlFor="pays">
-              Pays
+              {t("radar.pays")}
             </label>
             <select
               id="pays"
@@ -401,7 +402,7 @@ export function LancementScan({
           </div>
           <div>
             <label className={etiquette} htmlFor="mode">
-              Mode de recherche
+              {t("radar.mode")}
             </label>
             <select
               id="mode"
@@ -420,7 +421,7 @@ export function LancementScan({
 
         {villesProposees.length > 0 && (
           <div className="mt-4">
-            <span className={etiquette}>Villes</span>
+            <span className={etiquette}>{t("radar.villes")}</span>
             <div className="flex flex-wrap gap-1.5">
               {villesProposees.map((v) => (
                 <button
@@ -449,14 +450,14 @@ export function LancementScan({
 
         <div className="mt-4">
           <label className={etiquette} htmlFor="zones">
-            Codes postaux ou communes, séparés par des virgules
+            {t("radar.zones")}
           </label>
           <input
             id="zones"
             className={champ}
             value={zones}
             onChange={(e) => setZones(e.target.value)}
-            placeholder="6180, 7100, Trazegnies"
+            placeholder={t("radar.zonesExemple")}
           />
         </div>
       </section>
@@ -464,16 +465,16 @@ export function LancementScan({
       <section className="rounded-xl border border-line bg-surface p-5">
         <EnTeteEtape
           numero={3}
-          titre="Réglages"
-          detail="Facultatif. Les valeurs par défaut conviennent à une première chasse."
+          titre={t("radar.etape3Titre")}
+          detail={t("radar.etape3Detail")}
         />
         <label className={etiquette} htmlFor="max">
-          Résultats par mot-clé et par lieu :{" "}
+          {t("radar.resultatsPar")}{" "}
           <span className="font-mono tabular-nums text-content">{plafond}</span>
           {mode.includes("Maps") && maxParMot > options.plafond_maps && (
             <span className="text-warn">
               {" "}
-              — Maps est limité à {options.plafond_maps}
+              {t("radar.mapsLimite")} {options.plafond_maps}
             </span>
           )}
         </label>
@@ -490,14 +491,14 @@ export function LancementScan({
 
         <div className="mt-4">
           <label className={etiquette} htmlFor="nom-export">
-            Nom du fichier, facultatif
+            {t("radar.nomFichier")}
           </label>
           <input
             id="nom-export"
             className={champ}
             value={nomExport}
             onChange={(e) => setNomExport(e.target.value)}
-            placeholder="chauffagistes_hainaut"
+            placeholder={t("radar.nomFichierExemple")}
           />
         </div>
 
@@ -509,8 +510,8 @@ export function LancementScan({
               checked={enrichirTel}
               onChange={(e) => setEnrichirTel(e.target.checked)}
             />
-            Chercher aussi les numéros de téléphone
-            <span className="text-xs text-muted">(+10 crédits par numéro trouvé)</span>
+            {t("radar.chercherTel")}
+            <span className="text-xs text-muted">{t("radar.chercherTelCout")}</span>
           </label>
           <label className="flex cursor-pointer items-center gap-3 text-sm">
             <input
@@ -519,7 +520,7 @@ export function LancementScan({
               checked={sansSite}
               onChange={(e) => setSansSite(e.target.checked)}
             />
-            Vérifier l&apos;absence de site web
+            {t("radar.sansSite")}
           </label>
         </div>
       </section>
@@ -540,23 +541,22 @@ export function LancementScan({
         <div className="min-w-0 text-sm">
           {motsCles.length === 0 || lieux.length === 0 ? (
             <span className="text-muted">
-              Ajoutez au moins un métier et une zone pour lancer.
+              {t("radar.incomplet")}
             </span>
           ) : (
             <>
               <p className="text-content">
                 <span className="font-mono tabular-nums">{motsCles.length}</span>{" "}
-                {motsCles.length > 1 ? "métiers" : "métier"} ×{" "}
+                {motsCles.length > 1 ? t("radar.metierPluriel") : t("radar.metierSingulier")} ×{" "}
                 <span className="font-mono tabular-nums">{lieux.length}</span>{" "}
-                {lieux.length > 1 ? "zones" : "zone"} ×{" "}
-                <span className="font-mono tabular-nums">{plafond}</span> résultats
+                {lieux.length > 1 ? t("radar.zonePluriel") : t("radar.zoneSingulier")} ×{" "}
+                <span className="font-mono tabular-nums">{plafond}</span> {t("radar.resultats")}
                 {" = "}
                 <span className="font-mono tabular-nums text-teal">{requetes}</span>{" "}
-                recherches
+                {t("radar.recherches")}
               </p>
               <p className="mt-0.5 text-xs text-muted">
-                Un crédit par entreprise dont l&apos;email est vérifié. Les
-                entreprises sans adresse ne sont jamais facturées.
+                {t("radar.coutRappel")}
               </p>
             </>
           )}
@@ -572,12 +572,12 @@ export function LancementScan({
           ) : (
             <Radar size={14} aria-hidden="true" />
           )}
-          {actif ? "Une chasse est en cours" : "Lancer la chasse"}
+          {actif ? t("radar.dejaEnCours") : t("radar.lancer")}
         </button>
       </div>
 
       <section className="mt-4">
-        <h2 className="mb-3 text-sm font-medium">Vos chasses</h2>
+        <h2 className="mb-3 text-sm font-medium">{t("radar.vosChasses")}</h2>
         <HistoriqueChasses onRelancer={reprendre} />
       </section>
     </div>

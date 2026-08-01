@@ -86,6 +86,82 @@ export const fr = {
   "pied.confidentialite": "Politique de confidentialité",
   "pied.marque": "Marque déposée BOIP n°160599",
   "pied.legal": "Informations légales",
+
+  // ── Radar ──
+  "radar.eyebrow": "Radar",
+  "radar.titre": "Lancer une chasse",
+  "radar.intro":
+    "Indiquez un métier et une zone. Le moteur identifie les entreprises, cherche le décideur, vérifie son email et rédige une accroche à partir de leur site. Le résultat devient un fichier, consultable dans Exports.",
+  "radar.termine": "Chasse terminée.",
+  "radar.termineDetail": "Votre fichier vous attend dans Exports.",
+  "radar.voirResultats": "Voir les résultats",
+
+  // Chasse en cours
+  "radar.entreprisesAnalysees": "entreprises analysées",
+  "radar.arreter": "Arrêter",
+  "radar.peutFermer": "Vous pouvez fermer cette page : la chasse continue sur nos serveurs.",
+  "radar.optionsIndisponibles": "Impossible de charger les options de recherche.",
+  "radar.reessayer": "Réessayer",
+
+  // Étape 1
+  "radar.etape1Titre": "Qui cherchez-vous ?",
+  "radar.etape1Detail":
+    "Un métier par entrée. Préférez « couvreur » à « bâtiment » : les termes larges ramènent des annuaires, les métiers ramènent des entreprises.",
+  "radar.metiers": "Métiers ou mots-clés",
+  "radar.metiersExemple": "chauffagiste, plombier, couvreur…",
+  "radar.ajouter": "Ajouter",
+  "radar.proposerMetiers": "Proposer des métiers proches",
+  "radar.recherche": "Recherche…",
+
+  // Étape 2
+  "radar.etape2Titre": "Où chercher ?",
+  "radar.etape2Detail":
+    "Chaque métier sera cherché dans chaque ville. Deux métiers et trois villes font six recherches — commencez petit pour juger la qualité.",
+  "radar.pays": "Pays",
+  "radar.mode": "Mode de recherche",
+  "radar.villes": "Villes",
+  "radar.zones": "Codes postaux ou communes, séparés par des virgules",
+  "radar.zonesExemple": "6180, 7100, Trazegnies",
+
+  // Étape 3
+  "radar.etape3Titre": "Réglages",
+  "radar.etape3Detail": "Facultatif. Les valeurs par défaut conviennent à une première chasse.",
+  "radar.resultatsPar": "Résultats par mot-clé et par lieu :",
+  "radar.mapsLimite": "— Maps est limité à",
+  "radar.nomFichier": "Nom du fichier, facultatif",
+  "radar.nomFichierExemple": "chauffagistes_hainaut",
+  "radar.chercherTel": "Chercher aussi les numéros de téléphone",
+  "radar.chercherTelCout": "(+10 crédits par numéro trouvé)",
+  "radar.sansSite": "Vérifier l'absence de site web",
+
+  // Récapitulatif
+  "radar.incomplet": "Ajoutez au moins un métier et une zone pour lancer.",
+  "radar.metierSingulier": "métier",
+  "radar.metierPluriel": "métiers",
+  "radar.zoneSingulier": "zone",
+  "radar.zonePluriel": "zones",
+  "radar.resultats": "résultats",
+  "radar.recherches": "recherches",
+  "radar.coutRappel":
+    "Un crédit par entreprise dont l'email est vérifié. Les entreprises sans adresse ne sont jamais facturées.",
+  "radar.lancer": "Lancer la chasse",
+  "radar.dejaEnCours": "Une chasse est en cours",
+  "radar.vosChasses": "Vos chasses",
+
+  // Statuts de chasse
+  "scan.en_attente": "En attente",
+  "scan.en_cours": "En cours",
+  "scan.annulation_demandee": "Annulation demandée",
+  "scan.termine": "Terminée",
+  "scan.erreur": "Échec",
+
+  // ── Historique des chasses ──
+  "histo.chasse": "Chasse",
+  "histo.analysees": "analysées",
+  "histo.relancer": "Relancer avec les mêmes réglages",
+  "histo.telecharger": "Télécharger le fichier",
+  "histo.fichierIndisponible":
+    "Ce fichier n'est plus disponible. Relancez la chasse pour le régénérer.",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;
