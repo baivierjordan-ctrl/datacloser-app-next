@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { EnregistrerServiceWorker } from "@/components/EnregistrerServiceWorker";
+import { InviteInstallation } from "@/components/InviteInstallation";
 
 export const metadata: Metadata = {
   // Le gabarit met le nom du produit en fin d'onglet : l'écran courant
@@ -48,6 +49,7 @@ export default function RootLayout({
       <body>
         <EnregistrerServiceWorker />
         {children}
+        <InviteInstallation />
       </body>
     </html>
   );

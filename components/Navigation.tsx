@@ -14,6 +14,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { Marque } from "@/components/Marque";
+import { BoutonInstaller } from "@/components/BoutonInstaller";
 import { SelecteurTheme } from "@/components/SelecteurTheme";
 import { recupererCredits } from "@/lib/api";
 import { ecrireSession, effacerSession, lireSession } from "@/lib/session";
@@ -217,6 +218,8 @@ export function Navigation() {
                   {libelle}
                 </Link>
               ))}
+
+              <BoutonInstaller />
 
               <SelecteurTheme />
 
