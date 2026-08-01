@@ -38,7 +38,9 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
 
   useEffect(() => {
     if (!fichier && fichiers.length > 0) setFichier(fichiers[0]);
-  }, [fichiers, fichier]);
+    // Comparaison sur le contenu : un tableau reçu en prop change
+    // d'identité à chaque rendu du parent, et relancerait l'effet sans fin.
+  }, [fichiers.join("|"), fichier]);
 
   async function agir(
     quoi: "test" | "sauvegarde" | "envoi",

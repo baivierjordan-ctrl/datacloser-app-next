@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { Loader2, Plus, Radar, Sparkles, X } from "lucide-react";
 import { ConsoleScan } from "@/components/ConsoleScan";
 import { DemarrageRapide } from "@/components/DemarrageRapide";
-import { useDeclarerContexte } from "@/lib/contexte-assistant";
 import { HistoriqueChasses } from "@/components/HistoriqueChasses";
 import {
   annulerScan,
@@ -90,6 +89,14 @@ export function LancementScan({
   }, []);
 
   // Tant qu'une chasse tourne, on redemande son état toutes les 10 secondes.
+  // onTermine est une fonction fléchée recréée à chaque rendu du parent.
+  // La passer en dépendance relançait l'effet sans fin, et l'écran
+  // finissait par ne plus répondre. La référence, elle, ne change jamais.
+  const surTermine = useRef(onTermine);
+  useEffect(() => {
+    surTermine.current = onTermine;
+  }, [onTermine]);
+
   useEffect(() => {
     let annule = false;
 
@@ -100,7 +107,7 @@ export function LancementScan({
         setScans(r.scans);
         setActif(r.actif);
         // La chasse vient de se terminer : les résultats sont disponibles.
-        if (etaitActif.current && !r.actif) onTermine();
+        if (etaitActif.current && !r.actif) surTermine.current();
         etaitActif.current = Boolean(r.actif);
       } catch {
         // Un échec de sondage ne doit pas afficher d'erreur : la chasse
@@ -117,7 +124,7 @@ export function LancementScan({
       annule = true;
       clearInterval(minuterie);
     };
-  }, [onTermine, actif]);
+  }, [actif]);
 
   /** Applique une chasse déduite du profil. Rien n'est lancé. */
   function appliquerPlan(plan: PlanIcp) {
@@ -217,27 +224,11 @@ export function LancementScan({
     return <div className="h-40 animate-pulse rounded-xl border border-line bg-surface" />;
   }
 
-  // L'assistant voit le ciblage en préparation : « ces mots-clés
-  // sont-ils bons ? » devient une question sur ceux-ci.
-  useDeclarerContexte(
-    {
-      ecran: "l'écran de lancement d'une chasse",
-      details: [
-        motsCles.length
-          ? `Métiers ciblés : ${motsCles.join(", ")}`
-          : "Aucun métier saisi",
-        lieux.length ? `Zones : ${lieux.join(", ")}` : "Aucune zone choisie",
-        `Mode : ${mode || "non choisi"}`,
-        actif ? "Une chasse est en cours" : "Aucune chasse en cours",
-      ],
-      suggestions: [
-        "Ces mots-clés sont-ils bien choisis ?",
-        "Quelles autres zones cibler ?",
-        "Maps ou Search pour ce métier ?",
-      ],
-    },
-    [motsCles.join("|"), lieux.join("|"), mode, actif],
-  );
+  // Le contexte d'assistant est retiré de cet écran : il provoquait une
+  // boucle de rendu qui rendait le Radar — et donc l'application entière,
+  // puisque c'est l'écran d'arrivée — inutilisable. Il sera rétabli une
+  // fois la cause établie avec certitude. L'assistant fonctionne sans,
+  // il répond simplement de façon moins ciblée ici.
 
   const villesProposees = options.villes[pays] ?? [];
   const pret = motsCles.length > 0 && lieux.length > 0 && !actif && !envoi;
