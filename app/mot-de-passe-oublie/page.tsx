@@ -5,11 +5,13 @@ import Link from "next/link";
 import { KeyRound } from "lucide-react";
 import { MarqueEnTete } from "@/components/Marque";
 import { demanderReset } from "@/lib/api";
+import { useLangue } from "@/lib/i18n";
 
 const champ =
   "w-full rounded-lg border border-line bg-ink px-3 py-2.5 text-sm text-content outline-none transition focus:border-teal";
 
 export default function PageMotDePasseOublie() {
+  const { t } = useLangue();
   const [email, setEmail] = useState("");
   const [enCours, setEnCours] = useState(false);
   const [envoye, setEnvoye] = useState(false);
@@ -33,27 +35,25 @@ export default function PageMotDePasseOublie() {
       <div className="w-full max-w-sm">
         <MarqueEnTete />
         <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-          <KeyRound size={13} aria-hidden="true" /> Mot de passe
+          <KeyRound size={13} aria-hidden="true" /> {t("oubli.eyebrow")}
         </p>
         <h1 className="mb-1 text-[28px] font-semibold leading-[1.12] sm:text-[32px]">
-          Mot de passe oublié
+          {t("oubli.titre")}
         </h1>
 
         {envoye ? (
           <>
             <p className="mb-6 mt-3 rounded-lg border border-ok/30 bg-ok/5 px-3 py-3 text-sm text-ok">
-              Si un compte existe pour cette adresse, un lien vient d&apos;être
-              envoyé. Il reste valable une heure.
+              {t("oubli.envoye")}
             </p>
             <p className="text-xs text-muted">
-              Pensez à regarder dans les indésirables si rien n&apos;arrive.
+              {t("oubli.indesirables")}
             </p>
           </>
         ) : (
           <>
             <p className="mb-6 text-sm text-muted">
-              Indiquez votre adresse : vous recevrez un lien pour en choisir un
-              nouveau.
+              {t("oubli.consigne")}
             </p>
 
             <div className="flex flex-col gap-4">
@@ -65,7 +65,7 @@ export default function PageMotDePasseOublie() {
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && email.trim() && valider()}
                 placeholder="vous@societe.be"
-                aria-label="Adresse email"
+                aria-label={t("oubli.champEmail")}
               />
 
               {erreur && (
@@ -84,7 +84,7 @@ export default function PageMotDePasseOublie() {
                 className="flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <KeyRound size={15} aria-hidden="true" />
-                {enCours ? "Envoi…" : "Recevoir le lien"}
+                {enCours ? t("oubli.enCours") : t("oubli.valider")}
               </button>
             </div>
           </>
@@ -92,7 +92,7 @@ export default function PageMotDePasseOublie() {
 
         <p className="mt-6 text-center text-xs text-muted">
           <Link href="/connexion" className="text-teal hover:underline">
-            Retour à la connexion
+            {t("oubli.retour")}
           </Link>
         </p>
       </div>

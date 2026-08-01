@@ -1,4 +1,7 @@
+"use client";
+
 import { Marque } from "@/components/Marque";
+import { useLangue, type Cle } from "@/lib/i18n";
 
 /**
  * Pied de page applicatif.
@@ -8,16 +11,18 @@ import { Marque } from "@/components/Marque";
  * jour. Formulations reprises telles quelles du site.
  */
 
-const LIENS = [
-  { libelle: "Mentions légales", href: "https://datacloser.com/mentions-legales.html" },
-  { libelle: "Conditions d'utilisation", href: "https://datacloser.com/cgu.html" },
+const LIENS: { cle: Cle; href: string }[] = [
+  { cle: "pied.mentions", href: "https://datacloser.com/mentions-legales.html" },
+  { cle: "pied.cgu", href: "https://datacloser.com/cgu.html" },
   {
-    libelle: "Politique de confidentialité",
+    cle: "pied.confidentialite",
     href: "https://datacloser.com/politique-de-confidentialite.html",
   },
 ];
 
 export function PiedDePage() {
+  const { t } = useLangue();
+
   return (
     <footer className="mt-16 border-t border-line pt-6">
       <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-4">
@@ -27,11 +32,11 @@ export function PiedDePage() {
             © {new Date().getFullYear()} DataCloser — Jordan Baivier, Belgique.
           </p>
           <p className="mt-1 font-mono text-[12px] text-muted">
-            Marque déposée BOIP n°160599
+            {t("pied.marque")}
           </p>
         </div>
 
-        <nav className="flex flex-wrap gap-x-5 gap-y-2" aria-label="Informations légales">
+        <nav className="flex flex-wrap gap-x-5 gap-y-2" aria-label={t("pied.legal")}>
           {LIENS.map((lien) => (
             <a
               key={lien.href}
@@ -40,7 +45,7 @@ export function PiedDePage() {
               rel="noopener noreferrer"
               className="text-xs text-muted transition hover:text-content"
             >
-              {lien.libelle}
+              {t(lien.cle)}
             </a>
           ))}
         </nav>

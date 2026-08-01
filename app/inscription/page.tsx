@@ -8,6 +8,7 @@ import { IllustrationRadar } from "@/components/IllustrationRadar";
 import { MarqueEnTete } from "@/components/Marque";
 import { sInscrire } from "@/lib/api";
 import { ecrireSession } from "@/lib/session";
+import { useLangue } from "@/lib/i18n";
 
 const champ =
   "w-full rounded-lg border border-line bg-ink px-3 py-2.5 text-sm text-content outline-none transition focus:border-teal";
@@ -15,6 +16,7 @@ const etiquette = "mb-1.5 block text-xs text-muted";
 
 export default function PageInscription() {
   const router = useRouter();
+  const { t } = useLangue();
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
   const [societe, setSociete] = useState("");
@@ -51,19 +53,19 @@ export default function PageInscription() {
       <div className="w-full max-w-sm">
         <MarqueEnTete />
         <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-          <UserPlus size={13} aria-hidden="true" /> Inscription
+          <UserPlus size={13} aria-hidden="true" /> {t("inscription.eyebrow")}
         </p>
         <h1 className="mb-1 text-[28px] font-semibold leading-[1.12] sm:text-[32px]">
-          Créez votre compte
+          {t("inscription.titre")}
         </h1>
         <p className="mb-6 text-sm text-muted">
-          50 crédits vous sont offerts pour démarrer.
+          {t("inscription.sousTitre")}
         </p>
 
         <div className="flex flex-col gap-4">
           <div>
             <label className={etiquette} htmlFor="email">
-              Adresse email professionnelle
+              {t("inscription.email")}
             </label>
             <input
               id="email"
@@ -77,7 +79,7 @@ export default function PageInscription() {
 
           <div>
             <label className={etiquette} htmlFor="mdp">
-              Mot de passe
+              {t("inscription.motDePasse")}
             </label>
             <input
               id="mdp"
@@ -93,13 +95,13 @@ export default function PageInscription() {
                 motDePasse === "" ? "text-muted" : assezLong ? "text-ok" : "text-warn"
               }`}
             >
-              8 caractères minimum
+              {t("inscription.longueurMini")}
             </p>
           </div>
 
           <div>
             <label className={etiquette} htmlFor="societe">
-              Société
+              {t("inscription.societe")}
             </label>
             <input
               id="societe"
@@ -111,7 +113,7 @@ export default function PageInscription() {
 
           <div>
             <label className={etiquette} htmlFor="adresse">
-              Adresse, facultatif
+              {t("inscription.adresse")}
             </label>
             <input
               id="adresse"
@@ -123,7 +125,7 @@ export default function PageInscription() {
 
           <div>
             <label className={etiquette} htmlFor="tva">
-              Numéro de TVA, facultatif
+              {t("inscription.tva")}
             </label>
             <input
               id="tva"
@@ -150,14 +152,14 @@ export default function PageInscription() {
             className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
           >
             <UserPlus size={15} aria-hidden="true" />
-            {enCours ? "Création…" : "Créer mon compte"}
+            {enCours ? t("inscription.enCours") : t("inscription.valider")}
           </button>
         </div>
 
         <p className="mt-6 text-center text-xs text-muted">
-          Déjà inscrit ?{" "}
+          {t("inscription.dejaInscrit")}{" "}
           <Link href="/connexion" className="text-teal hover:underline">
-            Connectez-vous
+            {t("inscription.seConnecter")}
           </Link>
         </p>
       </div>
@@ -170,11 +172,10 @@ export default function PageInscription() {
         <div className="max-w-md px-12">
           <IllustrationRadar classe="mx-auto mb-8 w-64 text-white/70" />
           <p className="text-center font-display text-xl font-semibold leading-snug text-white">
-            Votre marché, balayé en continu.
+            {t("connexion.accrocheTitre")}
           </p>
           <p className="mt-3 text-center text-sm leading-relaxed text-white/60">
-            Le moteur détecte les entreprises, vérifie les décideurs et leurs
-            emails, puis rédige une accroche à partir de leur propre site.
+            {t("connexion.accrocheTexte")}
           </p>
         </div>
       </aside>

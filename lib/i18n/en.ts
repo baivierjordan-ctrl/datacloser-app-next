@@ -51,4 +51,39 @@ export const en: Traductions = {
   "connexion.accrocheTitre": "Your market, scanned continuously.",
   "connexion.accrocheTexte":
     "The engine finds companies, verifies decision-makers and their email addresses, then writes an opening line drawn from their own website.",
+
+  // ── Sign up ──
+  "inscription.eyebrow": "Sign up",
+  "inscription.titre": "Create your account",
+  "inscription.sousTitre": "You get 50 credits to start with.",
+  "inscription.email": "Work email address",
+  "inscription.motDePasse": "Password",
+  "inscription.longueurMini": "8 characters minimum",
+  "inscription.societe": "Company",
+  "inscription.adresse": "Address, optional",
+  "inscription.tva": "VAT number, optional",
+  "inscription.valider": "Create my account",
+  "inscription.enCours": "Creating…",
+  "inscription.dejaInscrit": "Already registered?",
+  "inscription.seConnecter": "Sign in",
+
+  // ── Forgotten password ──
+  "oubli.eyebrow": "Password",
+  "oubli.titre": "Forgotten password",
+  "oubli.consigne":
+    "Enter your address and we will send you a link to choose a new one.",
+  "oubli.champEmail": "Email address",
+  "oubli.valider": "Send me the link",
+  "oubli.enCours": "Sending…",
+  "oubli.envoye":
+    "If an account exists for this address, a link has just been sent. It remains valid for one hour.",
+  "oubli.indesirables": "Do check your spam folder if nothing arrives.",
+  "oubli.retour": "Back to sign in",
+
+  // ── Footer ──
+  "pied.mentions": "Legal notice",
+  "pied.cgu": "Terms of use",
+  "pied.confidentialite": "Privacy policy",
+  "pied.marque": "Registered trade mark BOIP no. 160599",
+  "pied.legal": "Legal information",
 };

@@ -51,6 +51,41 @@ export const fr = {
   "connexion.accrocheTitre": "Votre marché, balayé en continu.",
   "connexion.accrocheTexte":
     "Le moteur détecte les entreprises, vérifie les décideurs et leurs emails, puis rédige une accroche à partir de leur propre site.",
+
+  // ── Inscription ──
+  "inscription.eyebrow": "Inscription",
+  "inscription.titre": "Créez votre compte",
+  "inscription.sousTitre": "50 crédits vous sont offerts pour démarrer.",
+  "inscription.email": "Adresse email professionnelle",
+  "inscription.motDePasse": "Mot de passe",
+  "inscription.longueurMini": "8 caractères minimum",
+  "inscription.societe": "Société",
+  "inscription.adresse": "Adresse, facultatif",
+  "inscription.tva": "Numéro de TVA, facultatif",
+  "inscription.valider": "Créer mon compte",
+  "inscription.enCours": "Création…",
+  "inscription.dejaInscrit": "Déjà inscrit ?",
+  "inscription.seConnecter": "Connectez-vous",
+
+  // ── Mot de passe oublié ──
+  "oubli.eyebrow": "Mot de passe",
+  "oubli.titre": "Mot de passe oublié",
+  "oubli.consigne":
+    "Indiquez votre adresse : vous recevrez un lien pour en choisir un nouveau.",
+  "oubli.champEmail": "Adresse email",
+  "oubli.valider": "Recevoir le lien",
+  "oubli.enCours": "Envoi…",
+  "oubli.envoye":
+    "Si un compte existe pour cette adresse, un lien vient d'être envoyé. Il reste valable une heure.",
+  "oubli.indesirables": "Pensez à regarder dans les indésirables si rien n'arrive.",
+  "oubli.retour": "Retour à la connexion",
+
+  // ── Pied de page ──
+  "pied.mentions": "Mentions légales",
+  "pied.cgu": "Conditions d'utilisation",
+  "pied.confidentialite": "Politique de confidentialité",
+  "pied.marque": "Marque déposée BOIP n°160599",
+  "pied.legal": "Informations légales",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;
