@@ -83,7 +83,13 @@ body::before {
     );
 }
 
-body > * {
+/* Le contenu passe au-dessus du halo de fond.
+   `:not()` est indispensable : cette regle vit hors layer, et une regle
+   hors layer l'emporte sur les utilitaires Tailwind quelle que soit la
+   specificite. Sans l'exception, le `position: relative` ecrasait le
+   `position: fixed` des elements flottants — bulle d'assistant et
+   invite d'installation retombaient dans le flux, en bas a gauche. */
+body > *:not(.flottant) {
   position: relative;
   z-index: 1;
 }

@@ -170,7 +170,7 @@ export function BulleAssistant() {
           setHalo(false);
         }}
         aria-label={t("assistant.ouvrir")}
-        className="group fixed bottom-6 right-6 z-[60] flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-white shadow-xl shadow-teal/25 transition hover:bg-teal-hover hover:shadow-teal/40"
+        className="flottant group fixed bottom-6 right-6 z-[60] flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-white shadow-xl shadow-teal/25 transition hover:bg-teal-hover hover:shadow-teal/40"
       >
         {/* Halo pulsant : sur un écran dense, une pastille unie se
             confond avec le reste. Il s'arrête au premier survol pour ne
@@ -198,7 +198,7 @@ export function BulleAssistant() {
       // loin du bouton — et ce seuil se franchit aussi sur grand écran
       // dès qu'on agrandit le texte, le viewport CSS se réduisant
       // d'autant.
-      className="apparition fixed bottom-5 right-4 z-[60] flex max-h-[min(32rem,75vh)] w-[min(24rem,calc(100vw-2rem))] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20"
+      className="flottant apparition fixed bottom-5 right-4 z-[60] flex max-h-[min(32rem,75vh)] w-[min(24rem,calc(100vw-2rem))] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20"
     >
       <header className="flex items-center gap-2 border-b border-line px-4 py-3">
         <MessageSquare size={15} className="text-teal" aria-hidden="true" />
