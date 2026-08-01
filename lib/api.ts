@@ -29,6 +29,7 @@ import type {
   ScanRadar,
 } from "./types";
 import { effacerSession, lireSession } from "./session";
+import { lireLangue } from "./langue";
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -221,9 +222,15 @@ export async function recupererQualifications(
   return data.qualifications ?? [];
 }
 
-/** Modèles enregistrés, ou modèles par défaut si aucun n'est sauvegardé. */
+/**
+ * Modèles enregistrés, ou modèles par défaut si aucun n'est sauvegardé.
+ *
+ * La langue accompagne la demande : le serveur sert un modèle de départ
+ * rédigé dans la langue de l'interface. Sans elle, un utilisateur
+ * néerlandophone recevait un modèle en français.
+ */
 export function recupererModeles(): Promise<Modeles> {
-  return appeler<Modeles>("/outreach/modeles");
+  return appeler<Modeles>(`/outreach/modeles?langue=${lireLangue()}`);
 }
 
 /** Crée la campagne et alimente la file d'envoi. */
@@ -345,14 +352,15 @@ export function analyserSite(
 
 /** Offres et liens de paiement, déjà personnalisés. */
 export function recupererBoutique(): Promise<Boutique> {
-  return appeler<Boutique>("/boutique");
+  // La langue est reportée sur la page de paiement Stripe.
+  return appeler<Boutique>(`/boutique?langue=${lireLangue()}`);
 }
 
 /** Vérifie un code promotionnel. */
 export function verifierPromo(
   code: string,
 ): Promise<{ libelle: string; message: string; lien: string }> {
-  return envoyer("/boutique/promo", { code });
+  return envoyer(`/boutique/promo?langue=${lireLangue()}`, { code });
 }
 
 /** Lien de parrainage et conditions des programmes. */
@@ -415,7 +423,7 @@ export function interrogerAssistant(
   historique: TourConversation[],
   contexte = "",
 ): Promise<{ reponse: string; actions: ActionAssistant[] }> {
-  return envoyer("/assistant", { question, historique, contexte });
+  return envoyer("/assistant", { question, historique, contexte, langue: lireLangue() });
 }
 
 /** Questions de départ, adaptées à l'avancement du compte. */
@@ -613,6 +621,7 @@ export async function interrogerAvecFichier(
   corps.append("question", question);
   corps.append("historique", JSON.stringify(historique));
   corps.append("contexte", contexte);
+  corps.append("langue", lireLangue());
   corps.append("fichier", fichier);
 
   const reponse = await fetch(`${BASE}/assistant/fichier`, {

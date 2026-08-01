@@ -96,10 +96,17 @@ export const FOURNISSEURS: Record<string, { host: string; port: number }> = {
 
 /** Une qualification email présente dans un scan, avec son volume. */
 export interface Qualification {
+  /** Libellé brut, tel qu'il figure dans le fichier — toujours en français. */
   libelle: string;
   nombre: number;
   /** Présélectionnée : les qualifications non contactables sont exclues. */
   recommandee: boolean;
+  /**
+   * Statut normalisé, servi par le serveur. Les libellés bruts sont
+   * figés dans les fichiers déjà produits : c'est ce statut qui permet
+   * d'afficher un texte traduit.
+   */
+  statut?: "verifie" | "catchall" | "introuvable";
 }
 
 export interface Relance {

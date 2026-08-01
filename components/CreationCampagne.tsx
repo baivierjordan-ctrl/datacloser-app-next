@@ -262,7 +262,9 @@ export function CreationCampagne({
                     })
                   }
                 />
-                <span className="flex-1">{q.libelle}</span>
+                <span className="flex-1">
+                  {q.statut ? t(`fichier.${q.statut}` as Cle) : q.libelle}
+                </span>
                 <span className="font-mono tabular-nums text-xs text-muted">
                   {q.nombre}
                 </span>
