@@ -8,9 +8,11 @@ import { IllustrationRadar } from "@/components/IllustrationRadar";
 import { MarqueEnTete } from "@/components/Marque";
 import { seConnecter } from "@/lib/api";
 import { ecrireSession } from "@/lib/session";
+import { useLangue } from "@/lib/i18n";
 
 export default function PageConnexion() {
   const router = useRouter();
+  const { t } = useLangue();
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState("");
@@ -18,7 +20,7 @@ export default function PageConnexion() {
 
   async function valider() {
     if (!email.trim() || !motDePasse) {
-      setErreur("Renseignez votre email et votre mot de passe.");
+      setErreur(t("connexion.champsManquants"));
       return;
     }
     setErreur("");
@@ -38,11 +40,11 @@ export default function PageConnexion() {
       <div className="flex flex-1 items-center justify-center px-6 py-10">
       <div className="w-full max-w-sm">
         <MarqueEnTete />
-        <h1 className="mb-8 text-2xl font-semibold">Connexion</h1>
+        <h1 className="mb-8 text-2xl font-semibold">{t("connexion.titre")}</h1>
 
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">
-            <span className="text-xs text-muted">Email</span>
+            <span className="text-xs text-muted">{t("connexion.email")}</span>
             <input
               type="email"
               value={email}
@@ -54,7 +56,7 @@ export default function PageConnexion() {
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-xs text-muted">Mot de passe</span>
+            <span className="text-xs text-muted">{t("connexion.motDePasse")}</span>
             <input
               type="password"
               value={motDePasse}
@@ -81,7 +83,7 @@ export default function PageConnexion() {
             className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-medium text-white transition hover:bg-teal-hover disabled:opacity-50"
           >
             <LogIn size={15} aria-hidden="true" />
-            {enCours ? "Connexion…" : "Se connecter"}
+            {enCours ? t("connexion.enCours") : t("connexion.valider")}
           </button>
         </div>
 
@@ -90,14 +92,14 @@ export default function PageConnexion() {
             href="/mot-de-passe-oublie"
             className="text-muted transition hover:text-content"
           >
-            Mot de passe oublié ?
+            {t("connexion.motDePasseOublie")}
           </Link>
         </p>
 
         <p className="mt-3 text-center text-xs text-muted">
-          Pas encore de compte ?{" "}
+          {t("connexion.pasDeCompte")}{" "}
           <Link href="/inscription" className="text-teal hover:underline">
-            Créez-en un
+            {t("connexion.creerCompte")}
           </Link>
         </p>
       </div>
@@ -110,11 +112,10 @@ export default function PageConnexion() {
         <div className="max-w-md px-12">
           <IllustrationRadar classe="mx-auto mb-8 w-64 text-white/70" />
           <p className="text-center font-display text-xl font-semibold leading-snug text-white">
-            Votre marché, balayé en continu.
+            {t("connexion.accrocheTitre")}
           </p>
           <p className="mt-3 text-center text-sm leading-relaxed text-white/60">
-            Le moteur détecte les entreprises, vérifie les décideurs et leurs
-            emails, puis rédige une accroche à partir de leur propre site.
+            {t("connexion.accrocheTexte")}
           </p>
         </div>
       </aside>

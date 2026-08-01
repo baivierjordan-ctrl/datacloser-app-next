@@ -16,8 +16,10 @@ import {
 import { Marque } from "@/components/Marque";
 import { BoutonInstaller } from "@/components/BoutonInstaller";
 import { SelecteurTheme } from "@/components/SelecteurTheme";
+import { SelecteurLangue } from "@/components/SelecteurLangue";
 import { recupererCredits } from "@/lib/api";
 import { ecrireSession, effacerSession, lireSession } from "@/lib/session";
+import { useLangue, type Cle } from "@/lib/i18n";
 
 /**
  * Les cinq sections du travail quotidien restent dans la barre. Les
@@ -25,19 +27,19 @@ import { ecrireSession, effacerSession, lireSession } from "@/lib/session";
  * se consultent depuis le menu du compte : huit onglets ne tiennent
  * pas dans la largeur et se lisent mal d'un regard.
  */
-const ONGLETS = [
-  { href: "/accueil", libelle: "Accueil" },
-  { href: "/radar", libelle: "Radar" },
-  { href: "/outreach", libelle: "Outreach" },
-  { href: "/exports", libelle: "Exports" },
-  { href: "/assistant", libelle: "Assistant" },
+const ONGLETS: { href: string; cle: Cle }[] = [
+  { href: "/accueil", cle: "nav.accueil" },
+  { href: "/radar", cle: "nav.radar" },
+  { href: "/outreach", cle: "nav.outreach" },
+  { href: "/exports", cle: "nav.exports" },
+  { href: "/assistant", cle: "nav.assistant" },
 ];
 
-const MENU_COMPTE = [
-  { href: "/guide", libelle: "Mode d'emploi", Icone: BookOpen },
-  { href: "/entreprise", libelle: "Mon entreprise", Icone: Building2 },
-  { href: "/boutique", libelle: "Boutique", Icone: ShoppingBag },
-  { href: "/partenariat", libelle: "Partenariat", Icone: Handshake },
+const MENU_COMPTE: { href: string; cle: Cle; Icone: typeof BookOpen }[] = [
+  { href: "/guide", cle: "nav.guide", Icone: BookOpen },
+  { href: "/entreprise", cle: "nav.entreprise", Icone: Building2 },
+  { href: "/boutique", cle: "nav.boutique", Icone: ShoppingBag },
+  { href: "/partenariat", cle: "nav.partenariat", Icone: Handshake },
 ];
 
 /** Comptes voyant l'entrée d'administration. Le serveur refuse de toute
@@ -47,6 +49,7 @@ const ADMINS = ["admin@datacloser.com"];
 export function Navigation() {
   const router = useRouter();
   const chemin = usePathname();
+  const { t } = useLangue();
   const [compte, setCompte] = useState("");
   const [credits, setCredits] = useState<number | null>(null);
   const [ouvert, setOuvert] = useState(false);
@@ -110,7 +113,7 @@ export function Navigation() {
 
   const estAdmin = ADMINS.includes(compte.trim().toLowerCase());
   const entrees = estAdmin
-    ? [...MENU_COMPTE, { href: "/admin", libelle: "Administration", Icone: Crown }]
+    ? [...MENU_COMPTE, { href: "/admin", cle: "nav.administration" as Cle, Icone: Crown }]
     : MENU_COMPTE;
   const dansLeMenu = entrees.some((e) => e.href === chemin);
 
@@ -123,7 +126,7 @@ export function Navigation() {
       <Link
         href="/accueil"
         className="order-1 shrink-0"
-        aria-label="DataCloser, tableau de bord"
+        aria-label={t("nav.tableauDeBord")}
       >
         <Marque />
       </Link>
@@ -135,7 +138,7 @@ export function Navigation() {
 
       <nav
         className="defilement-discret order-3 -mb-3 flex w-full gap-5 pb-3 lg:order-2 lg:w-auto lg:flex-1"
-        aria-label="Sections"
+        aria-label={t("nav.sections")}
       >
           {ONGLETS.map((onglet) => {
             const actif = chemin === onglet.href;
@@ -148,7 +151,7 @@ export function Navigation() {
                   actif ? "text-content" : "text-muted hover:text-content"
                 }`}
               >
-                {onglet.libelle}
+                {t(onglet.cle)}
                 {actif && (
                   <span
                     aria-hidden="true"
@@ -164,7 +167,7 @@ export function Navigation() {
         {credits !== null && (
           <Link
             href="/boutique"
-            title="Crédits restants — recharger"
+            title={t("nav.credits")}
             className="flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-xs transition hover:border-teal/40"
           >
             <Coins size={12} className="text-teal" aria-hidden="true" />
@@ -187,7 +190,7 @@ export function Navigation() {
             <span className="hidden max-w-[10rem] truncate sm:inline">
               {compte}
             </span>
-            <span className="sm:hidden">Compte</span>
+            <span className="sm:hidden">{t("nav.compte")}</span>
             <ChevronDown
               size={12}
               aria-hidden="true"
@@ -204,7 +207,7 @@ export function Navigation() {
                 {compte}
               </p>
 
-              {entrees.map(({ href, libelle, Icone }) => (
+              {entrees.map(({ href, cle, Icone }) => (
                 <Link
                   key={href}
                   href={href}
@@ -215,13 +218,15 @@ export function Navigation() {
                   }`}
                 >
                   <Icone size={14} aria-hidden="true" />
-                  {libelle}
+                  {t(cle)}
                 </Link>
               ))}
 
               <BoutonInstaller />
 
               <SelecteurTheme />
+
+              <SelecteurLangue />
 
               <button
                 type="button"
@@ -230,7 +235,7 @@ export function Navigation() {
                 className="flex w-full items-center gap-2.5 border-t border-line px-4 py-2.5 text-sm text-muted transition hover:bg-ink hover:text-danger"
               >
                 <LogOut size={14} aria-hidden="true" />
-                Se déconnecter
+                {t("nav.deconnexion")}
               </button>
             </div>
           )}

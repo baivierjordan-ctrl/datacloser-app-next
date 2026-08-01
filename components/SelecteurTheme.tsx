@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { Monitor, Moon, Sun } from "lucide-react";
 import { appliquerTheme, ecrireTheme, lireTheme, type Theme } from "@/lib/theme";
+import { useLangue, type Cle } from "@/lib/i18n";
 
-const CHOIX = [
-  { valeur: "clair" as const, libelle: "Clair", Icone: Sun },
-  { valeur: "sombre" as const, libelle: "Sombre", Icone: Moon },
-  { valeur: "systeme" as const, libelle: "Système", Icone: Monitor },
+const CHOIX: { valeur: Theme; cle: Cle; Icone: typeof Sun }[] = [
+  { valeur: "clair", cle: "reglages.themeClair", Icone: Sun },
+  { valeur: "sombre", cle: "reglages.themeSombre", Icone: Moon },
+  { valeur: "systeme", cle: "reglages.themeSysteme", Icone: Monitor },
 ];
 
 /**
@@ -18,6 +19,7 @@ const CHOIX = [
  * positions ne saurait pas l'exprimer.
  */
 export function SelecteurTheme() {
+  const { t } = useLangue();
   const [theme, setTheme] = useState<Theme>("systeme");
 
   useEffect(() => {
@@ -35,13 +37,13 @@ export function SelecteurTheme() {
 
   return (
     <div className="border-t border-line px-4 py-3">
-      <p className="mb-2 text-xs text-muted">Apparence</p>
+      <p className="mb-2 text-xs text-muted">{t("reglages.apparence")}</p>
       <div
         role="radiogroup"
-        aria-label="Choix du thème"
+        aria-label={t("reglages.choixTheme")}
         className="flex gap-1 rounded-lg border border-line p-1"
       >
-        {CHOIX.map(({ valeur, libelle, Icone }) => {
+        {CHOIX.map(({ valeur, cle, Icone }) => {
           const actif = theme === valeur;
           return (
             <button
@@ -60,7 +62,7 @@ export function SelecteurTheme() {
               }`}
             >
               <Icone size={13} aria-hidden="true" />
-              {libelle}
+              {t(cle)}
             </button>
           );
         })}

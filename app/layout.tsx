@@ -3,6 +3,7 @@ import "./globals.css";
 import { EnregistrerServiceWorker } from "@/components/EnregistrerServiceWorker";
 import { BulleAssistant } from "@/components/BulleAssistant";
 import { FournisseurContexteAssistant } from "@/lib/contexte-assistant";
+import { FournisseurLangue } from "@/lib/i18n";
 import { InviteInstallation } from "@/components/InviteInstallation";
 
 export const metadata: Metadata = {
@@ -50,11 +51,13 @@ export default function RootLayout({
       </head>
       <body>
         <EnregistrerServiceWorker />
-        <FournisseurContexteAssistant>
-          {children}
-          <BulleAssistant />
-        </FournisseurContexteAssistant>
-        <InviteInstallation />
+        <FournisseurLangue>
+          <FournisseurContexteAssistant>
+            {children}
+            <BulleAssistant />
+          </FournisseurContexteAssistant>
+          <InviteInstallation />
+        </FournisseurLangue>
       </body>
     </html>
   );
