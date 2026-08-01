@@ -23,7 +23,16 @@ interface Props {
 }
 
 export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props) {
-  const [config, setConfig] = useState<ConfigSmtp>({ ...DEFAUT, ...initiale, smtp_password: "" });
+  const [config, setConfig] = useState<ConfigSmtp>({
+    ...DEFAUT,
+    ...initiale,
+    // Une valeur nulle en base survivait à la fusion et partait telle
+    // quelle : le serveur refusait la charge sans que rien ne l'explique.
+    jours_actifs: initiale?.jours_actifs?.length
+      ? initiale.jours_actifs
+      : DEFAUT.jours_actifs,
+    smtp_password: "",
+  });
   const [enCours, setEnCours] = useState(false);
   const [succes, setSucces] = useState(false);
   const [erreur, setErreur] = useState("");
@@ -55,6 +64,10 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
     }
     if (!dejaConfigure && !config.smtp_password) {
       setErreur("Le mot de passe est requis pour la première configuration.");
+      return;
+    }
+    if (config.jours_actifs.length === 0) {
+      setErreur("Choisissez au moins un jour d'envoi.");
       return;
     }
     if (config.plage_debut >= config.plage_fin) {

@@ -114,6 +114,32 @@ export async function telechargerExport(fichier: string): Promise<void> {
   URL.revokeObjectURL(url);
 }
 
+/**
+ * Message lisible à partir d'une réponse d'erreur.
+ *
+ * FastAPI renvoie une chaîne pour nos erreurs explicites, mais une
+ * LISTE d'objets quand la validation échoue. Afficher cette liste telle
+ * quelle donnait « [object Object] » à l'utilisateur, c'est-à-dire rien.
+ */
+function messageErreur(detail: unknown, defaut: string): string {
+  if (typeof detail === "string" && detail.trim()) return detail;
+
+  if (Array.isArray(detail)) {
+    const champs = detail
+      .map((e) => {
+        const chemin = Array.isArray(e?.loc)
+          ? e.loc.filter((x: unknown) => x !== "body").join(" → ")
+          : "";
+        const raison = typeof e?.msg === "string" ? e.msg : "";
+        return [chemin, raison].filter(Boolean).join(" : ");
+      })
+      .filter(Boolean);
+    if (champs.length > 0) return `Champ invalide — ${champs.join(" ; ")}`;
+  }
+
+  return defaut;
+}
+
 async function envoyer<T>(chemin: string, corps: unknown): Promise<T> {
   const session = lireSession();
   if (!session) throw new SessionExpiree();
@@ -133,7 +159,9 @@ async function envoyer<T>(chemin: string, corps: unknown): Promise<T> {
   }
   if (!reponse.ok) {
     const detail = await reponse.json().catch(() => null);
-    throw new Error(detail?.detail ?? "L'enregistrement a échoué. Réessayez.");
+    throw new Error(
+      messageErreur(detail?.detail, "L'enregistrement a échoué. Réessayez."),
+    );
   }
   return reponse.json();
 }
@@ -260,7 +288,9 @@ export async function sInscrire(donnees: {
   });
   if (!reponse.ok) {
     const detail = await reponse.json().catch(() => null);
-    throw new Error(detail?.detail ?? "Inscription impossible. Réessayez.");
+    throw new Error(
+      messageErreur(detail?.detail, "Inscription impossible. Réessayez."),
+    );
   }
   return reponse.json();
 }
@@ -288,7 +318,7 @@ export async function validerReset(
   });
   if (!reponse.ok) {
     const detail = await reponse.json().catch(() => null);
-    throw new Error(detail?.detail ?? "Lien invalide ou expiré.");
+    throw new Error(messageErreur(detail?.detail, "Lien invalide ou expiré."));
   }
   return reponse.json();
 }
