@@ -79,7 +79,7 @@ export default function PageAccueil() {
   useDeclarerContexte(
     donnees
       ? {
-          ecran: "son tableau de bord",
+          ecran: t("ctx.tableauDeBord"),
           details: [
             `${donnees.credits} crédits, ${donnees.entreprises_analysees} entreprises analysées`,
             `${donnees.emails_envoyes} emails envoyés, ${donnees.reponses} réponses reçues`,
@@ -89,9 +89,9 @@ export default function PageAccueil() {
               : "Aucun défaut détecté dans sa configuration",
           ],
           suggestions: [
-            "Que dois-je faire en priorité ?",
-            "Mon taux de réponse est-il normal ?",
-            "Comment obtenir plus de réponses ?",
+            t("ctx.sugAccueil1"),
+            t("ctx.sugAccueil2"),
+            t("ctx.sugAccueil3"),
           ],
         }
       : null,

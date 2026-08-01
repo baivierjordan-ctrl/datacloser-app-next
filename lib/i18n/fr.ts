@@ -674,6 +674,23 @@ export const fr = {
     "L'email est construit sur un destinataire réel de ce scan, avec votre signature. Rien n'est envoyé.",
   "apercu.suivant": "Destinataire suivant",
   "apercu.objet": "Objet : ",
+
+  // ── Contexte transmis à l'assistant ──
+  // Ces phrases partent au moteur pour qu'il sache où se trouve
+  // l'utilisateur, et s'affichent aussi en tête de la bulle.
+  "ctx.jeVois": "Je vois ce que vous avez sous les yeux :",
+  "ctx.tableauDeBord": "son tableau de bord",
+  "ctx.creationCampagne": "la création d'une campagne d'emails",
+  "ctx.fichierLeads": "le fichier de leads",
+  "ctx.sugAccueil1": "Que dois-je faire en priorité ?",
+  "ctx.sugAccueil2": "Mon taux de réponse est-il normal ?",
+  "ctx.sugAccueil3": "Comment obtenir plus de réponses ?",
+  "ctx.sugCampagne1": "Ce message obtiendra-t-il des réponses ?",
+  "ctx.sugCampagne2": "Comment améliorer mon objet ?",
+  "ctx.sugCampagne3": "À quelle fréquence relancer ?",
+  "ctx.sugFichier1": "Ces leads correspondent-ils à ma cible ?",
+  "ctx.sugFichier2": "Par lesquels commencer ?",
+  "ctx.sugFichier3": "Que faire des catch-all ?",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;

@@ -61,16 +61,16 @@ export function TableauFichier({
   useDeclarerContexte(
     contenu
       ? {
-          ecran: `le fichier de leads « ${titre} »`,
+          ecran: `${t("ctx.fichierLeads")} « ${titre} »`,
           details: [
             `${contenu.total} entreprises, dont ${contenu.contactables} contactables`,
             `Qualité des emails : ${contenu.qualite.verifie} vérifiés, ${contenu.qualite.catchall} catch-all, ${contenu.qualite.introuvable} introuvables`,
             `Colonnes disponibles : ${contenu.colonnes.slice(0, 12).join(", ")}`,
           ],
           suggestions: [
-            "Ces leads correspondent-ils à ma cible ?",
-            "Par lesquels commencer ?",
-            "Que faire des catch-all ?",
+            t("ctx.sugFichier1"),
+            t("ctx.sugFichier2"),
+            t("ctx.sugFichier3"),
           ],
         }
       : null,

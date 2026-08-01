@@ -670,4 +670,19 @@ export const en: Traductions = {
     "The email is built for a real recipient from this hunt, with your signature. Nothing is sent.",
   "apercu.suivant": "Next recipient",
   "apercu.objet": "Subject: ",
+
+  // ── Context sent to the assistant ──
+  "ctx.jeVois": "I can see what you have in front of you:",
+  "ctx.tableauDeBord": "their dashboard",
+  "ctx.creationCampagne": "creating an email campaign",
+  "ctx.fichierLeads": "the lead file",
+  "ctx.sugAccueil1": "What should I do first?",
+  "ctx.sugAccueil2": "Is my reply rate normal?",
+  "ctx.sugAccueil3": "How do I get more replies?",
+  "ctx.sugCampagne1": "Will this message get replies?",
+  "ctx.sugCampagne2": "How can I improve my subject line?",
+  "ctx.sugCampagne3": "How often should I follow up?",
+  "ctx.sugFichier1": "Do these leads match my target?",
+  "ctx.sugFichier2": "Which ones should I start with?",
+  "ctx.sugFichier3": "What should I do with catch-all addresses?",
 };

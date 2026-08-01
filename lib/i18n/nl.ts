@@ -671,4 +671,19 @@ export const nl: Traductions = {
     "De e-mail wordt opgebouwd voor een echte ontvanger uit deze zoekactie, met uw handtekening. Er wordt niets verzonden.",
   "apercu.suivant": "Volgende ontvanger",
   "apercu.objet": "Onderwerp: ",
+
+  // ── Context voor de assistent ──
+  "ctx.jeVois": "Ik zie wat u voor u hebt:",
+  "ctx.tableauDeBord": "zijn dashboard",
+  "ctx.creationCampagne": "het aanmaken van een e-mailcampagne",
+  "ctx.fichierLeads": "het leadbestand",
+  "ctx.sugAccueil1": "Wat moet ik als eerste doen?",
+  "ctx.sugAccueil2": "Is mijn antwoordpercentage normaal?",
+  "ctx.sugAccueil3": "Hoe krijg ik meer antwoorden?",
+  "ctx.sugCampagne1": "Zal dit bericht antwoorden opleveren?",
+  "ctx.sugCampagne2": "Hoe verbeter ik mijn onderwerp?",
+  "ctx.sugCampagne3": "Hoe vaak moet ik herinneren?",
+  "ctx.sugFichier1": "Komen deze leads overeen met mijn doelgroep?",
+  "ctx.sugFichier2": "Met welke begin ik het best?",
+  "ctx.sugFichier3": "Wat doe ik met de catch-all adressen?",
 };

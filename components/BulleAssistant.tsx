@@ -170,7 +170,7 @@ export function BulleAssistant() {
           setHalo(false);
         }}
         aria-label={t("assistant.ouvrir")}
-        className="group fixed bottom-6 right-6 z-40 flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-white shadow-xl shadow-teal/25 transition hover:bg-teal-hover hover:shadow-teal/40"
+        className="group fixed bottom-6 right-6 z-[60] flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-white shadow-xl shadow-teal/25 transition hover:bg-teal-hover hover:shadow-teal/40"
       >
         {/* Halo pulsant : sur un écran dense, une pastille unie se
             confond avec le reste. Il s'arrête au premier survol pour ne
@@ -183,7 +183,7 @@ export function BulleAssistant() {
           />
         )}
         <MessageSquare size={20} aria-hidden="true" />
-        <span className="text-sm font-medium">Assistant</span>
+        <span className="text-sm font-medium">{t("nav.assistant")}</span>
       </button>
     );
   }
@@ -192,7 +192,7 @@ export function BulleAssistant() {
     <div
       role="dialog"
       aria-label={t("assistant.eyebrow")}
-      className="apparition fixed inset-x-4 bottom-5 z-40 mx-auto flex max-h-[min(32rem,75vh)] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20 sm:inset-x-auto sm:right-5 sm:mx-0 sm:w-96"
+      className="apparition fixed inset-x-4 bottom-5 z-[60] mx-auto flex max-h-[min(32rem,75vh)] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20 sm:inset-x-auto sm:right-5 sm:mx-0 sm:w-96"
     >
       <header className="flex items-center gap-2 border-b border-line px-4 py-3">
         <MessageSquare size={15} className="text-teal" aria-hidden="true" />
@@ -220,7 +220,7 @@ export function BulleAssistant() {
           <>
             <p className="text-xs leading-relaxed text-muted">
               {contexte
-                ? `Je vois ce que vous avez sous les yeux : ${contexte.ecran}.`
+                ? `${t("ctx.jeVois")} ${contexte.ecran}.`
                 : t("assistant.accueilBulle")}
             </p>
 

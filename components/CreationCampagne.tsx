@@ -125,7 +125,7 @@ export function CreationCampagne({
   // est-il bon ? » cesse d'être une question abstraite.
   useDeclarerContexte(
     {
-      ecran: "la création d'une campagne d'emails",
+      ecran: t("ctx.creationCampagne"),
       details: [
         sujet ? `Objet rédigé : « ${sujet} »` : "Aucun objet rédigé",
         corps
@@ -139,9 +139,9 @@ export function CreationCampagne({
           : "Relances désactivées",
       ],
       suggestions: [
-        "Ce message obtiendra-t-il des réponses ?",
-        "Comment améliorer mon objet ?",
-        "À quelle fréquence relancer ?",
+        t("ctx.sugCampagne1"),
+        t("ctx.sugCampagne2"),
+        t("ctx.sugCampagne3"),
       ],
     },
     [sujet, corps, fichier, avecRelance, avecJ9, avecJ14],
