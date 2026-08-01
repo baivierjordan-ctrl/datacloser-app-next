@@ -192,7 +192,13 @@ export function BulleAssistant() {
     <div
       role="dialog"
       aria-label={t("assistant.eyebrow")}
-      className="apparition fixed inset-x-4 bottom-5 z-[60] mx-auto flex max-h-[min(32rem,75vh)] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20 sm:inset-x-auto sm:right-5 sm:mx-0 sm:w-96"
+      // Ancré à droite quelle que soit la largeur, sous le bouton qui
+      // l'ouvre. La version précédente s'étalait sur toute la largeur en
+      // dessous de 640px : le panneau semblait alors collé à gauche,
+      // loin du bouton — et ce seuil se franchit aussi sur grand écran
+      // dès qu'on agrandit le texte, le viewport CSS se réduisant
+      // d'autant.
+      className="apparition fixed bottom-5 right-4 z-[60] flex max-h-[min(32rem,75vh)] w-[min(24rem,calc(100vw-2rem))] flex-col rounded-xl border border-line bg-surface shadow-lg shadow-slate-900/20"
     >
       <header className="flex items-center gap-2 border-b border-line px-4 py-3">
         <MessageSquare size={15} className="text-teal" aria-hidden="true" />

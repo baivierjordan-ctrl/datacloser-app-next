@@ -94,7 +94,7 @@ export function InviteInstallation() {
       // L'assistant occupe le même coin : l'invite passe derrière et
       // se décale sur les écrans larges, sinon elle recouvrait le bouton
       // et le panneau, qui sont l'outil de travail.
-      className="apparition fixed inset-x-4 bottom-4 z-40 mx-auto max-w-md rounded-xl border border-line bg-surface p-4 shadow-lg shadow-slate-900/10 sm:left-5 sm:right-auto sm:mx-0"
+      className="apparition fixed bottom-4 left-4 z-40 w-[min(28rem,calc(100vw-2rem))] rounded-xl border border-line bg-surface p-4 shadow-lg shadow-slate-900/10"
     >
       <div className="flex items-start gap-3">
         <span
