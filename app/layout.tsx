@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { EnregistrerServiceWorker } from "@/components/EnregistrerServiceWorker";
 
 export const metadata: Metadata = {
   // Le gabarit met le nom du produit en fin d'onglet : l'écran courant
@@ -10,6 +11,14 @@ export const metadata: Metadata = {
   },
   description: "Prospection B2B automatisée pour le marché francophone",
   applicationName: "DataCloser",
+  manifest: "/manifest.json",
+  // Sur iOS, l'ajout à l'écran d'accueil passe par ces métadonnées :
+  // Safari ignore le manifeste pour le mode plein écran.
+  appleWebApp: {
+    capable: true,
+    title: "DataCloser",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export const viewport: Viewport = {
@@ -36,7 +45,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <EnregistrerServiceWorker />
+        {children}
+      </body>
     </html>
   );
 }
