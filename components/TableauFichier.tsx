@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Download, Loader2, Search } from "lucide-react";
 import { Aide } from "@/components/Aide";
 import { recupererContenuFichier, telechargerExport } from "@/lib/api";
 import { useDeclarerContexte } from "@/lib/contexte-assistant";
+import { useLangue } from "@/lib/i18n";
 import type { ContenuFichier } from "@/lib/types";
 
 /**
@@ -30,6 +31,7 @@ export function TableauFichier({
   fichier: string;
   onRetour: () => void;
 }) {
+  const { t } = useLangue();
   const [contenu, setContenu] = useState<ContenuFichier | null>(null);
   const [erreur, setErreur] = useState("");
   const [recherche, setRecherche] = useState("");
@@ -84,7 +86,7 @@ export function TableauFichier({
           className="flex items-center gap-2 text-sm text-muted transition hover:text-content"
         >
           <ArrowLeft size={14} aria-hidden="true" />
-          Tous les fichiers
+          {t("fichier.tous")}
         </button>
 
         <button
@@ -93,7 +95,7 @@ export function TableauFichier({
           onClick={() => {
             setEnCours(true);
             telechargerExport(fichier)
-              .catch(() => setErreur("Téléchargement impossible."))
+              .catch(() => setErreur(t("fichier.telechargementImpossible")))
               .finally(() => setEnCours(false));
           }}
           className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-line-hover hover:text-content disabled:opacity-50"
@@ -114,18 +116,18 @@ export function TableauFichier({
           <span className="font-mono tabular-nums text-content">
             {contenu.total}
           </span>{" "}
-          {contenu.total > 1 ? "lignes" : "ligne"} ·{" "}
+          {contenu.total > 1 ? t("fichier.lignes") : t("fichier.ligne")} ·{" "}
           <span className="font-mono tabular-nums">
             {contenu.colonnes.length}
           </span>{" "}
-          colonnes
+          {t("fichier.colonnes")}
           {recherche.trim() && (
             <>
               {" · "}
               <span className="font-mono tabular-nums text-teal">
                 {lignes.length}
               </span>{" "}
-              après filtre
+              {t("fichier.apresFiltre")}
             </>
           )}
         </p>
@@ -135,9 +137,9 @@ export function TableauFichier({
         <>
           <div className="mt-5 grid gap-4 sm:grid-cols-3">
             {[
-              { valeur: contenu.total, libelle: "entreprises", accent: false },
-              { valeur: contenu.contactables, libelle: "contactables", accent: true },
-              { valeur: contenu.contactables, libelle: "crédits à l'envoi", accent: false },
+              { valeur: contenu.total, libelle: t("fichier.entreprises"), accent: false, credits: false },
+              { valeur: contenu.contactables, libelle: t("fichier.contactables"), accent: true, credits: false },
+              { valeur: contenu.contactables, libelle: t("fichier.creditsEnvoi"), accent: false, credits: true },
             ].map((carte, rang) => (
               <div
                 key={carte.libelle}
@@ -153,12 +155,9 @@ export function TableauFichier({
                 </p>
                 <p className="mt-2 flex items-center gap-1.5 text-xs text-muted">
                   {carte.libelle}
-                  {carte.libelle === "crédits à l'envoi" && (
-                    <Aide titre="Comment les crédits sont comptés">
-                      Un crédit par premier message envoyé, uniquement aux
-                      contacts vérifiés ou catch-all. Les relances sont
-                      gratuites et les introuvables ne coûtent jamais rien.
-                      Les crédits n&apos;expirent pas.
+                  {carte.credits && (
+                    <Aide titre={t("fichier.aideCredits")}>
+                      {t("fichier.aideCreditsTexte")}
                     </Aide>
                   )}
                 </p>
@@ -168,20 +167,16 @@ export function TableauFichier({
 
           <section className="apparition mt-4 rounded-xl border border-line bg-surface p-5">
             <h3 className="mb-4 flex items-center gap-2 text-sm font-medium">
-              Qualité des emails
-              <Aide titre="Les trois niveaux de qualification">
-                Vérifié : le serveur du destinataire a confirmé que l&apos;adresse
-                existe — le meilleur niveau. Catch-all : le serveur accepte tout,
-                impossible de confirmer sans envoyer — utilisable avec prudence.
-                Introuvable : aucune adresse fiable — exclu des campagnes, jamais
-                facturé à l&apos;envoi.
+              {t("fichier.qualiteEmails")}
+              <Aide titre={t("fichier.aideQualifTitre")}>
+                {t("fichier.aideQualifTexte")}
               </Aide>
             </h3>
 
             <div
               className="flex h-2.5 overflow-hidden rounded-full bg-ink"
               role="img"
-              aria-label={`${contenu.qualite.verifie} vérifiés, ${contenu.qualite.catchall} catch-all, ${contenu.qualite.introuvable} introuvables`}
+              aria-label={`${contenu.qualite.verifie} / ${contenu.qualite.catchall} / ${contenu.qualite.introuvable} — ${t("fichier.qualiteLabel")}`}
             >
               {([
                 ["verifie", "bg-ok"],
@@ -203,9 +198,9 @@ export function TableauFichier({
             <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
               <div className="flex flex-wrap gap-x-5 gap-y-1.5">
                 {([
-                  ["verifie", "bg-ok", "Vérifié"],
-                  ["catchall", "bg-warn", "Catch-all"],
-                  ["introuvable", "bg-danger", "Introuvable"],
+                  ["verifie", "bg-ok", t("fichier.verifie")],
+                  ["catchall", "bg-warn", t("fichier.catchall")],
+                  ["introuvable", "bg-danger", t("fichier.introuvable")],
                 ] as const).map(([cle, couleur, libelle]) => (
                   <span key={cle} className="flex items-center gap-1.5 text-xs text-muted">
                     <span aria-hidden="true" className={`size-2 rounded-full ${couleur}`} />
@@ -221,7 +216,7 @@ export function TableauFichier({
                 href={`/outreach?source=${encodeURIComponent(fichier)}`}
                 className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
               >
-                Lancer une campagne
+                {t("fichier.lancerCampagne")}
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
@@ -248,12 +243,10 @@ export function TableauFichier({
       {contenu && contenu.total === 0 && (
         <div className="mt-5 rounded-xl border border-warn/30 bg-warn/5 px-5 py-8 text-center">
           <p className="text-sm text-content">
-            Ce fichier ne contient aucune ligne.
+            {t("fichier.vide")}
           </p>
           <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-muted">
-            Le fichier est créé au départ d&apos;une chasse et rempli à la fin :
-            une chasse interrompue laisse donc un fichier vide sous le même nom.
-            Relancez-la depuis le Radar pour le régénérer.
+            {t("fichier.videDetail")}
           </p>
         </div>
       )}
@@ -269,8 +262,8 @@ export function TableauFichier({
             <input
               value={recherche}
               onChange={(e) => setRecherche(e.target.value)}
-              placeholder="Filtrer sur n'importe quelle colonne…"
-              aria-label="Filtrer les lignes"
+              placeholder={t("fichier.filtrer")}
+              aria-label={t("fichier.filtrerLabel")}
               className="w-full rounded-lg border border-line bg-ink py-2 pl-9 pr-3 text-sm text-content outline-none transition focus:border-teal"
             />
           </div>

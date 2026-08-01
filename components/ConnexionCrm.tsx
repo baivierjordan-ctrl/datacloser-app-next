@@ -8,6 +8,7 @@ import {
   recupererWebhook,
   testerWebhook,
 } from "@/lib/api";
+import { useLangue } from "@/lib/i18n";
 
 const champ =
   "w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-content outline-none transition focus:border-teal";
@@ -20,6 +21,7 @@ const champ =
  * réseau interne est refusée par le serveur.
  */
 export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
+  const { t } = useLangue();
   const [url, setUrl] = useState("");
   const [enregistree, setEnregistree] = useState("");
   const [fichier, setFichier] = useState("");
@@ -63,19 +65,18 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
       <section className="rounded-xl border border-line bg-surface p-5">
         <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
           <Link2 size={14} className="text-teal" aria-hidden="true" />
-          Adresse de réception
+          {t("crm.adresse")}
         </h2>
         <p className="mb-4 text-xs leading-relaxed text-muted">
-          Collez ici l&apos;adresse fournie par Make, Zapier, n8n ou votre CRM.
-          Vos leads y seront envoyés au format JSON.
+          {t("crm.adresseDetail")}
         </p>
 
         <input
           className={champ}
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://hook.eu2.make.com/…"
-          aria-label="Adresse du webhook"
+          placeholder={t("crm.webhookExemple")}
+          aria-label={t("crm.webhookLabel")}
           autoComplete="off"
           spellCheck={false}
         />
@@ -90,8 +91,8 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
                 setEnregistree(r.url);
                 setUrl(r.url);
                 return r.url
-                  ? "Adresse enregistrée."
-                  : "Adresse effacée.";
+                  ? t("crm.enregistree")
+                  : t("crm.effacee");
               })
             }
             className="flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:cursor-not-allowed disabled:opacity-40"
@@ -101,7 +102,7 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
             ) : (
               <Check size={14} aria-hidden="true" />
             )}
-            Enregistrer
+            {t("crm.enregistrer")}
           </button>
 
           <button
@@ -127,15 +128,14 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
       </section>
 
       <section className="rounded-xl border border-line bg-surface p-5">
-        <h2 className="mb-1 text-sm font-medium">Envoyer un fichier</h2>
+        <h2 className="mb-1 text-sm font-medium">{t("crm.envoyerFichier")}</h2>
         <p className="mb-4 text-xs text-muted">
-          Toutes les lignes du fichier choisi partent vers l&apos;adresse
-          enregistrée.
+          {t("crm.envoyerDetail")}
         </p>
 
         {fichiers.length === 0 ? (
           <p className="text-xs text-muted">
-            Aucun fichier disponible. Lancez d&apos;abord une chasse.
+            {t("crm.aucunFichier")}
           </p>
         ) : (
           <div className="flex flex-wrap gap-2">
@@ -143,7 +143,7 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
               className={`${champ} flex-1`}
               value={fichier}
               onChange={(e) => setFichier(e.target.value)}
-              aria-label="Fichier à envoyer"
+              aria-label={t("crm.fichierLabel")}
             >
               {fichiers.map((f) => (
                 <option key={f} value={f}>
@@ -157,7 +157,7 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
               onClick={() =>
                 agir("envoi", async () => {
                   const r = await envoyerVersCrm(fichier);
-                  return `${r.envoyes} ligne${r.envoyes > 1 ? "s" : ""} envoyée${r.envoyes > 1 ? "s" : ""}.`;
+                  return `${r.envoyes} ${r.envoyes > 1 ? t("crm.lignesEnvoyees") : t("crm.ligneEnvoyee")}`;
                 })
               }
               className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-teal/40 hover:text-teal disabled:cursor-not-allowed disabled:opacity-40"
@@ -167,14 +167,14 @@ export function ConnexionCrm({ fichiers }: { fichiers: string[] }) {
               ) : (
                 <Send size={14} aria-hidden="true" />
               )}
-              Envoyer
+              {t("crm.envoyer")}
             </button>
           </div>
         )}
 
         {!enregistree && fichiers.length > 0 && (
           <p className="mt-3 text-xs text-muted">
-            Enregistrez d&apos;abord une adresse ci-dessus.
+            {t("crm.adresseDabord")}
           </p>
         )}
       </section>

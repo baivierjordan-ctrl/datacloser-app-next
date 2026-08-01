@@ -15,10 +15,12 @@ import {
   type ScanDetail,
 } from "@/lib/api";
 import { lireSession } from "@/lib/session";
+import { useLangue } from "@/lib/i18n";
 
 type Etat = "chargement" | "pret" | "vide" | "erreur";
 
 export default function PageExports() {
+  const { t } = useLangue();
   const router = useRouter();
   const [scans, setScans] = useState<ScanDetail[]>([]);
   const [etat, setEtat] = useState<Etat>("chargement");
@@ -80,13 +82,13 @@ export default function PageExports() {
 
         <div className="mb-6">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <FileSpreadsheet size={13} aria-hidden="true" /> Exports
+            <FileSpreadsheet size={13} aria-hidden="true" /> {t("exports.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Vos fichiers de leads
+            {t("exports.titre")}
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Chaque scan produit un fichier CSV réutilisable dans votre CRM.
+            {t("exports.intro")}
           </p>
         </div>
 
@@ -104,7 +106,7 @@ export default function PageExports() {
                   : "text-muted hover:text-content"
               }`}
             >
-              {cible === "fichiers" ? "Fichiers" : "Connexion CRM"}
+              {cible === "fichiers" ? t("exports.ongletFichiers") : t("exports.ongletCrm")}
             </button>
           ))}
         </div>
@@ -136,16 +138,15 @@ export default function PageExports() {
           </div>
         ) : etat === "vide" ? (
           <div className="rounded-xl border border-line bg-surface px-5 py-10 text-center">
-            <p className="text-sm text-content">Aucun fichier pour l&apos;instant.</p>
+            <p className="text-sm text-content">{t("exports.vide")}</p>
             <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-muted">
-              Chaque chasse produit un fichier téléchargeable, à ouvrir dans un
-              tableur ou à verser dans votre CRM.
+              {t("exports.videDetail")}
             </p>
             <Link
               href="/radar"
               className="mt-5 inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover"
             >
-              Lancer une chasse
+              {t("exports.lancerChasse")}
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>
@@ -163,11 +164,11 @@ export default function PageExports() {
                     </h2>
                     <p className="mt-1 text-xs text-muted">
                       <span className="font-mono tabular-nums">{scan.total}</span>{" "}
-                      entreprises ·{" "}
+                      {t("exports.entreprises")} ·{" "}
                       <span className="font-mono tabular-nums text-content">
                         {scan.contactables}
                       </span>{" "}
-                      contactables
+                      {t("exports.contactables")}
                     </p>
                   </div>
 
@@ -180,7 +181,7 @@ export default function PageExports() {
                       className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-teal/40 hover:text-teal"
                     >
                       <Eye size={14} aria-hidden="true" />
-                      Consulter
+                      {t("exports.consulter")}
                     </button>
                     <button
                       type="button"
@@ -189,7 +190,7 @@ export default function PageExports() {
                       className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted transition hover:border-line-hover hover:text-content disabled:opacity-50"
                     >
                       <Download size={14} aria-hidden="true" />
-                      {enCours === scan.fichier ? "Préparation…" : "Télécharger"}
+                      {enCours === scan.fichier ? t("exports.preparation") : t("exports.telecharger")}
                     </button>
                   </div>
                 </article>
@@ -198,7 +199,7 @@ export default function PageExports() {
 
             {tronque && (
               <p className="mt-4 text-center text-xs text-muted">
-                Seuls les 12 scans les plus récents sont affichés.
+                {t("exports.douzeRecents")}
               </p>
             )}
           </>

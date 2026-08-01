@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Archive, Download, Loader2, Search } from "lucide-react";
 import { exporterCache } from "@/lib/api";
+import { useLangue } from "@/lib/i18n";
 import type { LigneCache } from "@/lib/types";
 
 const champ =
@@ -16,6 +17,7 @@ const champ =
  * sans relancer une chasse.
  */
 export function ExportCache() {
+  const { t } = useLangue();
   const [recherche, setRecherche] = useState("");
   const [limite, setLimite] = useState(100);
   const [lignes, setLignes] = useState<LigneCache[] | null>(null);
@@ -38,7 +40,7 @@ export function ExportCache() {
   function telecharger() {
     if (!lignes?.length) return;
 
-    const entetes = ["Entreprise", "Décideur", "Email", "Site", "Ville"];
+    const entetes = [t("cache.entreprise"), t("cache.decideur"), t("cache.email"), t("cache.site"), t("cache.ville")];
     const echapper = (v: string) => `"${String(v).replace(/"/g, '""')}"`;
     const contenu = [
       entetes.join(";"),
@@ -64,11 +66,10 @@ export function ExportCache() {
     <section className="rounded-xl border border-line bg-surface p-5">
       <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
         <Archive size={14} className="text-teal" aria-hidden="true" />
-        Extraire du cache global
+        {t("cache.titre")}
       </h2>
       <p className="mb-4 text-xs leading-relaxed text-muted">
-        Récupère des leads déjà rencontrés lors de scans précédents, sans
-        consommer d&apos;appel externe.
+        {t("cache.detail")}
       </p>
 
       <div className="flex flex-wrap items-end gap-3">
@@ -83,8 +84,8 @@ export function ExportCache() {
             value={recherche}
             onChange={(e) => setRecherche(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !enCours && extraire()}
-            placeholder="Filtrer par nom d'entreprise…"
-            aria-label="Filtrer par nom d'entreprise"
+            placeholder={t("cache.filtrer")}
+            aria-label={t("cache.filtrerLabel")}
           />
         </div>
         <input
@@ -94,7 +95,7 @@ export function ExportCache() {
           step={10}
           value={limite}
           onChange={(e) => setLimite(Number(e.target.value))}
-          aria-label="Nombre maximum de lignes"
+          aria-label={t("cache.maxLignes")}
           className={`${champ} w-28`}
         />
         <button
@@ -106,7 +107,7 @@ export function ExportCache() {
           {enCours && (
             <Loader2 size={14} className="animate-spin" aria-hidden="true" />
           )}
-          Extraire
+          {t("cache.extraire")}
         </button>
       </div>
 
@@ -123,7 +124,7 @@ export function ExportCache() {
               <span className="font-mono tabular-nums text-content">
                 {lignes.length}
               </span>{" "}
-              {lignes.length > 1 ? "lignes trouvées" : "ligne trouvée"}
+              {lignes.length > 1 ? t("cache.lignesTrouvees") : t("cache.ligneTrouvee")}
             </p>
             {lignes.length > 0 && (
               <button
@@ -132,14 +133,14 @@ export function ExportCache() {
                 className="flex items-center gap-2 rounded-lg bg-teal px-3 py-1.5 text-xs font-medium text-white transition hover:bg-teal-hover"
               >
                 <Download size={12} aria-hidden="true" />
-                Télécharger en CSV
+                {t("cache.telechargerCsv")}
               </button>
             )}
           </div>
 
           {lignes.length === 0 ? (
             <p className="rounded-lg border border-line bg-ink px-4 py-6 text-center text-xs text-muted">
-              Aucun lead ne correspond à ce filtre.
+              {t("cache.aucunLead")}
             </p>
           ) : (
             <div className="max-h-72 overflow-auto rounded-lg border border-line">

@@ -12,8 +12,8 @@ import {
   recupererProfil,
 } from "@/lib/api";
 import { lireSession } from "@/lib/session";
+import { useLangue, type Cle } from "@/lib/i18n";
 import {
-  LIBELLES_PROFIL,
   type ModeMetier,
   type ProfilEntreprise,
 } from "@/lib/types";
@@ -36,6 +36,7 @@ const PROFIL_VIDE: ProfilEntreprise = {
 
 export default function PageEntreprise() {
   const router = useRouter();
+  const { t } = useLangue();
   const [profil, setProfil] = useState<ProfilEntreprise>(PROFIL_VIDE);
   const [tailles, setTailles] = useState<string[]>([]);
   const [modes, setModes] = useState<ModeMetier[]>([]);
@@ -83,7 +84,7 @@ export default function PageEntreprise() {
     try {
       const r = await enregistrerProfil(profil);
       setCompletion(r.completion);
-      setMessage("Profil enregistré. Le moteur cible désormais votre activité.");
+      setMessage(t("entreprise.enregistre"));
     } catch (e) {
       setErreur((e as Error).message);
     } finally {
@@ -98,7 +99,7 @@ export default function PageEntreprise() {
     try {
       const r = await analyserSite(url.trim());
       setProfil((p) => ({ ...p, ...r.profil }));
-      setMessage("Profil pré-rempli depuis votre site. Vérifiez, ajustez, puis enregistrez.");
+      setMessage(t("entreprise.preRempli"));
     } catch (e) {
       setErreur((e as Error).message);
     } finally {
@@ -108,13 +109,13 @@ export default function PageEntreprise() {
 
   function appliquerMode(mode: ModeMetier) {
     setProfil((p) => ({ ...p, ...mode.profil }));
-    setMessage(`Mode « ${mode.libelle} » appliqué. Ajustez puis enregistrez.`);
+    setMessage(`${t("entreprise.modeAvant")} ${mode.libelle} ${t("entreprise.modeApres")}`);
   }
 
   const texte = (cle: keyof ProfilEntreprise, placeholder = "") => (
     <div>
       <label className={etiquette} htmlFor={cle}>
-        {LIBELLES_PROFIL[cle]}
+        {t(`profil.${cle}` as Cle)}
       </label>
       <input
         id={cle}
@@ -129,7 +130,7 @@ export default function PageEntreprise() {
   const zone = (cle: keyof ProfilEntreprise, placeholder = "") => (
     <div>
       <label className={etiquette} htmlFor={cle}>
-        {LIBELLES_PROFIL[cle]}
+        {t(`profil.${cle}` as Cle)}
       </label>
       <textarea
         id={cle}
@@ -149,14 +150,13 @@ export default function PageEntreprise() {
 
         <header className="mb-6">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <Building2 size={13} aria-hidden="true" /> Mon entreprise
+            <Building2 size={13} aria-hidden="true" /> {t("entreprise.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Votre profil de ciblage
+            {t("entreprise.titre")}
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Ce profil nourrit la notation des leads et la rédaction des
-            accroches. Plus il est précis, plus le moteur vise juste.
+            {t("entreprise.intro")}
           </p>
         </header>
 
@@ -173,7 +173,7 @@ export default function PageEntreprise() {
           <div className="flex flex-col gap-5">
             <section className="rounded-xl border border-line bg-surface p-5">
               <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="text-muted">Profil complété</span>
+                <span className="text-muted">{t("entreprise.completion")}</span>
                 <span className="font-mono tabular-nums text-content">
                   {completion} %
                 </span>
@@ -186,7 +186,7 @@ export default function PageEntreprise() {
                   aria-valuenow={completion}
                   aria-valuemin={0}
                   aria-valuemax={100}
-                  aria-label="Complétion du profil"
+                  aria-label={t("entreprise.completionLabel")}
                 />
               </div>
             </section>
@@ -194,10 +194,10 @@ export default function PageEntreprise() {
             <section className="rounded-xl border border-line bg-surface p-5">
               <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
                 <Sparkles size={14} className="text-teal" aria-hidden="true" />
-                Démarrage rapide
+                {t("entreprise.demarrage")}
               </h2>
               <p className="mb-4 text-xs text-muted">
-                Un modèle de départ selon votre activité. Tout reste modifiable.
+                {t("entreprise.demarrageDetail")}
               </p>
               <div className="grid gap-3 sm:grid-cols-3">
                 {modes.map((mode) => (
@@ -219,11 +219,10 @@ export default function PageEntreprise() {
             <section className="rounded-xl border border-line bg-surface p-5">
               <h2 className="mb-1 flex items-center gap-2 text-sm font-medium">
                 <Wand2 size={14} className="text-teal" aria-hidden="true" />
-                Remplir depuis votre site
+                {t("entreprise.remplirDepuisSite")}
               </h2>
               <p className="mb-3 text-xs text-muted">
-                Le moteur lit votre site et propose un profil. Rien n&apos;est
-                enregistré sans votre validation.
+                {t("entreprise.remplirDetail")}
               </p>
               <div className="flex flex-wrap gap-2">
                 <input
@@ -233,8 +232,8 @@ export default function PageEntreprise() {
                   onKeyDown={(e) =>
                     e.key === "Enter" && url.trim() && !analyse && analyser()
                   }
-                  placeholder="https://votre-site.be"
-                  aria-label="Adresse de votre site"
+                  placeholder={t("entreprise.urlExemple")}
+                  aria-label={t("entreprise.urlLabel")}
                 />
                 <button
                   type="button"
@@ -245,40 +244,36 @@ export default function PageEntreprise() {
                   {analyse && (
                     <Loader2 size={14} className="animate-spin" aria-hidden="true" />
                   )}
-                  {analyse ? "Analyse…" : "Analyser"}
+                  {analyse ? t("entreprise.analyse") : t("entreprise.analyser")}
                 </button>
               </div>
             </section>
 
             <section className="rounded-xl border border-line bg-surface p-5">
-              <h2 className="mb-4 text-sm font-medium">Votre activité</h2>
+              <h2 className="mb-4 text-sm font-medium">{t("entreprise.votreActivite")}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 {texte("company_name", "DataCloser")}
                 {texte("website", "https://datacloser.com")}
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {texte("sector", "SaaS B2B, agence web, conseil…")}
-                {texte("differentiator", "Ce qui vous distingue en une phrase")}
+                {texte("sector", t("entreprise.exSecteur"))}
+                {texte("differentiator", t("entreprise.exDifferenciateur"))}
               </div>
               <div className="mt-4">
-                {zone(
-                  "offer_description",
-                  "Décrivez en deux ou trois phrases ce que vous vendez et à qui.",
-                )}
+                {zone("offer_description", t("entreprise.exOffre"))}
               </div>
             </section>
 
             <section className="rounded-xl border border-line bg-surface p-5">
-              <h2 className="mb-1 text-sm font-medium">Vos clients idéaux</h2>
+              <h2 className="mb-1 text-sm font-medium">{t("entreprise.vosClients")}</h2>
               <p className="mb-4 text-xs text-muted">
-                Sert à écarter les leads hors cible avant qu&apos;ils ne
-                consomment vos crédits.
+                {t("entreprise.vosClientsDetail")}
               </p>
               <div className="grid gap-4 sm:grid-cols-2">
-                {texte("icp_sectors", "Agences web, PME industrie, consultants…")}
+                {texte("icp_sectors", t("entreprise.exIcpSecteurs"))}
                 <div>
                   <label className={etiquette} htmlFor="icp_company_size">
-                    {LIBELLES_PROFIL.icp_company_size}
+                    {t("profil.icp_company_size")}
                   </label>
                   <select
                     id="icp_company_size"
@@ -288,14 +283,14 @@ export default function PageEntreprise() {
                   >
                     {tailles.map((taille) => (
                       <option key={taille} value={taille}>
-                        {taille || "Non précisé"}
+                        {taille || t("entreprise.nonPrecise")}
                       </option>
                     ))}
                   </select>
                 </div>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {texte("icp_geography", "Belgique, France, Luxembourg…")}
+                {texte("icp_geography", t("entreprise.exGeographie"))}
                 {texte("keywords", "leads, prospection, cold email…")}
               </div>
             </section>
@@ -327,7 +322,7 @@ export default function PageEntreprise() {
                 {enregistrement && (
                   <Loader2 size={14} className="animate-spin" aria-hidden="true" />
                 )}
-                {enregistrement ? "Enregistrement…" : "Enregistrer mon profil"}
+                {enregistrement ? t("entreprise.enregistrement") : t("entreprise.enregistrer")}
               </button>
             </div>
           </div>
