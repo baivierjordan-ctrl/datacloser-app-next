@@ -15,7 +15,7 @@ import {
   recupererScans,
 } from "@/lib/api";
 import { useDeclarerContexte } from "@/lib/contexte-assistant";
-import { useLangue } from "@/lib/i18n";
+import { useLangue, type Cle } from "@/lib/i18n";
 import type { Modeles, Qualification, Relance } from "@/lib/types";
 
 interface Props {
@@ -275,16 +275,29 @@ export function CreationCampagne({
       <section className="rounded-xl border border-line bg-surface p-5">
         <h2 className="mb-1 text-sm font-medium">{t("campagne.message")}</h2>
         {modeles && (
-          <p className="mb-4 flex flex-wrap gap-1.5">
-            {modeles.variables.map((v) => (
-              <code
-                key={v}
-                className="rounded border border-line px-1.5 py-0.5 font-mono text-[12px] text-teal"
-              >
-                {v}
-              </code>
-            ))}
-          </p>
+          <>
+            <p className="mb-2 text-xs text-muted">{t("variable.aide")}</p>
+            <p className="mb-4 flex flex-wrap gap-1.5">
+              {modeles.variables.map((v) => {
+                // Le jeton reste identique dans les trois langues : le
+                // moteur le reconnaît à l'identique, et un utilisateur
+                // qui recopierait une version traduite verrait la
+                // variable partir telle quelle chez son prospect. Seule
+                // l'explication au survol suit la langue.
+                const nom = v.replace(/[{}]/g, "");
+                const explication = t(`variable.${nom}` as Cle);
+                return (
+                  <code
+                    key={v}
+                    title={explication ?? undefined}
+                    className="cursor-help rounded border border-line px-1.5 py-0.5 font-mono text-[12px] text-teal"
+                  >
+                    {v}
+                  </code>
+                );
+              })}
+            </p>
+          </>
         )}
 
         <label className={etiquette} htmlFor="sujet">

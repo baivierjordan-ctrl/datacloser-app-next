@@ -343,4 +343,73 @@ export const en: Traductions = {
   "amelio.alerteFriction": "asks the reader to leave the email",
   "amelio.alerteLong": "too long",
   "amelio.alerteObjetLong": "subject too long",
+
+  // ── Personalisation variables ──
+  "variable.aide": "Insert these variables into your message: the engine replaces them for each recipient.",
+  "variable.prénom": "Decision-maker's first name",
+  "variable.entreprise": "Company name",
+  "variable.ICEBREAKER_IA": "Opening line written from the company's website",
+  "variable.besoin_1": "First need detected on the website",
+  "variable.besoin_2": "Second need detected on the website",
+  "variable.site": "The company's website address",
+  "variable.signature": "Your signature, set under Settings",
+
+  // ── Dashboard ──
+  "accueil.eyebrow": "Dashboard",
+  "accueil.bonjour": "Hello",
+  "accueil.chasseEnCours": "A hunt is running. The results will appear in Radar.",
+  "accueil.derniereChasse": "Last hunt on",
+  "accueil.aucuneChasse": "No hunt yet.",
+  "accueil.credits": "credits available",
+  "accueil.entreprisesAnalysees": "companies analysed",
+  "accueil.emailEnvoye": "email sent",
+  "accueil.emailsEnvoyes": "emails sent",
+  "accueil.reponseRecue": "reply received",
+  "accueil.reponsesRecues": "replies received",
+  "accueil.profilComplete": "profile completed",
+  "accueil.chasseLancee": "hunt started",
+  "accueil.chassesLancees": "hunts started",
+  "accueil.campagneActive": "active campaign",
+  "accueil.campagnesActives": "active campaigns",
+  "accueil.sur": "of",
+  "accueil.envoiEchec": "failed send",
+  "accueil.envoisEchec": "failed sends",
+
+  // ── Dashboard advice ──
+  "conseils.titre": "What I would advise",
+  "conseils.rienADire": "Your configuration shows no detectable flaw.",
+  "conseils.suite":
+    "What follows comes down to volume and regularity: new hunts, sends spread out rather than bunched together.",
+  "conseils.faireMoiMeme": "Do it myself",
+  "conseils.yAller": "Go there",
+  "conseils.reserve":
+    "This advice rests on your real data. Replies are detected in your mailbox; opens are not measured, since a tracking pixel costs deliverability and respect for the recipient.",
+  "conseils.bloquant": "Blocking",
+  "conseils.aCorriger": "Needs fixing",
+  "conseils.conseil": "Advice",
+
+  // ── Quick start ──
+  "demarrage.titre": "Quick start",
+  "demarrage.remplit":
+    "Fills in the form below. Nothing goes out until you start the hunt.",
+  "demarrage.chasserIdeaux": "Hunt my ideal clients",
+  "demarrage.analyseProfil": "Analysing your profile…",
+  "demarrage.deduits": "Trades and areas inferred from your company profile.",
+  "demarrage.formulaireRempli":
+    "The form below is filled in. Read it over, adjust it, then start the hunt at the bottom of the page.",
+  "demarrage.pourquoi": "Why these trades and these areas?",
+  "demarrage.ouSecteur": "Or start from a sector",
+
+  // ── Example preview ──
+  "exemple.aucuneChasse": "No hunt yet.",
+  "exemple.forme":
+    "Here is the shape of a result: company, decision-maker, verified email, relevance score and an opening line written from their website. These two rows are fictional.",
+  "exemple.societe1": "Heating & Plumbing (example)",
+  "exemple.contact1": "First name Surname · Manager",
+  "exemple.accroche1":
+    "Your \u201cenergy grants\u201d page still quotes last year's rates — a simple signal to open a first contact with.",
+  "exemple.societe2": "Regional Roofing (example)",
+  "exemple.contact2": "First name Surname · Quotes manager",
+  "exemple.accroche2":
+    "Three recent reviews mention the response time to quote requests.",
 };

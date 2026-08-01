@@ -1,6 +1,7 @@
 "use client";
 
 import { BarreScore } from "@/components/BarreScore";
+import { useLangue } from "@/lib/i18n";
 
 /**
  * Ce qu'une chasse produit, montré avant d'avoir dépensé un crédit.
@@ -12,30 +13,18 @@ import { BarreScore } from "@/components/BarreScore";
  */
 
 const EXEMPLES = [
-  {
-    societe: "Chauffage & Sanitaire (exemple)",
-    contact: "Prénom Nom · Gérant",
-    score: 9,
-    accroche:
-      "Votre page « primes énergie » cite encore le barème de l'an dernier — un signal simple à ouvrir en premier contact.",
-  },
-  {
-    societe: "Toiture régionale (exemple)",
-    contact: "Prénom Nom · Responsable devis",
-    score: 8,
-    accroche:
-      "Trois avis récents mentionnent le délai de réponse aux demandes de devis.",
-  },
-];
+  { societe: "exemple.societe1", contact: "exemple.contact1", score: 9, accroche: "exemple.accroche1" },
+  { societe: "exemple.societe2", contact: "exemple.contact2", score: 8, accroche: "exemple.accroche2" },
+] as const;
 
 export function ApercuExemple() {
+  const { t } = useLangue();
+
   return (
     <div>
       <p className="mb-3 rounded-lg border border-line bg-surface px-4 py-3 text-xs leading-relaxed text-muted">
-        <span className="text-content">Aucune chasse pour l&apos;instant.</span>{" "}
-        Voici la forme d&apos;un résultat : entreprise, décideur, email vérifié,
-        note de pertinence et accroche rédigée depuis leur site. Ces deux lignes
-        sont fictives.
+        <span className="text-content">{t("exemple.aucuneChasse")}</span>{" "}
+        {t("exemple.forme")}
       </p>
 
       <div className="flex flex-col gap-2" aria-hidden="true">
@@ -47,13 +36,13 @@ export function ApercuExemple() {
           >
             <div className="flex items-center gap-4">
               <div className="min-w-0 flex-1">
-                <p className="text-[16px] font-medium">{exemple.societe}</p>
-                <p className="mt-0.5 text-xs text-muted">{exemple.contact}</p>
+                <p className="text-[16px] font-medium">{t(exemple.societe)}</p>
+                <p className="mt-0.5 text-xs text-muted">{t(exemple.contact)}</p>
               </div>
               <BarreScore valeur={exemple.score} />
             </div>
             <p className="mt-3 border-t border-line pt-3 text-xs italic leading-relaxed text-muted">
-              « {exemple.accroche} »
+              « {t(exemple.accroche)} »
             </p>
           </article>
         ))}

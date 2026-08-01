@@ -344,4 +344,73 @@ export const nl: Traductions = {
   "amelio.alerteFriction": "vraagt om de e-mail te verlaten",
   "amelio.alerteLong": "te lang",
   "amelio.alerteObjetLong": "onderwerp te lang",
+
+  // ── Personalisatievariabelen ──
+  "variable.aide": "Voeg deze variabelen in uw bericht in: de engine vervangt ze voor elke ontvanger.",
+  "variable.prénom": "Voornaam van de beslisser",
+  "variable.entreprise": "Naam van de onderneming",
+  "variable.ICEBREAKER_IA": "Openingszin geschreven op basis van de website van de onderneming",
+  "variable.besoin_1": "Eerste behoefte die op de website is vastgesteld",
+  "variable.besoin_2": "Tweede behoefte die op de website is vastgesteld",
+  "variable.site": "Webadres van de onderneming",
+  "variable.signature": "Uw handtekening, ingesteld bij Instellingen",
+
+  // ── Dashboard ──
+  "accueil.eyebrow": "Dashboard",
+  "accueil.bonjour": "Hallo",
+  "accueil.chasseEnCours": "Er loopt een zoekactie. De resultaten verschijnen in de Radar.",
+  "accueil.derniereChasse": "Laatste zoekactie op",
+  "accueil.aucuneChasse": "Nog geen zoekactie.",
+  "accueil.credits": "beschikbare credits",
+  "accueil.entreprisesAnalysees": "geanalyseerde ondernemingen",
+  "accueil.emailEnvoye": "verzonden e-mail",
+  "accueil.emailsEnvoyes": "verzonden e-mails",
+  "accueil.reponseRecue": "ontvangen antwoord",
+  "accueil.reponsesRecues": "ontvangen antwoorden",
+  "accueil.profilComplete": "profiel ingevuld",
+  "accueil.chasseLancee": "gestarte zoekactie",
+  "accueil.chassesLancees": "gestarte zoekacties",
+  "accueil.campagneActive": "actieve campagne",
+  "accueil.campagnesActives": "actieve campagnes",
+  "accueil.sur": "van",
+  "accueil.envoiEchec": "mislukte verzending",
+  "accueil.envoisEchec": "mislukte verzendingen",
+
+  // ── Advies op het dashboard ──
+  "conseils.titre": "Wat ik u aanraad",
+  "conseils.rienADire": "Uw configuratie vertoont geen vaststelbare tekortkoming.",
+  "conseils.suite":
+    "Het vervolg draait om volume en regelmaat: nieuwe zoekacties, verzendingen gespreid in plaats van gebundeld.",
+  "conseils.faireMoiMeme": "Zelf doen",
+  "conseils.yAller": "Ernaartoe",
+  "conseils.reserve":
+    "Dit advies steunt op uw werkelijke gegevens. Antwoorden worden in uw mailbox gedetecteerd; openingen worden niet gemeten, omdat een trackingpixel ten koste gaat van afleverbaarheid en van het respect voor de ontvanger.",
+  "conseils.bloquant": "Blokkerend",
+  "conseils.aCorriger": "Te corrigeren",
+  "conseils.conseil": "Advies",
+
+  // ── Snelle start ──
+  "demarrage.titre": "Snelle start",
+  "demarrage.remplit":
+    "Vult het onderstaande formulier in. Er vertrekt niets zolang u de zoekactie niet hebt gestart.",
+  "demarrage.chasserIdeaux": "Mijn ideale klanten zoeken",
+  "demarrage.analyseProfil": "Uw profiel wordt geanalyseerd…",
+  "demarrage.deduits": "Beroepen en gebieden afgeleid uit uw ondernemingsprofiel.",
+  "demarrage.formulaireRempli":
+    "Het onderstaande formulier is ingevuld. Lees het na, pas het aan en start de zoekactie onderaan de pagina.",
+  "demarrage.pourquoi": "Waarom deze beroepen en gebieden?",
+  "demarrage.ouSecteur": "Of vertrek van een sector",
+
+  // ── Voorbeeldweergave ──
+  "exemple.aucuneChasse": "Nog geen zoekactie.",
+  "exemple.forme":
+    "Zo ziet een resultaat eruit: onderneming, beslisser, geverifieerd e-mailadres, relevantiescore en een openingszin geschreven vanaf hun website. Deze twee regels zijn fictief.",
+  "exemple.societe1": "Verwarming & Sanitair (voorbeeld)",
+  "exemple.contact1": "Voornaam Naam · Zaakvoerder",
+  "exemple.accroche1":
+    "Uw pagina « energiepremies » vermeldt nog het barema van vorig jaar — een eenvoudig signaal om als eerste contact aan te snijden.",
+  "exemple.societe2": "Regionale dakwerken (voorbeeld)",
+  "exemple.contact2": "Voornaam Naam · Verantwoordelijke offertes",
+  "exemple.accroche2":
+    "Drie recente beoordelingen vermelden de reactietijd op offerteaanvragen.",
 };

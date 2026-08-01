@@ -12,12 +12,17 @@ import { dateSeule } from "@/lib/dates";
 import { useDeclarerContexte } from "@/lib/contexte-assistant";
 import { lireSession } from "@/lib/session";
 import type { Accueil } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
-/** Le prénom se déduit de l'adresse : mieux que « Bonjour utilisateur ». */
-function saluer(email: string): string {
+/**
+ * Le prénom se déduit de l'adresse : mieux que « Bonjour utilisateur ».
+ * La salutation est passée en argument plutôt que codée ici, pour
+ * suivre la langue choisie.
+ */
+function saluer(email: string, bonjour: string): string {
   const debut = email.split("@")[0].split(/[._-]/)[0];
-  if (!debut) return "Bonjour";
-  return `Bonjour ${debut.charAt(0).toUpperCase()}${debut.slice(1)}`;
+  if (!debut) return bonjour;
+  return `${bonjour} ${debut.charAt(0).toUpperCase()}${debut.slice(1)}`;
 }
 
 /** Un chiffre et ce qu'il compte. Le chiffre porte, le mot explique. */
@@ -51,6 +56,7 @@ function Chiffre({
 
 export default function PageAccueil() {
   const router = useRouter();
+  const { t } = useLangue();
   const [donnees, setDonnees] = useState<Accueil | null>(null);
   const [erreur, setErreur] = useState("");
 
@@ -99,18 +105,18 @@ export default function PageAccueil() {
 
         <header className="mb-8">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <Radar size={13} aria-hidden="true" /> Tableau de bord
+            <Radar size={13} aria-hidden="true" /> {t("accueil.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            {donnees ? saluer(donnees.email) : "Bonjour"}
+            {donnees ? saluer(donnees.email, t("accueil.bonjour")) : t("accueil.bonjour")}
           </h1>
           {donnees && (
             <p className="mt-2 text-sm text-muted">
               {donnees.chasse_en_cours
-                ? "Une chasse est en cours. Les résultats arriveront dans le Radar."
+                ? t("accueil.chasseEnCours")
                 : donnees.derniere_chasse
-                  ? `Dernière chasse le ${dateSeule(donnees.derniere_chasse.created_at)}.`
-                  : "Aucune chasse pour l'instant."}
+                  ? `${t("accueil.derniereChasse")} ${dateSeule(donnees.derniere_chasse.created_at)}.`
+                  : t("accueil.aucuneChasse")}
             </p>
           )}
         </header>
@@ -196,29 +202,29 @@ export default function PageAccueil() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Chiffre
                 valeur={donnees.credits}
-                libelle="crédits disponibles"
+                libelle={t("accueil.credits")}
                 accent
                 rang={0}
               />
               <Chiffre
                 valeur={donnees.entreprises_analysees}
-                libelle="entreprises analysées"
+                libelle={t("accueil.entreprisesAnalysees")}
                 rang={1}
               />
               <Chiffre
                 valeur={donnees.emails_envoyes}
-                libelle={donnees.emails_envoyes > 1 ? "emails envoyés" : "email envoyé"}
+                libelle={donnees.emails_envoyes > 1 ? t("accueil.emailsEnvoyes") : t("accueil.emailEnvoye")}
                 rang={2}
               />
               <Chiffre
                 valeur={donnees.reponses}
-                libelle={donnees.reponses > 1 ? "réponses reçues" : "réponse reçue"}
+                libelle={donnees.reponses > 1 ? t("accueil.reponsesRecues") : t("accueil.reponseRecue")}
                 accent
                 rang={3}
               />
               <Chiffre
                 valeur={`${donnees.profil_completion} %`}
-                libelle="profil complété"
+                libelle={t("accueil.profilComplete")}
                 rang={4}
               />
             </div>
@@ -226,17 +232,17 @@ export default function PageAccueil() {
             <div className="mt-4 grid gap-4 sm:grid-cols-3">
               <Chiffre
                 valeur={donnees.chasses}
-                libelle={donnees.chasses > 1 ? "chasses lancées" : "chasse lancée"}
+                libelle={donnees.chasses > 1 ? t("accueil.chassesLancees") : t("accueil.chasseLancee")}
                 rang={4}
               />
               <Chiffre
                 valeur={donnees.campagnes_actives}
-                libelle={`${donnees.campagnes_actives > 1 ? "campagnes actives" : "campagne active"} sur ${donnees.campagnes}`}
+                libelle={`${donnees.campagnes_actives > 1 ? t("accueil.campagnesActives") : t("accueil.campagneActive")} ${t("accueil.sur")} ${donnees.campagnes}`}
                 rang={5}
               />
               <Chiffre
                 valeur={donnees.emails_echoues}
-                libelle={donnees.emails_echoues > 1 ? "envois en échec" : "envoi en échec"}
+                libelle={donnees.emails_echoues > 1 ? t("accueil.envoisEchec") : t("accueil.envoiEchec")}
                 rang={6}
               />
             </div>

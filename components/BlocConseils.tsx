@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, Check, Compass, Info, Wand2 } from "lucide-react";
 import type { Conseil } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
 /**
  * Conseils d'accompagnement.
@@ -22,21 +23,21 @@ const APPARENCE = {
     bordure: "border-danger/30",
     fond: "bg-danger/5",
     teinte: "text-danger",
-    libelle: "Bloquant",
+    cle: "conseils.bloquant",
   },
   important: {
     Icone: AlertTriangle,
     bordure: "border-warn/30",
     fond: "bg-warn/5",
     teinte: "text-warn",
-    libelle: "À corriger",
+    cle: "conseils.aCorriger",
   },
   conseil: {
     Icone: Info,
     bordure: "border-line",
     fond: "bg-surface",
     teinte: "text-muted",
-    libelle: "Conseil",
+    cle: "conseils.conseil",
   },
 } as const;
 
@@ -71,6 +72,8 @@ export function BlocConseils({
   conseils: Conseil[];
   toutVaBien: boolean;
 }) {
+  const { t } = useLangue();
+
   if (conseils.length === 0 && !toutVaBien) return null;
 
   return (
@@ -79,7 +82,7 @@ export function BlocConseils({
         id="conseils"
         className="mb-3 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal"
       >
-        <Compass size={13} aria-hidden="true" /> Ce que je vous conseille
+        <Compass size={13} aria-hidden="true" /> {t("conseils.titre")}
       </h2>
 
       {toutVaBien ? (
@@ -87,12 +90,11 @@ export function BlocConseils({
           <p className="flex items-center gap-2.5 text-sm">
             <Check size={16} className="shrink-0 text-ok" aria-hidden="true" />
             <span className="text-content">
-              Votre configuration ne présente aucun défaut détectable.
+              {t("conseils.rienADire")}
             </span>
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted">
-            La suite se joue sur le volume et la régularité : de nouvelles
-            chasses, des envois étalés plutôt que groupés.
+            {t("conseils.suite")}
           </p>
         </div>
       ) : (
@@ -117,7 +119,7 @@ export function BlocConseils({
                   <span
                     className={`font-mono text-[11px] uppercase tracking-[0.14em] ${style.teinte}`}
                   >
-                    {style.libelle}
+                    {t(style.cle)}
                   </span>
                 </div>
 
@@ -145,7 +147,7 @@ export function BlocConseils({
                         href={conseil.lien}
                         className="text-xs text-muted transition hover:text-content"
                       >
-                        Faire moi-même
+                        {t("conseils.faireMoiMeme")}
                       </Link>
                     </>
                   ) : (
@@ -153,7 +155,7 @@ export function BlocConseils({
                       href={conseil.lien}
                       className="inline-flex items-center gap-1.5 text-xs text-teal transition hover:underline"
                     >
-                      Y aller
+                      {t("conseils.yAller")}
                       <ArrowRight size={12} aria-hidden="true" />
                     </Link>
                   )}
@@ -165,10 +167,7 @@ export function BlocConseils({
       )}
 
       <p className="mt-3 text-xs leading-relaxed text-muted">
-        Ces conseils s&apos;appuient sur vos données réelles. Les réponses sont
-        détectées dans votre boîte ; les ouvertures ne sont pas mesurées, un
-        pixel de suivi se payant en délivrabilité et en respect du
-        destinataire.
+        {t("conseils.reserve")}
       </p>
     </section>
   );

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Check, Loader2, Sparkles, Target } from "lucide-react";
 import { proposerPlanIcp, recupererSecteurs } from "@/lib/api";
 import type { PlanIcp, SecteurRapide } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
 /**
  * Deux façons de remplir le formulaire sans réfléchir aux mots-clés :
@@ -23,6 +24,7 @@ export function DemarrageRapide({
   /** Vrai quand un conseil a demandé la proposition de ciblage. */
   declencherIcp?: boolean;
 }) {
+  const { t } = useLangue();
   const [secteurs, setSecteurs] = useState<SecteurRapide[]>([]);
   const [enCours, setEnCours] = useState(false);
   const [explication, setExplication] = useState("");
@@ -76,11 +78,10 @@ export function DemarrageRapide({
       />
       <h2 className="relative flex items-center gap-2 text-sm font-medium">
         <Sparkles size={14} className="text-teal" aria-hidden="true" />
-        Démarrage rapide
+        {t("demarrage.titre")}
       </h2>
       <p className="relative mb-4 mt-1 text-xs text-muted">
-        Remplit le formulaire ci-dessous. Rien ne part tant que vous
-        n&apos;avez pas lancé la chasse.
+        {t("demarrage.remplit")}
       </p>
 
       <button
@@ -117,10 +118,10 @@ export function DemarrageRapide({
         )}
         <span>
           <span className="block text-[16px] font-semibold">
-            {enCours ? "Analyse de votre profil…" : "Chasser mes clients idéaux"}
+            {enCours ? t("demarrage.analyseProfil") : t("demarrage.chasserIdeaux")}
           </span>
           <span className="mt-0.5 block text-xs text-white/70">
-            Métiers et zones déduits de votre profil d&apos;entreprise.
+            {t("demarrage.deduits")}
           </span>
         </span>
       </button>
@@ -141,14 +142,13 @@ export function DemarrageRapide({
             {resume}
           </p>
           <p className="mt-1.5 pl-[23px] text-xs text-muted">
-            Le formulaire ci-dessous est rempli. Relisez-le, ajustez, puis
-            lancez la chasse en bas de page.
+            {t("demarrage.formulaireRempli")}
           </p>
 
           {explication && (
             <details className="mt-2.5 pl-[23px]">
               <summary className="cursor-pointer text-xs text-teal transition hover:underline">
-                Pourquoi ces métiers et ces zones ?
+                {t("demarrage.pourquoi")}
               </summary>
               <p className="mt-2 text-xs leading-relaxed text-muted">
                 {explication}
@@ -160,7 +160,7 @@ export function DemarrageRapide({
 
       {secteurs.length > 0 && (
         <>
-          <p className="relative mb-2.5 mt-5 text-xs text-muted">Ou partez d&apos;un secteur</p>
+          <p className="relative mb-2.5 mt-5 text-xs text-muted">{t("demarrage.ouSecteur")}</p>
           <div className="relative flex flex-wrap gap-2">
             {secteurs.map((secteur) => (
               <button

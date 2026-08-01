@@ -343,6 +343,77 @@ export const fr = {
   "amelio.alerteFriction": "demande de sortir de l'email",
   "amelio.alerteLong": "trop long",
   "amelio.alerteObjetLong": "objet trop long",
+
+  // ── Variables de personnalisation ──
+  // Les jetons eux-mêmes ne sont jamais traduits : le moteur les
+  // reconnaît à l'identique. Seule leur explication suit la langue.
+  "variable.aide": "Insérez ces variables dans votre message : le moteur les remplace pour chaque destinataire.",
+  "variable.prénom": "Prénom du décideur",
+  "variable.entreprise": "Nom de l'entreprise",
+  "variable.ICEBREAKER_IA": "Accroche rédigée à partir du site de l'entreprise",
+  "variable.besoin_1": "Premier besoin détecté sur le site",
+  "variable.besoin_2": "Deuxième besoin détecté sur le site",
+  "variable.site": "Adresse du site de l'entreprise",
+  "variable.signature": "Votre signature, définie dans Réglages",
+
+  // ── Tableau de bord ──
+  "accueil.eyebrow": "Tableau de bord",
+  "accueil.bonjour": "Bonjour",
+  "accueil.chasseEnCours": "Une chasse est en cours. Les résultats arriveront dans le Radar.",
+  "accueil.derniereChasse": "Dernière chasse le",
+  "accueil.aucuneChasse": "Aucune chasse pour l'instant.",
+  "accueil.credits": "crédits disponibles",
+  "accueil.entreprisesAnalysees": "entreprises analysées",
+  "accueil.emailEnvoye": "email envoyé",
+  "accueil.emailsEnvoyes": "emails envoyés",
+  "accueil.reponseRecue": "réponse reçue",
+  "accueil.reponsesRecues": "réponses reçues",
+  "accueil.profilComplete": "profil complété",
+  "accueil.chasseLancee": "chasse lancée",
+  "accueil.chassesLancees": "chasses lancées",
+  "accueil.campagneActive": "campagne active",
+  "accueil.campagnesActives": "campagnes actives",
+  "accueil.sur": "sur",
+  "accueil.envoiEchec": "envoi en échec",
+  "accueil.envoisEchec": "envois en échec",
+
+  // ── Conseils du tableau de bord ──
+  "conseils.titre": "Ce que je vous conseille",
+  "conseils.rienADire": "Votre configuration ne présente aucun défaut détectable.",
+  "conseils.suite":
+    "La suite se joue sur le volume et la régularité : de nouvelles chasses, des envois étalés plutôt que groupés.",
+  "conseils.faireMoiMeme": "Faire moi-même",
+  "conseils.yAller": "Y aller",
+  "conseils.reserve":
+    "Ces conseils s'appuient sur vos données réelles. Les réponses sont détectées dans votre boîte ; les ouvertures ne sont pas mesurées, un pixel de suivi se payant en délivrabilité et en respect du destinataire.",
+  "conseils.bloquant": "Bloquant",
+  "conseils.aCorriger": "À corriger",
+  "conseils.conseil": "Conseil",
+
+  // ── Démarrage rapide ──
+  "demarrage.titre": "Démarrage rapide",
+  "demarrage.remplit":
+    "Remplit le formulaire ci-dessous. Rien ne part tant que vous n'avez pas lancé la chasse.",
+  "demarrage.chasserIdeaux": "Chasser mes clients idéaux",
+  "demarrage.analyseProfil": "Analyse de votre profil…",
+  "demarrage.deduits": "Métiers et zones déduits de votre profil d'entreprise.",
+  "demarrage.formulaireRempli":
+    "Le formulaire ci-dessous est rempli. Relisez-le, ajustez, puis lancez la chasse en bas de page.",
+  "demarrage.pourquoi": "Pourquoi ces métiers et ces zones ?",
+  "demarrage.ouSecteur": "Ou partez d'un secteur",
+
+  // ── Aperçu d'exemple ──
+  "exemple.aucuneChasse": "Aucune chasse pour l'instant.",
+  "exemple.forme":
+    "Voici la forme d'un résultat : entreprise, décideur, email vérifié, note de pertinence et accroche rédigée depuis leur site. Ces deux lignes sont fictives.",
+  "exemple.societe1": "Chauffage & Sanitaire (exemple)",
+  "exemple.contact1": "Prénom Nom · Gérant",
+  "exemple.accroche1":
+    "Votre page « primes énergie » cite encore le barème de l'an dernier — un signal simple à ouvrir en premier contact.",
+  "exemple.societe2": "Toiture régionale (exemple)",
+  "exemple.contact2": "Prénom Nom · Responsable devis",
+  "exemple.accroche2":
+    "Trois avis récents mentionnent le délai de réponse aux demandes de devis.",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;
