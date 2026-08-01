@@ -16,11 +16,13 @@ import {
 } from "@/lib/api";
 import { lireSession } from "@/lib/session";
 import type { Campagne, ConfigSmtp } from "@/lib/types";
+import { useLangue } from "@/lib/i18n";
 
 type Vue = "campagnes" | "creation" | "reglages";
 
 function Outreach() {
   const router = useRouter();
+  const { t } = useLangue();
   const parametres = useSearchParams();
   const source = parametres.get("source") ?? undefined;
   // Deux chemins mènent à la création : arriver du Radar avec un scan,
@@ -100,23 +102,22 @@ function Outreach() {
 
         <header className="mb-6">
           <p className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.2em] text-teal">
-            <Send size={13} aria-hidden="true" /> Outreach
+            <Send size={13} aria-hidden="true" /> {t("outreach.eyebrow")}
           </p>
           <h1 className="text-[30px] font-semibold leading-[1.1] sm:text-[36px]">
-            Vos campagnes d&apos;emails
+            {t("outreach.titre")}
           </h1>
           {!configure && !chargement && (
             <p className="mt-3 rounded-lg border border-warn/30 bg-warn/5 px-3 py-2 text-xs text-warn">
-              Aucun serveur d&apos;envoi configuré. Renseignez vos accès dans
-              Réglages avant de lancer une campagne.
+              {t("outreach.smtpManquant")}
             </p>
           )}
         </header>
 
         <div className="mb-5 flex gap-1">
-          {onglet("campagnes", "Campagnes")}
-          {onglet("creation", "Nouvelle campagne")}
-          {onglet("reglages", "Réglages")}
+          {onglet("campagnes", t("outreach.ongletCampagnes"))}
+          {onglet("creation", t("outreach.ongletCreation"))}
+          {onglet("reglages", t("outreach.ongletReglages"))}
         </div>
 
         {message && (
@@ -161,7 +162,7 @@ function Outreach() {
             smtpConfigure={configure}
             onCreee={(destinataires) => {
               setMessage(
-                `Campagne créée : ${destinataires} destinataire${destinataires > 1 ? "s" : ""} en file d'envoi.`,
+                `${t("outreach.creeeAvant")} ${destinataires} ${destinataires > 1 ? t("outreach.destinataires") : t("outreach.destinataire")} ${t("outreach.creeeApres")}`,
               );
               setVue("campagnes");
               recupererCampagnes().then(setCampagnes).catch(() => {});

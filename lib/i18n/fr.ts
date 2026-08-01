@@ -162,6 +162,53 @@ export const fr = {
   "histo.telecharger": "Télécharger le fichier",
   "histo.fichierIndisponible":
     "Ce fichier n'est plus disponible. Relancez la chasse pour le régénérer.",
+
+  // ── Outreach ──
+  "outreach.eyebrow": "Outreach",
+  "outreach.titre": "Vos campagnes d'emails",
+  "outreach.smtpManquant":
+    "Aucun serveur d'envoi configuré. Renseignez vos accès dans Réglages avant de lancer une campagne.",
+  "outreach.ongletCampagnes": "Campagnes",
+  "outreach.ongletCreation": "Nouvelle campagne",
+  "outreach.ongletReglages": "Réglages",
+  "outreach.creeeAvant": "Campagne créée :",
+  "outreach.destinataire": "destinataire",
+  "outreach.destinataires": "destinataires",
+  "outreach.creeeApres": "en file d'envoi.",
+
+  // ── Serveur d'envoi (SMTP) ──
+  "smtp.titre": "Serveur d'envoi",
+  "smtp.chiffre": "Le mot de passe est chiffré avant d'être stocké.",
+  "smtp.fournisseur": "Fournisseur",
+  "smtp.personnalise": "Personnalisé",
+  "smtp.hote": "Serveur SMTP",
+  "smtp.port": "Port",
+  "smtp.expedition": "Adresse d'expédition",
+  "smtp.expeditionExemple": "vous@exemple.com",
+  "smtp.motDePasse": "Mot de passe",
+  "smtp.motDePasseConserver": " — laissez vide pour conserver l'actuel",
+  "smtp.gmail": "Sur Gmail, utilisez un mot de passe d'application, pas celui du compte.",
+  "smtp.signature": "Signature",
+  "smtp.rythme": "Rythme d'envoi",
+  "smtp.delaiMin": "Délai minimum",
+  "smtp.delaiReel": "Réel :",
+  "smtp.debut": "Début",
+  "smtp.fin": "Fin",
+  "smtp.jours": "Jours d'envoi",
+  "smtp.enregistrer": "Enregistrer",
+  "smtp.enregistrement": "Enregistrement…",
+  "smtp.enregistre": "Configuration enregistrée",
+  "smtp.errExpedition": "Renseignez l'adresse d'expédition.",
+  "smtp.errMotDePasse": "Le mot de passe est requis pour la première configuration.",
+  "smtp.errJour": "Choisissez au moins un jour d'envoi.",
+  "smtp.errHeures": "L'heure de début doit précéder l'heure de fin.",
+  "jour.0": "Lun",
+  "jour.1": "Mar",
+  "jour.2": "Mer",
+  "jour.3": "Jeu",
+  "jour.4": "Ven",
+  "jour.5": "Sam",
+  "jour.6": "Dim",
 } as const;
 
 export type Traductions = Record<keyof typeof fr, string>;

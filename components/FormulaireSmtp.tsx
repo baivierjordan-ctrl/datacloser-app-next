@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Check, Lock } from "lucide-react";
 import { FOURNISSEURS, JOURS, type ConfigSmtp } from "@/lib/types";
+import { useLangue, type Cle } from "@/lib/i18n";
 
 const DEFAUT: ConfigSmtp = {
   smtp_host: "smtp.gmail.com",
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props) {
+  const { t } = useLangue();
   const [config, setConfig] = useState<ConfigSmtp>({
     ...DEFAUT,
     ...initiale,
@@ -59,19 +61,19 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
 
   async function valider() {
     if (!config.smtp_user.trim()) {
-      setErreur("Renseignez l'adresse d'expédition.");
+      setErreur(t("smtp.errExpedition"));
       return;
     }
     if (!dejaConfigure && !config.smtp_password) {
-      setErreur("Le mot de passe est requis pour la première configuration.");
+      setErreur(t("smtp.errMotDePasse"));
       return;
     }
     if (config.jours_actifs.length === 0) {
-      setErreur("Choisissez au moins un jour d'envoi.");
+      setErreur(t("smtp.errJour"));
       return;
     }
     if (config.plage_debut >= config.plage_fin) {
-      setErreur("L'heure de début doit précéder l'heure de fin.");
+      setErreur(t("smtp.errHeures"));
       return;
     }
     setErreur("");
@@ -92,21 +94,21 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
 
   return (
     <section className="rounded-xl border border-line bg-surface p-5">
-      <h2 className="mb-1 text-[16px] font-medium">Serveur d&apos;envoi</h2>
+      <h2 className="mb-1 text-[16px] font-medium">{t("smtp.titre")}</h2>
       <p className="mb-5 flex items-center gap-1.5 text-xs text-muted">
         <Lock size={11} aria-hidden="true" />
-        Le mot de passe est chiffré avant d&apos;être stocké.
+        {t("smtp.chiffre")}
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5">
-          <span className="text-xs text-muted">Fournisseur</span>
+          <span className="text-xs text-muted">{t("smtp.fournisseur")}</span>
           <select
             onChange={(e) => choisirFournisseur(e.target.value)}
             className={champ}
             defaultValue=""
           >
-            <option value="">Personnalisé</option>
+            <option value="">{t("smtp.personnalise")}</option>
             {Object.keys(FOURNISSEURS).map((nom) => (
               <option key={nom} value={nom}>
                 {nom}
@@ -116,7 +118,7 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-xs text-muted">Serveur SMTP</span>
+          <span className="text-xs text-muted">{t("smtp.hote")}</span>
           <input
             value={config.smtp_host}
             onChange={(e) => modifier("smtp_host", e.target.value)}
@@ -125,7 +127,7 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-xs text-muted">Port</span>
+          <span className="text-xs text-muted">{t("smtp.port")}</span>
           <input
             type="number"
             value={config.smtp_port}
@@ -135,20 +137,20 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-xs text-muted">Adresse d&apos;expédition</span>
+          <span className="text-xs text-muted">{t("smtp.expedition")}</span>
           <input
             type="email"
             value={config.smtp_user}
             onChange={(e) => modifier("smtp_user", e.target.value)}
-            placeholder="vous@exemple.com"
+            placeholder={t("smtp.expeditionExemple")}
             className={champ}
           />
         </label>
 
         <label className="flex flex-col gap-1.5 sm:col-span-2">
           <span className="text-xs text-muted">
-            Mot de passe
-            {dejaConfigure && " — laissez vide pour conserver l'actuel"}
+            {t("smtp.motDePasse")}
+            {dejaConfigure && t("smtp.motDePasseConserver")}
           </span>
           <input
             type="password"
@@ -159,13 +161,12 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
             className={champ}
           />
           <span className="text-xs text-muted">
-            Sur Gmail, utilisez un mot de passe d&apos;application, pas celui du
-            compte.
+            {t("smtp.gmail")}
           </span>
         </label>
 
         <label className="flex flex-col gap-1.5 sm:col-span-2">
-          <span className="text-xs text-muted">Signature</span>
+          <span className="text-xs text-muted">{t("smtp.signature")}</span>
           <textarea
             value={config.signature}
             onChange={(e) => modifier("signature", e.target.value)}
@@ -176,12 +177,12 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
         </label>
       </div>
 
-      <h3 className="mb-3 mt-6 text-[16px] font-medium">Rythme d&apos;envoi</h3>
+      <h3 className="mb-3 mt-6 text-[16px] font-medium">{t("smtp.rythme")}</h3>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <label className="flex flex-col gap-1.5">
           <span className="text-xs text-muted">
-            Délai minimum — {config.delai_min_secondes}s
+            {t("smtp.delaiMin")} — {config.delai_min_secondes}s
           </span>
           <input
             type="range"
@@ -193,12 +194,12 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
             className="cursor-pointer accent-teal"
           />
           <span className="text-xs text-muted">
-            Réel : {config.delai_min_secondes} à {config.delai_min_secondes * 2}s
+            {t("smtp.delaiReel")} {config.delai_min_secondes} – {config.delai_min_secondes * 2}s
           </span>
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-xs text-muted">Début</span>
+          <span className="text-xs text-muted">{t("smtp.debut")}</span>
           <input
             type="number"
             min={6}
@@ -210,7 +211,7 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-xs text-muted">Fin</span>
+          <span className="text-xs text-muted">{t("smtp.fin")}</span>
           <input
             type="number"
             min={13}
@@ -223,13 +224,13 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
       </div>
 
       <fieldset className="mt-4">
-        <legend className="mb-2 text-xs text-muted">Jours d&apos;envoi</legend>
+        <legend className="mb-2 text-xs text-muted">{t("smtp.jours")}</legend>
         <div className="flex flex-wrap gap-2">
-          {JOURS.map((libelle, index) => {
+          {JOURS.map((_libelle, index) => {
             const actif = config.jours_actifs.includes(index);
             return (
               <button
-                key={libelle}
+                key={index}
                 type="button"
                 aria-pressed={actif}
                 onClick={() => basculerJour(index)}
@@ -239,7 +240,7 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
                     : "border-line text-muted hover:border-line-hover hover:text-content"
                 }`}
               >
-                {libelle}
+                {t(`jour.${index}` as Cle)}
               </button>
             );
           })}
@@ -262,11 +263,11 @@ export function FormulaireSmtp({ initiale, dejaConfigure, onEnregistrer }: Props
           disabled={enCours}
           className="rounded-lg bg-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-teal-hover disabled:opacity-50"
         >
-          {enCours ? "Enregistrement…" : "Enregistrer"}
+          {enCours ? t("smtp.enregistrement") : t("smtp.enregistrer")}
         </button>
         {succes && (
           <span className="flex items-center gap-1.5 text-xs text-ok">
-            <Check size={13} aria-hidden="true" /> Configuration enregistrée
+            <Check size={13} aria-hidden="true" /> {t("smtp.enregistre")}
           </span>
         )}
       </div>
