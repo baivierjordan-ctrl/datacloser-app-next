@@ -557,7 +557,12 @@ export function ameliorerMessage(
   corps: string,
   remarques: string[] = [],
 ): Promise<PropositionMessage> {
-  return envoyer("/outreach/ameliorer", { sujet, corps, remarques });
+  return envoyer("/outreach/ameliorer", {
+    sujet,
+    corps,
+    remarques,
+    langue: lireLangue(),
+  });
 }
 
 /** Modèle d'une campagne existante. */
@@ -575,6 +580,7 @@ export async function proposerObjets(
   const d = await envoyer<{ variantes: string[] }>("/outreach/variantes-objet", {
     sujet,
     corps,
+    langue: lireLangue(),
   });
   return d.variantes ?? [];
 }
@@ -584,7 +590,7 @@ export function auditerMessage(
   sujet: string,
   corps: string,
 ): Promise<AuditMessage> {
-  return envoyer("/outreach/auditer", { sujet, corps });
+  return envoyer("/outreach/auditer", { sujet, corps, langue: lireLangue() });
 }
 
 /** Retire une adresse de toute prospection. Public : aucun compte requis. */
