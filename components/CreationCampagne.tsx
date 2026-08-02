@@ -28,6 +28,32 @@ interface Props {
 
 const RELANCE_VIDE: Relance = { sujet: "", corps: "" };
 
+/**
+ * Ce que signifie concrètement chaque qualification d'email.
+ *
+ * Les libellés sortent de l'enrichissement et sont justes, mais illisibles pour
+ * qui découvre la prospection : « Catch-all » ou « Nominatif (site) » ne disent
+ * rien à un artisan ou à un fondateur qui envoie sa première campagne.
+ */
+function explication(libelle: string, statut?: string): string {
+  const l = (libelle || "").toLowerCase();
+  if (l.includes("nominatif pro"))
+    return "Adresse personnelle du décideur, confirmée par son serveur. Le meilleur niveau.";
+  if (l.includes("nominatif") && l.includes("site"))
+    return "Adresse personnelle trouvée sur le site de l'entreprise, non confirmée par le serveur.";
+  if (l.includes("nominatif") || l.includes("vérifié") || l.includes("verifie"))
+    return "Adresse au nom d'une personne, confirmée existante par le serveur du destinataire.";
+  if (l.includes("générique") || l.includes("generique"))
+    return "Adresse de service du type contact@ ou info@. Lue par plusieurs personnes, ou par aucune.";
+  if (l.includes("catch") || l.includes("probable"))
+    return "Le serveur accepte tout ce qu'on lui envoie : impossible de confirmer sans essayer. À utiliser avec prudence.";
+  if (l.includes("introuvable"))
+    return "Aucune adresse fiable. Ces lignes sont exclues de l'envoi et ne consomment aucun crédit.";
+  if (statut === "verifie") return "Adresse confirmée existante par le serveur du destinataire.";
+  if (statut === "catchall") return "Existence non confirmée : le serveur accepte toutes les adresses.";
+  return "";
+}
+
 export function CreationCampagne({
   sourceInitiale,
   smtpConfigure,
@@ -296,22 +322,24 @@ export function CreationCampagne({
                     statut mais ne désignent pas la même chose. Trois lignes
                     « Vérifié » identiques ne permettent pas de choisir. */}
                 <span className="flex-1">
-                  <span
-                    aria-hidden="true"
-                    className={`mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle ${
-                      q.statut === "verifie"
-                        ? "bg-teal"
-                        : q.statut === "catchall"
-                          ? "bg-warn"
-                          : "bg-dim"
-                    }`}
-                  />
-                  {q.libelle}
-                  {q.statut ? (
-                    <span className="ml-2 text-xs text-dim">
-                      {t(`fichier.${q.statut}` as Cle)}
-                    </span>
-                  ) : null}
+                  <span className="flex items-center gap-2">
+                    <span
+                      aria-hidden="true"
+                      className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${
+                        q.statut === "verifie"
+                          ? "bg-teal"
+                          : q.statut === "catchall"
+                            ? "bg-warn"
+                            : "bg-dim"
+                      }`}
+                    />
+                    {q.libelle}
+                  </span>
+                  {/* Ces libellés viennent de l'enrichissement : ils sont exacts
+                      mais opaques pour qui n'a jamais fait de prospection. */}
+                  <span className="mt-0.5 block text-xs leading-snug text-dim">
+                    {explication(q.libelle, q.statut)}
+                  </span>
                 </span>
                 <span className="font-mono tabular-nums text-xs text-muted">
                   {q.nombre}
