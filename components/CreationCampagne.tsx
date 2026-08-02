@@ -291,8 +291,27 @@ export function CreationCampagne({
                     })
                   }
                 />
+                {/* Le libellé complet, pas le statut : « Email nominatif vérifié »,
+                    « Nominatif Pro » et « Nominatif (site) » partagent le même
+                    statut mais ne désignent pas la même chose. Trois lignes
+                    « Vérifié » identiques ne permettent pas de choisir. */}
                 <span className="flex-1">
-                  {q.statut ? t(`fichier.${q.statut}` as Cle) : q.libelle}
+                  <span
+                    aria-hidden="true"
+                    className={`mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle ${
+                      q.statut === "verifie"
+                        ? "bg-teal"
+                        : q.statut === "catchall"
+                          ? "bg-warn"
+                          : "bg-dim"
+                    }`}
+                  />
+                  {q.libelle}
+                  {q.statut ? (
+                    <span className="ml-2 text-xs text-dim">
+                      {t(`fichier.${q.statut}` as Cle)}
+                    </span>
+                  ) : null}
                 </span>
                 <span className="font-mono tabular-nums text-xs text-muted">
                   {q.nombre}
