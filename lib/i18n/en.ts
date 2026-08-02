@@ -277,6 +277,7 @@ export const en: Traductions = {
   "liste.enEchec": "failed",
   "liste.creeeLe": "Created on",
   "liste.pause": "Pause",
+  "liste.activer": "Activate",
   "liste.reprendre": "Resume sending",
   "liste.confirmerSuppression":
     "Permanently delete this campaign, its sending queue and its log?",

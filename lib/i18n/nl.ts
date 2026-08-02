@@ -278,6 +278,7 @@ export const nl: Traductions = {
   "liste.enEchec": "mislukt",
   "liste.creeeLe": "Aangemaakt op",
   "liste.pause": "Pauzeren",
+  "liste.activer": "Activeren",
   "liste.reprendre": "Verzendingen hervatten",
   "liste.confirmerSuppression":
     "Deze campagne, haar verzendwachtrij en haar logboek definitief verwijderen?",

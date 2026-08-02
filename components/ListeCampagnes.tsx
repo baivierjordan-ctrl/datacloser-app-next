@@ -166,7 +166,7 @@ export function ListeCampagnes({
                     >
                       <Pause size={12} aria-hidden="true" /> {t("liste.pause")}
                     </button>
-                  ) : campagne.statut === "pausee" ? (
+                  ) : campagne.statut === "pausee" || campagne.statut === "brouillon" ? (
                     <button
                       type="button"
                       disabled={occupee === campagne.id}
@@ -177,7 +177,10 @@ export function ListeCampagnes({
                       }
                       className="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-teal/40 hover:text-teal disabled:opacity-40"
                     >
-                      <Play size={12} aria-hidden="true" /> {t("liste.reprendre")}
+                      <Play size={12} aria-hidden="true" />{" "}
+                      {campagne.statut === "brouillon"
+                        ? t("liste.activer")
+                        : t("liste.reprendre")}
                     </button>
                   ) : null}
 

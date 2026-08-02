@@ -277,6 +277,7 @@ export const fr = {
   "liste.enEchec": "en échec",
   "liste.creeeLe": "Créée le",
   "liste.pause": "Mettre en pause",
+  "liste.activer": "Activer",
   "liste.reprendre": "Reprendre les envois",
   "liste.confirmerSuppression":
     "Supprimer définitivement cette campagne, sa file d'envoi et son journal ?",
