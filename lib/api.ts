@@ -27,6 +27,7 @@ import type {
   ProfilEntreprise,
   ReponseProfil,
   ScanRadar,
+  EtatPreparationDemos,
 } from "./types";
 import { effacerSession, lireSession } from "./session";
 import { lireLangue } from "./langue";
@@ -236,8 +237,37 @@ export function recupererModeles(): Promise<Modeles> {
 /** Crée la campagne et alimente la file d'envoi. */
 export function creerCampagne(
   campagne: NouvelleCampagne,
-): Promise<{ id: string; nom: string; destinataires: number }> {
+): Promise<{
+  id: string;
+  nom: string;
+  destinataires: number;
+  preparation_demos?: boolean;
+}> {
   return envoyer("/outreach/campagnes", campagne);
+}
+
+/**
+ * Avancement de la préparation des liens de démonstration.
+ *
+ * Le calcul dure plusieurs dizaines de minutes : la campagne reste en pause
+ * tant qu'il n'est pas terminé, et l'interface interroge cet état.
+ */
+export function etatPreparationDemos(
+  campagneId: string,
+): Promise<EtatPreparationDemos> {
+  return appeler(
+    `/outreach/campagnes/${encodeURIComponent(campagneId)}/demos`,
+  );
+}
+
+/** Reprend une préparation interrompue. Les liens déjà calculés sont conservés. */
+export function relancerPreparationDemos(
+  campagneId: string,
+): Promise<{ relancee: boolean }> {
+  return envoyer(
+    `/outreach/campagnes/${encodeURIComponent(campagneId)}/demos/relancer`,
+    {},
+  );
 }
 
 /** Pays, villes suggérées et modes de recherche. */

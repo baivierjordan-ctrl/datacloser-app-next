@@ -131,6 +131,8 @@ export interface NouvelleCampagne {
   relance_j4?: Relance | null;
   relance_j9?: Relance | null;
   relance_j14?: Relance | null;
+  /** Prépare un lien de démonstration personnalisé par destinataire. */
+  avec_demo?: boolean;
 }
 
 /** Options de recherche proposées au lancement d'une chasse. */
@@ -455,4 +457,14 @@ export interface ActionAssistant {
   type: "chasse" | "message" | "profil";
   libelle: string;
   lien: string;
+}
+
+/** Avancement de la préparation des liens de démonstration d'une campagne. */
+export interface EtatPreparationDemos {
+  statut: "aucune" | "en_cours" | "termine" | "echec";
+  faits: number;
+  total: number;
+  reussis: number;
+  echecs: number;
+  message: string;
 }

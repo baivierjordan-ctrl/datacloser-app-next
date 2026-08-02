@@ -34,9 +34,11 @@ export function CreationCampagne({
   onCreee,
   modeleInitial,
   actionInitiale,
+  onPreparationDemos,
 }: Props & {
   modeleInitial?: string;
   actionInitiale?: "objets" | "reecrire";
+  onPreparationDemos?: (campagneId: string, nom: string) => void;
 }) {
   const { t } = useLangue();
   const [scans, setScans] = useState<string[]>([]);
@@ -50,6 +52,7 @@ export function CreationCampagne({
   const [retenues, setRetenues] = useState<Set<string>>(new Set());
 
   const [avecRelance, setAvecRelance] = useState(false);
+  const [avecDemo, setAvecDemo] = useState(false);
   const [j4, setJ4] = useState<Relance>(RELANCE_VIDE);
   const [avecJ9, setAvecJ9] = useState(false);
   const [j9, setJ9] = useState<Relance>(RELANCE_VIDE);
@@ -147,6 +150,28 @@ export function CreationCampagne({
     [sujet, corps, fichier, avecRelance, avecJ9, avecJ14],
   );
 
+  /* Cocher l'option ne suffit pas : sans la variable dans le corps, aucun
+     lien n'apparaîtrait dans l'email. On l'insère, on la retire. */
+  function basculerDemo(actif: boolean) {
+    setAvecDemo(actif);
+    const bloc = t("campagne.demoBloc");
+    if (actif) {
+      if (!corps.includes("{{lien_demo}}")) {
+        const sansSignature = corps.replace(/\n*\{\{signature\}\}\s*$/, "");
+        const signature = corps.includes("{{signature}}") ? "\n\n{{signature}}" : "";
+        setCorps(`${sansSignature.trimEnd()}\n\n${bloc}${signature}`);
+      }
+    } else {
+      setCorps(
+        corps
+          .split("\n")
+          .filter((l) => !l.includes("{{lien_demo}}"))
+          .join("\n")
+          .replace(/\n{3,}/g, "\n\n"),
+      );
+    }
+  }
+
   async function lancer() {
     setErreur("");
     setEnvoiEnCours(true);
@@ -160,8 +185,12 @@ export function CreationCampagne({
         relance_j4: avecRelance ? j4 : null,
         relance_j9: avecRelance && avecJ9 ? j9 : null,
         relance_j14: avecRelance && avecJ9 && avecJ14 ? j14 : null,
+        avec_demo: avecDemo,
       });
       setNom("");
+      if (resultat.preparation_demos) {
+        onPreparationDemos?.(resultat.id, resultat.nom);
+      }
       onCreee(resultat.destinataires);
     } catch (e) {
       setErreur((e as Error).message);
@@ -386,6 +415,26 @@ export function CreationCampagne({
       </section>
 
       <ApercuOutreach fichier={fichier} sujet={sujet} corps={corps} />
+
+      <section className="rounded-xl border border-line bg-surface p-5">
+        <label className="flex cursor-pointer items-center gap-3 text-sm">
+          <input
+            type="checkbox"
+            className="accent-teal"
+            checked={avecDemo}
+            onChange={(e) => basculerDemo(e.target.checked)}
+          />
+          {t("campagne.demoActiver")}
+          <Aide titre={t("campagne.aideDemoTitre")}>{t("campagne.aideDemoTexte")}</Aide>
+        </label>
+        <p className="mt-1.5 text-xs text-muted">{t("campagne.demoDetail")}</p>
+        {avecDemo && (
+          <p className="mt-3 flex items-start gap-2 rounded-lg border border-teal/25 bg-teal/5 px-3 py-2 text-xs text-muted">
+            <AlertTriangle size={14} className="mt-px shrink-0 text-teal" aria-hidden="true" />
+            {t("campagne.demoAttente")}
+          </p>
+        )}
+      </section>
 
       <section className="rounded-xl border border-line bg-surface p-5">
         <label className="flex cursor-pointer items-center gap-3 text-sm">

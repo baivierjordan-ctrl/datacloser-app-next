@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Send } from "lucide-react";
 import { CreationCampagne } from "@/components/CreationCampagne";
+import { PreparationDemos } from "@/components/PreparationDemos";
 import { FormulaireSmtp } from "@/components/FormulaireSmtp";
 import { ListeCampagnes } from "@/components/ListeCampagnes";
 import { Navigation } from "@/components/Navigation";
@@ -40,6 +41,8 @@ function Outreach() {
       : "campagnes",
   );
   const [message, setMessage] = useState("");
+  /* Campagne dont les liens de démonstration sont en préparation. */
+  const [demosEnCours, setDemosEnCours] = useState<{ id: string; nom: string } | null>(null);
   const [campagnes, setCampagnes] = useState<Campagne[]>([]);
   const [config, setConfig] = useState<ConfigSmtp | null>(null);
   const [configure, setConfigure] = useState(false);
@@ -148,14 +151,26 @@ function Outreach() {
             ))}
           </div>
         ) : vue === "campagnes" ? (
-          <ListeCampagnes
-            campagnes={campagnes}
-            onChangement={() =>
-              recupererCampagnes().then(setCampagnes).catch(() => {})
-            }
-          />
+          <div className="flex flex-col gap-5">
+            {demosEnCours && (
+              <PreparationDemos
+                campagneId={demosEnCours.id}
+                nomCampagne={demosEnCours.nom}
+                onTermine={() =>
+                  recupererCampagnes().then(setCampagnes).catch(() => {})
+                }
+              />
+            )}
+            <ListeCampagnes
+              campagnes={campagnes}
+              onChangement={() =>
+                recupererCampagnes().then(setCampagnes).catch(() => {})
+              }
+            />
+          </div>
         ) : vue === "creation" ? (
           <CreationCampagne
+            onPreparationDemos={(id, nom) => setDemosEnCours({ id, nom })}
             actionInitiale={action}
             modeleInitial={modeleDemande}
             sourceInitiale={source}
