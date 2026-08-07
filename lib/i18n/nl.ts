@@ -90,17 +90,17 @@ export const nl: Traductions = {
 
   // ── Radar ──
   "radar.eyebrow": "Radar",
-  "radar.titre": "Een zoekactie starten",
+  "radar.titre": "Een scan starten",
   "radar.intro":
     "Geef een beroep en een gebied op. De engine spoort de ondernemingen op, zoekt de beslisser, verifieert zijn e-mailadres en schrijft een openingszin op basis van hun website. Het resultaat wordt een bestand, raadpleegbaar bij Exports.",
-  "radar.termine": "Zoekactie voltooid.",
+  "radar.termine": "Scan voltooid.",
   "radar.termineDetail": "Uw bestand staat klaar bij Exports.",
   "radar.voirResultats": "Resultaten bekijken",
 
-  // Lopende zoekactie
+  // Lopende scan
   "radar.entreprisesAnalysees": "geanalyseerde ondernemingen",
   "radar.arreter": "Stoppen",
-  "radar.peutFermer": "U mag deze pagina sluiten: de zoekactie loopt door op onze servers.",
+  "radar.peutFermer": "U mag deze pagina sluiten: de scan loopt door op onze servers.",
   "radar.optionsIndisponibles": "De zoekopties konden niet worden geladen.",
   "radar.reessayer": "Opnieuw proberen",
 
@@ -126,7 +126,7 @@ export const nl: Traductions = {
 
   // Stap 3
   "radar.etape3Titre": "Instellingen",
-  "radar.etape3Detail": "Optioneel. De standaardwaarden volstaan voor een eerste zoekactie.",
+  "radar.etape3Detail": "Optioneel. De standaardwaarden volstaan voor een eerste scan.",
   "radar.resultatsPar": "Resultaten per trefwoord en per locatie:",
   "radar.mapsLimite": "— Maps is beperkt tot",
   "radar.nomFichier": "Bestandsnaam, optioneel",
@@ -145,9 +145,9 @@ export const nl: Traductions = {
   "radar.recherches": "zoekopdrachten",
   "radar.coutRappel":
     "Eén credit per onderneming met een geverifieerd e-mailadres. Ondernemingen zonder adres worden nooit aangerekend.",
-  "radar.lancer": "Zoekactie starten",
-  "radar.dejaEnCours": "Er loopt al een zoekactie",
-  "radar.vosChasses": "Uw zoekacties",
+  "radar.lancer": "Scan starten",
+  "radar.dejaEnCours": "Er loopt al een scan",
+  "radar.vosChasses": "Uw scans",
 
   // Statussen
   "scan.en_attente": "In wachtrij",
@@ -156,13 +156,13 @@ export const nl: Traductions = {
   "scan.termine": "Voltooid",
   "scan.erreur": "Mislukt",
 
-  // ── Overzicht zoekacties ──
-  "histo.chasse": "Zoekactie",
+  // ── Overzicht scans ──
+  "histo.chasse": "Scan",
   "histo.analysees": "geanalyseerd",
   "histo.relancer": "Opnieuw uitvoeren met dezelfde instellingen",
   "histo.telecharger": "Bestand downloaden",
   "histo.fichierIndisponible":
-    "Dit bestand is niet meer beschikbaar. Voer de zoekactie opnieuw uit om het aan te maken.",
+    "Dit bestand is niet meer beschikbaar. Voer de scan opnieuw uit om het aan te maken.",
 
   // ── Outreach ──
   "outreach.eyebrow": "Outreach",
@@ -212,7 +212,7 @@ export const nl: Traductions = {
   "jour.6": "Zo",
 
   // ── Campagne aanmaken ──
-  "campagne.aucunScan": "Geen zoekactie beschikbaar. Voer eerst een zoekactie uit via Radar.",
+  "campagne.aucunScan": "Geen scan beschikbaar. Voer eerst een scan uit via Radar.",
   "campagne.smtpAvant":
     "Vul uw verzendserver in bij Instellingen voordat u een campagne start.",
   "campagne.nom": "Naam van de campagne",
@@ -238,7 +238,7 @@ export const nl: Traductions = {
     "Verzenden naar onvindbare adressen schaadt de reputatie van uw domein: servers merken u uiteindelijk aan als spam. De betrouwbare kwalificaties staan standaard aangevinkt; verruim met kennis van zaken.",
   "campagne.qualifDefaut":
     "De meest betrouwbare kwalificaties staan standaard aangevinkt. Verruim om het volume te verhogen.",
-  "campagne.aucuneAdresse": "Deze zoekactie bevat geen bruikbaar e-mailadres.",
+  "campagne.aucuneAdresse": "Deze scan bevat geen bruikbaar e-mailadres.",
   "campagne.message": "Bericht",
   "campagne.objet": "Onderwerp",
   "campagne.corps": "Berichttekst",
@@ -373,9 +373,9 @@ export const nl: Traductions = {
   // ── Dashboard ──
   "accueil.eyebrow": "Dashboard",
   "accueil.bonjour": "Hallo",
-  "accueil.chasseEnCours": "Er loopt een zoekactie. De resultaten verschijnen in de Radar.",
-  "accueil.derniereChasse": "Laatste zoekactie op",
-  "accueil.aucuneChasse": "Nog geen zoekactie.",
+  "accueil.chasseEnCours": "Er loopt een scan. De resultaten verschijnen in de Radar.",
+  "accueil.derniereChasse": "Laatste scan op",
+  "accueil.aucuneChasse": "Nog geen scan.",
   "accueil.credits": "beschikbare credits",
   "accueil.entreprisesAnalysees": "geanalyseerde ondernemingen",
   "accueil.emailEnvoye": "verzonden e-mail",
@@ -383,8 +383,8 @@ export const nl: Traductions = {
   "accueil.reponseRecue": "ontvangen antwoord",
   "accueil.reponsesRecues": "ontvangen antwoorden",
   "accueil.profilComplete": "profiel ingevuld",
-  "accueil.chasseLancee": "gestarte zoekactie",
-  "accueil.chassesLancees": "gestarte zoekacties",
+  "accueil.chasseLancee": "gestarte scan",
+  "accueil.chassesLancees": "gestarte scans",
   "accueil.campagneActive": "actieve campagne",
   "accueil.campagnesActives": "actieve campagnes",
   "accueil.sur": "van",
@@ -395,7 +395,7 @@ export const nl: Traductions = {
   "conseils.titre": "Wat ik u aanraad",
   "conseils.rienADire": "Uw configuratie vertoont geen vaststelbare tekortkoming.",
   "conseils.suite":
-    "Het vervolg draait om volume en regelmaat: nieuwe zoekacties, verzendingen gespreid in plaats van gebundeld.",
+    "Het vervolg draait om volume en regelmaat: nieuwe scans, verzendingen gespreid in plaats van gebundeld.",
   "conseils.faireMoiMeme": "Zelf doen",
   "conseils.yAller": "Ernaartoe",
   "conseils.reserve":
@@ -407,17 +407,17 @@ export const nl: Traductions = {
   // ── Snelle start ──
   "demarrage.titre": "Snelle start",
   "demarrage.remplit":
-    "Vult het onderstaande formulier in. Er vertrekt niets zolang u de zoekactie niet hebt gestart.",
+    "Vult het onderstaande formulier in. Er vertrekt niets zolang u de scan niet hebt gestart.",
   "demarrage.chasserIdeaux": "Mijn ideale klanten zoeken",
   "demarrage.analyseProfil": "Uw profiel wordt geanalyseerd…",
   "demarrage.deduits": "Beroepen en gebieden afgeleid uit uw ondernemingsprofiel.",
   "demarrage.formulaireRempli":
-    "Het onderstaande formulier is ingevuld. Lees het na, pas het aan en start de zoekactie onderaan de pagina.",
+    "Het onderstaande formulier is ingevuld. Lees het na, pas het aan en start de scan onderaan de pagina.",
   "demarrage.pourquoi": "Waarom deze beroepen en gebieden?",
   "demarrage.ouSecteur": "Of vertrek van een sector",
 
   // ── Voorbeeldweergave ──
-  "exemple.aucuneChasse": "Nog geen zoekactie.",
+  "exemple.aucuneChasse": "Nog geen scan.",
   "exemple.forme":
     "Zo ziet een resultaat eruit: onderneming, beslisser, geverifieerd e-mailadres, relevantiescore en een openingszin geschreven vanaf hun website. Deze twee regels zijn fictief.",
   "exemple.societe1": "Verwarming & Sanitair (voorbeeld)",
@@ -474,22 +474,22 @@ export const nl: Traductions = {
   // ── Exports ──
   "exports.eyebrow": "Exports",
   "exports.titre": "Uw leadbestanden",
-  "exports.intro": "Elke zoekactie levert een CSV-bestand op dat u in uw CRM kunt hergebruiken.",
+  "exports.intro": "Elke scan levert een CSV-bestand op dat u in uw CRM kunt hergebruiken.",
   "exports.ongletFichiers": "Bestanden",
   "exports.ongletCrm": "CRM-koppeling",
   "exports.vide": "Nog geen bestand.",
   "exports.videDetail":
-    "Elke zoekactie levert een downloadbaar bestand op, te openen in een rekenblad of in te laden in uw CRM.",
-  "exports.lancerChasse": "Een zoekactie starten",
+    "Elke scan levert een downloadbaar bestand op, te openen in een rekenblad of in te laden in uw CRM.",
+  "exports.lancerChasse": "Een scan starten",
   "exports.consulter": "Bekijken",
   "exports.telecharger": "Downloaden",
   "exports.preparation": "Bezig met voorbereiden…",
-  "exports.douzeRecents": "Enkel de 12 recentste zoekacties worden getoond.",
+  "exports.douzeRecents": "Enkel de 12 recentste scans worden getoond.",
 
   // Globale cache
   "cache.titre": "Uit de globale cache halen",
   "cache.detail":
-    "Haalt leads op die al tijdens eerdere zoekacties zijn tegengekomen, zonder een externe oproep te verbruiken.",
+    "Haalt leads op die al tijdens eerdere scans zijn tegengekomen, zonder een externe oproep te verbruiken.",
   "cache.filtrer": "Filteren op ondernemingsnaam…",
   "cache.filtrerLabel": "Filteren op ondernemingsnaam",
   "cache.maxLignes": "Maximumaantal regels",
@@ -513,7 +513,7 @@ export const nl: Traductions = {
   "crm.effacee": "Adres gewist.",
   "crm.envoyerFichier": "Een bestand versturen",
   "crm.envoyerDetail": "Alle regels van het gekozen bestand vertrekken naar het opgeslagen adres.",
-  "crm.aucunFichier": "Geen bestand beschikbaar. Voer eerst een zoekactie uit.",
+  "crm.aucunFichier": "Geen bestand beschikbaar. Voer eerst een scan uit.",
   "crm.adresseDabord": "Sla eerst hierboven een adres op.",
   "crm.fichierLabel": "Te versturen bestand",
   "crm.ligneEnvoyee": "regel verstuurd.",
@@ -531,7 +531,7 @@ export const nl: Traductions = {
   "fichier.lancerCampagne": "Een campagne starten",
   "fichier.vide": "Dit bestand bevat geen enkele regel.",
   "fichier.videDetail":
-    "Het bestand wordt aangemaakt bij de start van een zoekactie en op het einde gevuld: een onderbroken zoekactie laat dus een leeg bestand achter onder dezelfde naam. Voer ze opnieuw uit vanuit de Radar om het aan te maken.",
+    "Het bestand wordt aangemaakt bij de start van een scan en op het einde gevuld: een onderbroken scan laat dus een leeg bestand achter onder dezelfde naam. Voer ze opnieuw uit vanuit de Radar om het aan te maken.",
   "fichier.filtrer": "Filteren op om het even welke kolom…",
   "fichier.filtrerLabel": "Regels filteren",
   "fichier.ligne": "regel",
@@ -641,7 +641,7 @@ export const nl: Traductions = {
   "admin.boutonCrediter": "Crediteren",
   "admin.agent": "Autonome agent",
   "admin.agentDetail":
-    "Elke nacht leest de agent het profiel van het account, start een zoekactie en plaatst de beste leads in de verzendwachtrij. Hij verstuurt zelf nooit.",
+    "Elke nacht leest de agent het profiel van het account, start een scan en plaatst de beste leads in de verzendwachtrij. Hij verstuurt zelf nooit.",
   "admin.activer": "Inschakelen",
   "admin.desactiver": "Uitschakelen",
   "admin.agentAvant": "Agent",
@@ -651,7 +651,7 @@ export const nl: Traductions = {
   "admin.titreComptes": "Accounts",
   "admin.purge": "De cache van niet-geverifieerde leads leegmaken",
   "admin.purgeDetail":
-    "Verwijdert definitief uit de globale cache de leads waarvan het e-mailadres nooit is geverifieerd. Ze worden bij de volgende zoekactie opnieuw ter verrijking aangeboden. Onomkeerbaar.",
+    "Verwijdert definitief uit de globale cache de leads waarvan het e-mailadres nooit is geverifieerd. Ze worden bij de volgende scan opnieuw ter verrijking aangeboden. Onomkeerbaar.",
   "admin.purgeConfirmation": "Typ PURGER over om te bevestigen",
   "admin.boutonPurger": "Leegmaken",
 
@@ -666,7 +666,7 @@ export const nl: Traductions = {
   "install.titre": "DataCloser op uw scherm",
   "install.safari": "Tik op de knop Delen in Safari en vervolgens op « Zet op beginscherm ».",
   "install.detail":
-    "Open uw zoekacties en campagnes met één handeling, zonder via de browser te gaan.",
+    "Open uw scans en campagnes met één handeling, zonder via de browser te gaan.",
   "install.installer": "Installeren",
   "install.installerLabel": "DataCloser installeren",
   "install.fermer": "Sluiten",
@@ -683,7 +683,7 @@ export const nl: Traductions = {
   "lb.enCours": "Bezig met zoeken…",
   "apercu.titre": "Voorbeeld vóór verzending",
   "apercu.detail":
-    "De e-mail wordt opgebouwd voor een echte ontvanger uit deze zoekactie, met uw handtekening. Er wordt niets verzonden.",
+    "De e-mail wordt opgebouwd voor een echte ontvanger uit deze scan, met uw handtekening. Er wordt niets verzonden.",
   "apercu.suivant": "Volgende ontvanger",
   "apercu.objet": "Onderwerp: ",
 
