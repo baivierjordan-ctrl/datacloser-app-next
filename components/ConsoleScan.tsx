@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { recupererLogsScan } from "@/lib/api";
 
 /**
- * Journal d'une chasse, en direct.
+ * Journal d'un scan, en direct.
  *
  * Le serveur ne renvoie que les lignes non encore reçues : on lui
  * transmet le nombre déjà en mémoire. Le défilement suit le bas du
@@ -34,7 +34,7 @@ export function ConsoleScan({ id, actif }: { id: string; actif: boolean }) {
         if (annule || r.lignes.length === 0) return;
         setLignes((p) => [...p, ...r.lignes]);
       } catch {
-        // Un échec de sondage est sans gravité : la chasse continue
+        // Un échec de sondage est sans gravité : le scan continue
         // côté serveur et la ligne manquante arrivera au tour suivant.
       }
     }
@@ -72,7 +72,7 @@ export function ConsoleScan({ id, actif }: { id: string; actif: boolean }) {
       className="mt-3 max-h-72 overflow-y-auto rounded-lg border border-line bg-ink p-3 font-mono text-[12px] leading-relaxed text-muted"
       role="log"
       aria-live="polite"
-      aria-label="Journal de la chasse"
+      aria-label="Journal du scan"
     >
       {lignes.map((ligne, i) => (
         <p key={i} className="whitespace-pre-wrap break-words">

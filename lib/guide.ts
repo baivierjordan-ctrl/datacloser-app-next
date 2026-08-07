@@ -7,7 +7,7 @@
  * Principe d'écriture : chaque section répond à une question qu'on se
  * pose vraiment, et nomme le piège plutôt que de décrire le bouton. Un
  * utilisateur qui lit « cliquez sur Lancer » n'apprend rien ; celui qui
- * lit « les termes larges ramènent des annuaires » évite une chasse
+ * lit « les termes larges ramènent des annuaires » évite un scan
  * perdue.
  */
 
@@ -44,7 +44,7 @@ export const SECTIONS: SectionGuide[] = [
           "Dans Mon entreprise, vous indiquez ce que vous vendez et à qui. Le moteur s'en sert pour noter la pertinence de chaque entreprise trouvée. Sans ce profil, il note à l'aveugle et vos crédits partent sur des entreprises hors cible.",
       },
       {
-        titre: "2. Vous lancez une chasse",
+        titre: "2. Vous lancez un scan",
         texte:
           "Dans le Radar, vous indiquez un métier et une zone. Le moteur identifie les entreprises, cherche le décideur, vérifie son adresse email et rédige une accroche. Le résultat devient un fichier.",
       },
@@ -63,7 +63,7 @@ export const SECTIONS: SectionGuide[] = [
       {
         titre: "Crédit",
         texte:
-          "L'unité de consommation. Un crédit est débité par entreprise dont l'email est vérifié lors d'une chasse, et un crédit par premier message envoyé. Les relances sont gratuites, et les entreprises sans adresse exploitable ne sont jamais facturées. Les crédits n'expirent pas.",
+          "L'unité de consommation. Un crédit est débité par entreprise dont l'email est vérifié lors d'un scan, et un crédit par premier message envoyé. Les relances sont gratuites, et les entreprises sans adresse exploitable ne sont jamais facturées. Les crédits n'expirent pas.",
       },
       {
         titre: "Qualification de l'email",
@@ -81,7 +81,7 @@ export const SECTIONS: SectionGuide[] = [
           "Une phrase écrite pour chaque destinataire à partir de son site — une page datée, un délai mentionné dans les avis, une zone non couverte. C'est elle qui distingue votre message d'un envoi de masse.",
       },
       {
-        titre: "Chasse",
+        titre: "Scan",
         texte:
           "Une recherche lancée dans le Radar. Elle tourne sur nos serveurs : vous pouvez fermer la page, elle continue.",
       },
@@ -89,13 +89,13 @@ export const SECTIONS: SectionGuide[] = [
   },
   {
     cle: "chasse",
-    titre: "Réussir une chasse",
+    titre: "Réussir un scan",
     resume: "Le choix des mots-clés détermine tout le reste.",
     passages: [
       {
         titre: "Cherchez un métier, pas un secteur",
         texte:
-          "« Couvreur » ramène des entreprises. « Bâtiment » ramène des annuaires, des places de marché et des fédérations — dont aucun n'est un prospect. C'est la cause la plus fréquente d'une chasse décevante.",
+          "« Couvreur » ramène des entreprises. « Bâtiment » ramène des annuaires, des places de marché et des fédérations — dont aucun n'est un prospect. C'est la cause la plus fréquente d'un scan décevant.",
       },
       {
         titre: "Commencez petit",
@@ -109,14 +109,14 @@ export const SECTIONS: SectionGuide[] = [
       },
       {
         attention:
-          "Si plus de 40 % des entreprises d'une chasse n'ont aucune adresse exploitable, vos mots-clés sont trop larges. L'accueil vous le signale automatiquement.",
+          "Si plus de 40 % des entreprises d'un scan n'ont aucune adresse exploitable, vos mots-clés sont trop larges. L'accueil vous le signale automatiquement.",
       },
       {
         titre: "Deux raccourcis",
         points: [
-          "Chasser mes clients idéaux : le moteur déduit métiers et zones de votre profil d'entreprise.",
+          "Scanner mes clients idéaux : le moteur déduit métiers et zones de votre profil d'entreprise.",
           "Les secteurs prêts à l'emploi remplissent le formulaire en un clic, avec le mode adapté.",
-          "Aucun des deux ne lance la chasse : vous relisez, vous ajustez, vous décidez.",
+          "Aucun des deux ne lance le scan : vous relisez, vous ajustez, vous décidez.",
         ],
       },
     ],
@@ -164,7 +164,7 @@ export const SECTIONS: SectionGuide[] = [
     passages: [
       {
         texte:
-          "Chaque chasse produit un fichier dans Exports. Consulter l'ouvre en entier, avec toutes ses colonnes et un filtre sur n'importe laquelle d'entre elles. Télécharger vous donne le CSV, ouvrable dans un tableur.",
+          "Chaque scan produit un fichier dans Exports. Consulter l'ouvre en entier, avec toutes ses colonnes et un filtre sur n'importe laquelle d'entre elles. Télécharger vous donne le CSV, ouvrable dans un tableur.",
       },
       {
         titre: "Envoi automatique vers votre outil",

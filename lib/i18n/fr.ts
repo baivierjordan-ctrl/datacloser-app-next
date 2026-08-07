@@ -89,17 +89,17 @@ export const fr = {
 
   // ── Radar ──
   "radar.eyebrow": "Radar",
-  "radar.titre": "Lancer une chasse",
+  "radar.titre": "Lancer un scan",
   "radar.intro":
     "Indiquez un métier et une zone. Le moteur identifie les entreprises, cherche le décideur, vérifie son email et rédige une accroche à partir de leur site. Le résultat devient un fichier, consultable dans Exports.",
-  "radar.termine": "Chasse terminée.",
+  "radar.termine": "Scan terminé.",
   "radar.termineDetail": "Votre fichier vous attend dans Exports.",
   "radar.voirResultats": "Voir les résultats",
 
-  // Chasse en cours
+  // Scan en cours
   "radar.entreprisesAnalysees": "entreprises analysées",
   "radar.arreter": "Arrêter",
-  "radar.peutFermer": "Vous pouvez fermer cette page : la chasse continue sur nos serveurs.",
+  "radar.peutFermer": "Vous pouvez fermer cette page : le scan continue sur nos serveurs.",
   "radar.optionsIndisponibles": "Impossible de charger les options de recherche.",
   "radar.reessayer": "Réessayer",
 
@@ -125,7 +125,7 @@ export const fr = {
 
   // Étape 3
   "radar.etape3Titre": "Réglages",
-  "radar.etape3Detail": "Facultatif. Les valeurs par défaut conviennent à une première chasse.",
+  "radar.etape3Detail": "Facultatif. Les valeurs par défaut conviennent à un premier scan.",
   "radar.resultatsPar": "Résultats par mot-clé et par lieu :",
   "radar.mapsLimite": "— Maps est limité à",
   "radar.nomFichier": "Nom du fichier, facultatif",
@@ -144,24 +144,24 @@ export const fr = {
   "radar.recherches": "recherches",
   "radar.coutRappel":
     "Un crédit par entreprise dont l'email est vérifié. Les entreprises sans adresse ne sont jamais facturées.",
-  "radar.lancer": "Lancer la chasse",
-  "radar.dejaEnCours": "Une chasse est en cours",
-  "radar.vosChasses": "Vos chasses",
+  "radar.lancer": "Lancer le scan",
+  "radar.dejaEnCours": "Un scan est en cours",
+  "radar.vosChasses": "Vos scans",
 
-  // Statuts de chasse
+  // Statuts de scan
   "scan.en_attente": "En attente",
   "scan.en_cours": "En cours",
   "scan.annulation_demandee": "Annulation demandée",
   "scan.termine": "Terminée",
   "scan.erreur": "Échec",
 
-  // ── Historique des chasses ──
-  "histo.chasse": "Chasse",
+  // ── Historique des scans ──
+  "histo.chasse": "Scan",
   "histo.analysees": "analysées",
   "histo.relancer": "Relancer avec les mêmes réglages",
   "histo.telecharger": "Télécharger le fichier",
   "histo.fichierIndisponible":
-    "Ce fichier n'est plus disponible. Relancez la chasse pour le régénérer.",
+    "Ce fichier n'est plus disponible. Relancez le scan pour le régénérer.",
 
   // ── Outreach ──
   "outreach.eyebrow": "Outreach",
@@ -374,9 +374,9 @@ export const fr = {
   // ── Tableau de bord ──
   "accueil.eyebrow": "Tableau de bord",
   "accueil.bonjour": "Bonjour",
-  "accueil.chasseEnCours": "Une chasse est en cours. Les résultats arriveront dans le Radar.",
-  "accueil.derniereChasse": "Dernière chasse le",
-  "accueil.aucuneChasse": "Aucune chasse pour l'instant.",
+  "accueil.chasseEnCours": "Un scan est en cours. Les résultats arriveront dans le Radar.",
+  "accueil.derniereChasse": "Dernier scan le",
+  "accueil.aucuneChasse": "Aucun scan pour l'instant.",
   "accueil.credits": "crédits disponibles",
   "accueil.entreprisesAnalysees": "entreprises analysées",
   "accueil.emailEnvoye": "email envoyé",
@@ -384,8 +384,8 @@ export const fr = {
   "accueil.reponseRecue": "réponse reçue",
   "accueil.reponsesRecues": "réponses reçues",
   "accueil.profilComplete": "profil complété",
-  "accueil.chasseLancee": "chasse lancée",
-  "accueil.chassesLancees": "chasses lancées",
+  "accueil.chasseLancee": "scan lancé",
+  "accueil.chassesLancees": "scans lancés",
   "accueil.campagneActive": "campagne active",
   "accueil.campagnesActives": "campagnes actives",
   "accueil.sur": "sur",
@@ -396,7 +396,7 @@ export const fr = {
   "conseils.titre": "Ce que je vous conseille",
   "conseils.rienADire": "Votre configuration ne présente aucun défaut détectable.",
   "conseils.suite":
-    "La suite se joue sur le volume et la régularité : de nouvelles chasses, des envois étalés plutôt que groupés.",
+    "La suite se joue sur le volume et la régularité : de nouveaux scans, des envois étalés plutôt que groupés.",
   "conseils.faireMoiMeme": "Faire moi-même",
   "conseils.yAller": "Y aller",
   "conseils.reserve":
@@ -408,17 +408,17 @@ export const fr = {
   // ── Démarrage rapide ──
   "demarrage.titre": "Démarrage rapide",
   "demarrage.remplit":
-    "Remplit le formulaire ci-dessous. Rien ne part tant que vous n'avez pas lancé la chasse.",
-  "demarrage.chasserIdeaux": "Chasser mes clients idéaux",
+    "Remplit le formulaire ci-dessous. Rien ne part tant que vous n'avez pas lancé le scan.",
+  "demarrage.chasserIdeaux": "Scanner mes clients idéaux",
   "demarrage.analyseProfil": "Analyse de votre profil…",
   "demarrage.deduits": "Métiers et zones déduits de votre profil d'entreprise.",
   "demarrage.formulaireRempli":
-    "Le formulaire ci-dessous est rempli. Relisez-le, ajustez, puis lancez la chasse en bas de page.",
+    "Le formulaire ci-dessous est rempli. Relisez-le, ajustez, puis lancez le scan en bas de page.",
   "demarrage.pourquoi": "Pourquoi ces métiers et ces zones ?",
   "demarrage.ouSecteur": "Ou partez d'un secteur",
 
   // ── Aperçu d'exemple ──
-  "exemple.aucuneChasse": "Aucune chasse pour l'instant.",
+  "exemple.aucuneChasse": "Aucun scan pour l'instant.",
   "exemple.forme":
     "Voici la forme d'un résultat : entreprise, décideur, email vérifié, note de pertinence et accroche rédigée depuis leur site. Ces deux lignes sont fictives.",
   "exemple.societe1": "Chauffage & Sanitaire (exemple)",
@@ -480,8 +480,8 @@ export const fr = {
   "exports.ongletCrm": "Connexion CRM",
   "exports.vide": "Aucun fichier pour l'instant.",
   "exports.videDetail":
-    "Chaque chasse produit un fichier téléchargeable, à ouvrir dans un tableur ou à verser dans votre CRM.",
-  "exports.lancerChasse": "Lancer une chasse",
+    "Chaque scan produit un fichier téléchargeable, à ouvrir dans un tableur ou à verser dans votre CRM.",
+  "exports.lancerChasse": "Lancer un scan",
   "exports.consulter": "Consulter",
   "exports.telecharger": "Télécharger",
   "exports.preparation": "Préparation…",
@@ -514,7 +514,7 @@ export const fr = {
   "crm.effacee": "Adresse effacée.",
   "crm.envoyerFichier": "Envoyer un fichier",
   "crm.envoyerDetail": "Toutes les lignes du fichier choisi partent vers l'adresse enregistrée.",
-  "crm.aucunFichier": "Aucun fichier disponible. Lancez d'abord une chasse.",
+  "crm.aucunFichier": "Aucun fichier disponible. Lancez d'abord un scan.",
   "crm.adresseDabord": "Enregistrez d'abord une adresse ci-dessus.",
   "crm.fichierLabel": "Fichier à envoyer",
   "crm.ligneEnvoyee": "ligne envoyée.",
@@ -532,7 +532,7 @@ export const fr = {
   "fichier.lancerCampagne": "Lancer une campagne",
   "fichier.vide": "Ce fichier ne contient aucune ligne.",
   "fichier.videDetail":
-    "Le fichier est créé au départ d'une chasse et rempli à la fin : une chasse interrompue laisse donc un fichier vide sous le même nom. Relancez-la depuis le Radar pour le régénérer.",
+    "Le fichier est créé au départ d'un scan et rempli à la fin : un scan interrompu laisse donc un fichier vide sous le même nom. Relancez-le depuis le Radar pour le régénérer.",
   "fichier.filtrer": "Filtrer sur n'importe quelle colonne…",
   "fichier.filtrerLabel": "Filtrer les lignes",
   "fichier.ligne": "ligne",
@@ -644,7 +644,7 @@ export const fr = {
   "admin.boutonCrediter": "Créditer",
   "admin.agent": "Agent autonome",
   "admin.agentDetail":
-    "Chaque nuit, l'agent lit le profil du compte, lance une chasse et met les meilleurs leads en file d'envoi. Il n'envoie jamais lui-même.",
+    "Chaque nuit, l'agent lit le profil du compte, lance un scan et met les meilleurs leads en file d'envoi. Il n'envoie jamais lui-même.",
   "admin.activer": "Activer",
   "admin.desactiver": "Désactiver",
   "admin.agentAvant": "Agent",
@@ -669,7 +669,7 @@ export const fr = {
   "install.titre": "DataCloser sur votre écran",
   "install.safari": "Appuyez sur le bouton Partager de Safari, puis sur « Sur l'écran d'accueil ».",
   "install.detail":
-    "Ouvrez vos chasses et vos campagnes en un geste, sans passer par le navigateur.",
+    "Ouvrez vos scans et vos campagnes en un geste, sans passer par le navigateur.",
   "install.installer": "Installer",
   "install.installerLabel": "Installer DataCloser",
   "install.fermer": "Fermer",

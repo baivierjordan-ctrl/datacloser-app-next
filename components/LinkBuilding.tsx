@@ -20,7 +20,7 @@ const SUJETS_PAR_DEFAUT: Record<string, string> = {
  * Recherche de domaines pour le référencement de DataCloser.
  *
  * Le pipeline dure plusieurs minutes : il tourne côté serveur et
- * l'écran interroge son journal, comme pour une chasse. Fermer la page
+ * l'écran interroge son journal, comme pour un scan. Fermer la page
  * ne l'interrompt pas.
  */
 export function LinkBuilding() {

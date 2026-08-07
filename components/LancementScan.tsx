@@ -89,7 +89,7 @@ export function LancementScan({
       .catch((e: Error) => setErreur(e.message));
   }, []);
 
-  // Tant qu'une chasse tourne, on redemande son état toutes les 10 secondes.
+  // Tant qu'un scan tourne, on redemande son état toutes les 10 secondes.
   // onTermine est une fonction fléchée recréée à chaque rendu du parent.
   // La passer en dépendance relançait l'effet sans fin, et l'écran
   // finissait par ne plus répondre. La référence, elle, ne change jamais.
@@ -107,18 +107,18 @@ export function LancementScan({
         if (annule) return;
         setScans(r.scans);
         setActif(r.actif);
-        // La chasse vient de se terminer : les résultats sont disponibles.
+        // Le scan vient de se terminer : les résultats sont disponibles.
         if (etaitActif.current && !r.actif) surTermine.current();
         etaitActif.current = Boolean(r.actif);
       } catch {
-        // Un échec de sondage ne doit pas afficher d'erreur : la chasse
+        // Un échec de sondage ne doit pas afficher d'erreur : le scan
         // continue côté serveur, on retentera au prochain tour.
       }
     }
 
     rafraichir();
-    // Dix secondes pendant une chasse, où chaque seconde compte ; une
-    // minute au repos, le temps de repérer une chasse lancée ailleurs
+    // Dix secondes pendant un scan, où chaque seconde compte ; une
+    // minute au repos, le temps de repérer un scan lancé ailleurs
     // sans tenir le serveur éveillé pour rien.
     const minuterie = setInterval(rafraichir, actif ? 10_000 : 60_000);
     return () => {
@@ -127,7 +127,7 @@ export function LancementScan({
     };
   }, [actif]);
 
-  /** Applique une chasse déduite du profil. Rien n'est lancé. */
+  /** Applique un scan déduit du profil. Rien n'est lancé. */
   function appliquerPlan(plan: PlanIcp) {
     setMotsCles(plan.mots_cles);
     setPays(plan.pays);
@@ -143,7 +143,7 @@ export function LancementScan({
     setErreur("");
   }
 
-  /** Recharge le formulaire avec les réglages d'une chasse passée. */
+  /** Recharge le formulaire avec les réglages d'un scan passé. */
   function reprendre(scan: ScanRadar) {
     setMotsCles(scan.mots_cles ?? []);
     if (scan.pays) setPays(scan.pays);

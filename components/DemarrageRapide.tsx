@@ -10,7 +10,7 @@ import { useLangue } from "@/lib/i18n";
  * Deux façons de remplir le formulaire sans réfléchir aux mots-clés :
  * partir de son profil, ou partir d'un secteur tout prêt.
  *
- * Aucune des deux ne lance la chasse. Une chasse consomme des crédits ;
+ * Aucune des deux ne lance le scan. Un scan consomme des crédits ;
  * la configuration revient au formulaire, l'utilisateur la relit et
  * décide. C'est la différence entre assister et déposséder.
  */

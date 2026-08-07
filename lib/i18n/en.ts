@@ -89,17 +89,17 @@ export const en: Traductions = {
 
   // ── Radar ──
   "radar.eyebrow": "Radar",
-  "radar.titre": "Start a hunt",
+  "radar.titre": "Start a scan",
   "radar.intro":
     "Enter a trade and an area. The engine identifies companies, finds the decision-maker, verifies their email and writes an opening line drawn from their website. The result becomes a file, available under Exports.",
-  "radar.termine": "Hunt complete.",
+  "radar.termine": "Scan complete.",
   "radar.termineDetail": "Your file is waiting under Exports.",
   "radar.voirResultats": "View results",
 
-  // Hunt in progress
+  // Scan in progress
   "radar.entreprisesAnalysees": "companies analysed",
   "radar.arreter": "Stop",
-  "radar.peutFermer": "You can close this page: the hunt continues on our servers.",
+  "radar.peutFermer": "You can close this page: the scan continues on our servers.",
   "radar.optionsIndisponibles": "Could not load the search options.",
   "radar.reessayer": "Try again",
 
@@ -125,7 +125,7 @@ export const en: Traductions = {
 
   // Step 3
   "radar.etape3Titre": "Settings",
-  "radar.etape3Detail": "Optional. The default values suit a first hunt.",
+  "radar.etape3Detail": "Optional. The default values suit a first scan.",
   "radar.resultatsPar": "Results per keyword and per location:",
   "radar.mapsLimite": "— Maps is capped at",
   "radar.nomFichier": "File name, optional",
@@ -144,9 +144,9 @@ export const en: Traductions = {
   "radar.recherches": "searches",
   "radar.coutRappel":
     "One credit per company whose email is verified. Companies without an address are never charged.",
-  "radar.lancer": "Start the hunt",
-  "radar.dejaEnCours": "A hunt is already running",
-  "radar.vosChasses": "Your hunts",
+  "radar.lancer": "Start the scan",
+  "radar.dejaEnCours": "A scan is already running",
+  "radar.vosChasses": "Your scans",
 
   // Statuses
   "scan.en_attente": "Queued",
@@ -155,13 +155,13 @@ export const en: Traductions = {
   "scan.termine": "Complete",
   "scan.erreur": "Failed",
 
-  // ── Hunt history ──
-  "histo.chasse": "Hunt",
+  // ── Scan history ──
+  "histo.chasse": "Scan",
   "histo.analysees": "analysed",
   "histo.relancer": "Run again with the same settings",
   "histo.telecharger": "Download the file",
   "histo.fichierIndisponible":
-    "This file is no longer available. Run the hunt again to regenerate it.",
+    "This file is no longer available. Run the scan again to regenerate it.",
 
   // ── Outreach ──
   "outreach.eyebrow": "Outreach",
@@ -211,7 +211,7 @@ export const en: Traductions = {
   "jour.6": "Sun",
 
   // ── Campaign creation ──
-  "campagne.aucunScan": "No hunt available. Run a search from Radar first.",
+  "campagne.aucunScan": "No scan available. Run a search from Radar first.",
   "campagne.smtpAvant":
     "Enter your sending server under Settings before starting a campaign.",
   "campagne.nom": "Campaign name",
@@ -237,7 +237,7 @@ export const en: Traductions = {
     "Sending to unreachable addresses harms your domain reputation: servers eventually mark you as spam. Reliable qualifications are ticked by default; widen the selection knowingly.",
   "campagne.qualifDefaut":
     "The most reliable qualifications are ticked by default. Widen the selection to increase volume.",
-  "campagne.aucuneAdresse": "This hunt contains no usable email address.",
+  "campagne.aucuneAdresse": "This scan contains no usable email address.",
   "campagne.message": "Message",
   "campagne.objet": "Subject",
   "campagne.corps": "Message body",
@@ -372,9 +372,9 @@ export const en: Traductions = {
   // ── Dashboard ──
   "accueil.eyebrow": "Dashboard",
   "accueil.bonjour": "Hello",
-  "accueil.chasseEnCours": "A hunt is running. The results will appear in Radar.",
-  "accueil.derniereChasse": "Last hunt on",
-  "accueil.aucuneChasse": "No hunt yet.",
+  "accueil.chasseEnCours": "A scan is running. The results will appear in Radar.",
+  "accueil.derniereChasse": "Last scan on",
+  "accueil.aucuneChasse": "No scan yet.",
   "accueil.credits": "credits available",
   "accueil.entreprisesAnalysees": "companies analysed",
   "accueil.emailEnvoye": "email sent",
@@ -382,8 +382,8 @@ export const en: Traductions = {
   "accueil.reponseRecue": "reply received",
   "accueil.reponsesRecues": "replies received",
   "accueil.profilComplete": "profile completed",
-  "accueil.chasseLancee": "hunt started",
-  "accueil.chassesLancees": "hunts started",
+  "accueil.chasseLancee": "scan started",
+  "accueil.chassesLancees": "scans started",
   "accueil.campagneActive": "active campaign",
   "accueil.campagnesActives": "active campaigns",
   "accueil.sur": "of",
@@ -394,7 +394,7 @@ export const en: Traductions = {
   "conseils.titre": "What I would advise",
   "conseils.rienADire": "Your configuration shows no detectable flaw.",
   "conseils.suite":
-    "What follows comes down to volume and regularity: new hunts, sends spread out rather than bunched together.",
+    "What follows comes down to volume and regularity: new scans, sends spread out rather than bunched together.",
   "conseils.faireMoiMeme": "Do it myself",
   "conseils.yAller": "Go there",
   "conseils.reserve":
@@ -406,17 +406,17 @@ export const en: Traductions = {
   // ── Quick start ──
   "demarrage.titre": "Quick start",
   "demarrage.remplit":
-    "Fills in the form below. Nothing goes out until you start the hunt.",
-  "demarrage.chasserIdeaux": "Hunt my ideal clients",
+    "Fills in the form below. Nothing goes out until you start the scan.",
+  "demarrage.chasserIdeaux": "Scan my ideal clients",
   "demarrage.analyseProfil": "Analysing your profile…",
   "demarrage.deduits": "Trades and areas inferred from your company profile.",
   "demarrage.formulaireRempli":
-    "The form below is filled in. Read it over, adjust it, then start the hunt at the bottom of the page.",
+    "The form below is filled in. Read it over, adjust it, then start the scan at the bottom of the page.",
   "demarrage.pourquoi": "Why these trades and these areas?",
   "demarrage.ouSecteur": "Or start from a sector",
 
   // ── Example preview ──
-  "exemple.aucuneChasse": "No hunt yet.",
+  "exemple.aucuneChasse": "No scan yet.",
   "exemple.forme":
     "Here is the shape of a result: company, decision-maker, verified email, relevance score and an opening line written from their website. These two rows are fictional.",
   "exemple.societe1": "Heating & Plumbing (example)",
@@ -473,22 +473,22 @@ export const en: Traductions = {
   // ── Exports ──
   "exports.eyebrow": "Exports",
   "exports.titre": "Your lead files",
-  "exports.intro": "Each hunt produces a CSV file you can reuse in your CRM.",
+  "exports.intro": "Each scan produces a CSV file you can reuse in your CRM.",
   "exports.ongletFichiers": "Files",
   "exports.ongletCrm": "CRM connection",
   "exports.vide": "No file yet.",
   "exports.videDetail":
-    "Each hunt produces a downloadable file, to open in a spreadsheet or load into your CRM.",
-  "exports.lancerChasse": "Start a hunt",
+    "Each scan produces a downloadable file, to open in a spreadsheet or load into your CRM.",
+  "exports.lancerChasse": "Start a scan",
   "exports.consulter": "View",
   "exports.telecharger": "Download",
   "exports.preparation": "Preparing…",
-  "exports.douzeRecents": "Only the 12 most recent hunts are shown.",
+  "exports.douzeRecents": "Only the 12 most recent scans are shown.",
 
   // Global cache
   "cache.titre": "Extract from the global cache",
   "cache.detail":
-    "Retrieves leads already encountered during earlier hunts, without using an external call.",
+    "Retrieves leads already encountered during earlier scans, without using an external call.",
   "cache.filtrer": "Filter by company name…",
   "cache.filtrerLabel": "Filter by company name",
   "cache.maxLignes": "Maximum number of rows",
@@ -512,7 +512,7 @@ export const en: Traductions = {
   "crm.effacee": "Address cleared.",
   "crm.envoyerFichier": "Send a file",
   "crm.envoyerDetail": "Every row of the chosen file goes to the saved address.",
-  "crm.aucunFichier": "No file available. Run a hunt first.",
+  "crm.aucunFichier": "No file available. Run a scan first.",
   "crm.adresseDabord": "Save an address above first.",
   "crm.fichierLabel": "File to send",
   "crm.ligneEnvoyee": "row sent.",
@@ -530,7 +530,7 @@ export const en: Traductions = {
   "fichier.lancerCampagne": "Start a campaign",
   "fichier.vide": "This file contains no rows.",
   "fichier.videDetail":
-    "The file is created when a hunt starts and filled at the end: an interrupted hunt therefore leaves an empty file under the same name. Run it again from Radar to regenerate it.",
+    "The file is created when a scan starts and filled at the end: an interrupted scan therefore leaves an empty file under the same name. Run it again from Radar to regenerate it.",
   "fichier.filtrer": "Filter on any column…",
   "fichier.filtrerLabel": "Filter rows",
   "fichier.ligne": "row",
@@ -640,7 +640,7 @@ export const en: Traductions = {
   "admin.boutonCrediter": "Credit",
   "admin.agent": "Autonomous agent",
   "admin.agentDetail":
-    "Each night, the agent reads the account profile, runs a hunt and queues the best leads for sending. It never sends anything itself.",
+    "Each night, the agent reads the account profile, runs a scan and queues the best leads for sending. It never sends anything itself.",
   "admin.activer": "Enable",
   "admin.desactiver": "Disable",
   "admin.agentAvant": "Agent",
@@ -650,7 +650,7 @@ export const en: Traductions = {
   "admin.titreComptes": "Accounts",
   "admin.purge": "Purge the cache of unverified leads",
   "admin.purgeDetail":
-    "Permanently removes from the global cache the leads whose email has never been verified. They will be resubmitted for enrichment on the next hunt. Irreversible.",
+    "Permanently removes from the global cache the leads whose email has never been verified. They will be resubmitted for enrichment on the next scan. Irreversible.",
   "admin.purgeConfirmation": "Type PURGER to confirm",
   "admin.boutonPurger": "Purge",
 
@@ -665,7 +665,7 @@ export const en: Traductions = {
   "install.titre": "DataCloser on your screen",
   "install.safari": "Tap the Share button in Safari, then \u201cAdd to Home Screen\u201d.",
   "install.detail":
-    "Open your hunts and campaigns in one gesture, without going through the browser.",
+    "Open your scans and campaigns in one gesture, without going through the browser.",
   "install.installer": "Install",
   "install.installerLabel": "Install DataCloser",
   "install.fermer": "Close",
@@ -682,7 +682,7 @@ export const en: Traductions = {
   "lb.enCours": "Searching…",
   "apercu.titre": "Preview before sending",
   "apercu.detail":
-    "The email is built for a real recipient from this hunt, with your signature. Nothing is sent.",
+    "The email is built for a real recipient from this scan, with your signature. Nothing is sent.",
   "apercu.suivant": "Next recipient",
   "apercu.objet": "Subject: ",
 

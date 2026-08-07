@@ -4,9 +4,9 @@ import { BarreScore } from "@/components/BarreScore";
 import { useLangue } from "@/lib/i18n";
 
 /**
- * Ce qu'une chasse produit, montré avant d'avoir dépensé un crédit.
+ * Ce qu'un scan produit, montré avant d'avoir dépensé un crédit.
  *
- * S'affiche à la place de l'historique tant qu'aucune chasse n'a été
+ * S'affiche à la place de l'historique tant qu'aucun scan n'a été
  * lancée : c'est le moment exact où l'on hésite à engager des crédits
  * sans savoir ce qu'on obtiendra. Ces lignes sont fictives et le
  * disent — elles illustrent la forme d'un résultat, rien de plus.

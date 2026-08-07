@@ -18,9 +18,9 @@ const COULEUR: Record<string, string> = {
 };
 
 /**
- * Chasses passées, journal compris.
+ * Scans passés, journal compris.
  *
- * Le journal d'une chasse terminée explique ce qui a été trouvé et ce
+ * Le journal d'un scan terminé explique ce qui a été trouvé et ce
  * qui a échoué : c'est souvent là qu'on comprend pourquoi un résultat
  * déçoit. Il reste replié tant qu'on ne le demande pas.
  */

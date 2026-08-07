@@ -41,7 +41,7 @@
   ],
   "shortcuts": [
     {
-      "name": "Lancer une chasse",
+      "name": "Lancer un scan",
       "url": "/radar",
       "description": "Chercher de nouveaux prospects"
     },

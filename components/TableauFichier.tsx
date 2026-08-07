@@ -12,7 +12,7 @@ import type { ContenuFichier } from "@/lib/types";
 /**
  * Tableau complet d'un fichier de leads.
  *
- * Le Radar donne la synthèse d'une chasse ; ici on ouvre le fichier tel
+ * Le Radar donne la synthèse d'un scan ; ici on ouvre le fichier tel
  * qu'il est, avec ses colonnes réelles — y compris celles ajoutées au
  * fil des versions de l'application. Aucune normalisation, aucun tri
  * imposé : ce qu'on lit est ce que contient le CSV.

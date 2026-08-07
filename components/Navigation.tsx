@@ -55,7 +55,7 @@ export function Navigation() {
   const [ouvert, setOuvert] = useState(false);
   const zone = useRef<HTMLDivElement>(null);
 
-  // Le solde enregistré à la connexion vieillit dès la première chasse.
+  // Le solde enregistré à la connexion vieillit dès le premier scan.
   // On l'affiche d'abord pour éviter un vide, puis on le remplace par la
   // valeur réelle — et on rafraîchit à chaque changement de page, seul
   // moment où une action a pu le faire bouger.

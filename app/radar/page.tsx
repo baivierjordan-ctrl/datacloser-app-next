@@ -11,10 +11,10 @@ import { lireSession } from "@/lib/session";
 import { useLangue } from "@/lib/i18n";
 
 /**
- * Radar : on y chasse, rien d'autre.
+ * Radar : on y scanne, rien d'autre.
  *
  * Les résultats vivent dans Exports — un onglet, un verbe. Quand une
- * chasse se termine, un bandeau annonce le fichier et renvoie là où on
+ * scan se termine, un bandeau annonce le fichier et renvoie là où on
  * le consulte, plutôt que d'installer ici une seconde lecture des
  * mêmes données.
  */

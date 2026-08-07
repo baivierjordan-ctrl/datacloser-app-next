@@ -135,7 +135,7 @@ export interface NouvelleCampagne {
   avec_demo?: boolean;
 }
 
-/** Options de recherche proposées au lancement d'une chasse. */
+/** Options de recherche proposées au lancement d'un scan. */
 export interface OptionsRadar {
   pays: string[];
   villes: Record<string, string[]>;
@@ -175,7 +175,7 @@ export interface NouveauScan {
   verifier_absence_site: boolean;
 }
 
-/** Une chasse dans l'un de ces états interdit d'en lancer une autre. */
+/** Un scan dans l'un de ces états interdit d'en lancer une autre. */
 export const SCAN_ACTIF: StatutScan[] = [
   "en_attente",
   "en_cours",
@@ -351,7 +351,7 @@ export interface SecteurRapide {
   mode: string;
 }
 
-/** Chasse proposée d'après le profil, à valider avant lancement. */
+/** Scan proposé d'après le profil, à valider avant lancement. */
 export interface PlanIcp {
   mots_cles: string[];
   pays: string;

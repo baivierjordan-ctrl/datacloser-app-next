@@ -14,7 +14,7 @@ const champ =
  *
  * Les leads déjà rencontrés lors de scans précédents sont réutilisables
  * sans consommer d'appel externe. Utile pour reconstituer une liste
- * sans relancer une chasse.
+ * sans relancer un scan.
  */
 export function ExportCache() {
   const { t } = useLangue();

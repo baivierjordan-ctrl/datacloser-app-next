@@ -159,7 +159,7 @@ export default function PageGuide() {
             <div className="rounded-xl border border-teal/30 bg-teal/5 p-5">
               <h2 className="text-sm font-medium">Une question qui n&apos;est pas ici ?</h2>
               <p className="mt-1.5 text-sm leading-relaxed text-content-soft">
-                L&apos;assistant connaît votre activité et vos chasses. Il
+                L&apos;assistant connaît votre activité et vos scans. Il
                 répond à votre cas plutôt qu&apos;à la prospection en général.
               </p>
               <Link

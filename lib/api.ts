@@ -275,7 +275,7 @@ export function recupererOptionsRadar(): Promise<OptionsRadar> {
   return appeler<OptionsRadar>("/radar/options");
 }
 
-/** Historique des chasses et identifiant de celle en cours, s'il y en a une. */
+/** Historique des scans et identifiant de celle en cours, s'il y en a une. */
 export function recupererScansRadar(): Promise<{
   scans: ScanRadar[];
   actif: string | null;
@@ -283,19 +283,19 @@ export function recupererScansRadar(): Promise<{
   return appeler("/radar/scans");
 }
 
-/** Dépose une chasse dans la file. */
+/** Dépose un scan dans la file. */
 export function lancerScan(
   scan: NouveauScan,
 ): Promise<{ id: string; nom_fichier: string; requetes_estimees: number }> {
   return envoyer("/radar/scan", scan);
 }
 
-/** Demande l'arrêt d'une chasse en cours. */
+/** Demande l'arrêt d'un scan en cours. */
 export function annulerScan(id: string): Promise<{ annulation_demandee: boolean }> {
   return envoyer(`/radar/scan/${encodeURIComponent(id)}/annuler`, {});
 }
 
-/** Journal d'une chasse, en flux : seules les lignes nouvelles sont renvoyées. */
+/** Journal d'un scan, en flux : seules les lignes nouvelles sont renvoyées. */
 export function recupererLogsScan(
   id: string,
   depuis: number,
@@ -485,7 +485,7 @@ export function envoyerVersCrm(fichier: string): Promise<{ envoyes: number }> {
   return envoyer("/crm/envoyer", { fichier });
 }
 
-/** Métiers proches de ceux déjà saisis, pour élargir une chasse. */
+/** Métiers proches de ceux déjà saisis, pour élargir un scan. */
 export async function suggererMetiers(mots: string[]): Promise<string[]> {
   const d = await envoyer<{ suggestions: string[] }>("/radar/suggestions", {
     mots,
@@ -517,7 +517,7 @@ export async function recupererSecteurs(): Promise<SecteurRapide[]> {
   return d.secteurs ?? [];
 }
 
-/** Chasse déduite du profil. Ne lance rien : la configuration est à valider. */
+/** Scan déduit du profil. Ne lance rien : la configuration est à valider. */
 export function proposerPlanIcp(): Promise<PlanIcp> {
   return envoyer("/radar/plan-icp", {});
 }

@@ -24,7 +24,7 @@ export const SECTIONS_EN: SectionGuide[] = [
           "Under My company, you state what you sell and to whom. The engine uses this to score the relevance of every company it finds. Without that profile it scores blind, and your credits go to companies outside your target.",
       },
       {
-        titre: "2. You start a hunt",
+        titre: "2. You start a scan",
         texte:
           "In Radar, you enter a trade and an area. The engine identifies the companies, finds the decision-maker, verifies their email address and writes an opening line. The result becomes a file.",
       },
@@ -43,7 +43,7 @@ export const SECTIONS_EN: SectionGuide[] = [
       {
         titre: "Credit",
         texte:
-          "The unit of consumption. One credit is charged per company whose email is verified during a hunt, and one credit per first message sent. Follow-ups are free, and companies with no usable address are never charged. Credits do not expire.",
+          "The unit of consumption. One credit is charged per company whose email is verified during a scan, and one credit per first message sent. Follow-ups are free, and companies with no usable address are never charged. Credits do not expire.",
       },
       {
         titre: "Email qualification",
@@ -61,7 +61,7 @@ export const SECTIONS_EN: SectionGuide[] = [
           "A sentence written for each recipient from their website — a page out of date, a delay mentioned in reviews, an area not covered. It is what distinguishes your message from a mass mailing.",
       },
       {
-        titre: "Hunt",
+        titre: "Scan",
         texte:
           "A search started in Radar. It runs on our servers: you can close the page, it carries on.",
       },
@@ -69,13 +69,13 @@ export const SECTIONS_EN: SectionGuide[] = [
   },
   {
     cle: "chasse",
-    titre: "Making a hunt work",
+    titre: "Making a scan work",
     resume: "The choice of keywords determines everything else.",
     passages: [
       {
         titre: "Search for a trade, not a sector",
         texte:
-          "\u201cRoofer\u201d returns companies. \u201cConstruction\u201d returns directories, marketplaces and trade bodies — none of which is a prospect. This is the most common cause of a disappointing hunt.",
+          "\u201cRoofer\u201d returns companies. \u201cConstruction\u201d returns directories, marketplaces and trade bodies — none of which is a prospect. This is the most common cause of a disappointing scan.",
       },
       {
         titre: "Start small",
@@ -89,14 +89,14 @@ export const SECTIONS_EN: SectionGuide[] = [
       },
       {
         attention:
-          "If more than 40% of the companies in a hunt have no usable address, your keywords are too broad. The dashboard flags this automatically.",
+          "If more than 40% of the companies in a scan have no usable address, your keywords are too broad. The dashboard flags this automatically.",
       },
       {
         titre: "Two shortcuts",
         points: [
-          "Hunt my ideal clients: the engine infers trades and areas from your company profile.",
+          "Scan my ideal clients: the engine infers trades and areas from your company profile.",
           "The ready-made sectors fill in the form in one click, with the right mode.",
-          "Neither of them starts the hunt: you read it over, you adjust, you decide.",
+          "Neither of them starts the scan: you read it over, you adjust, you decide.",
         ],
       },
     ],
@@ -144,7 +144,7 @@ export const SECTIONS_EN: SectionGuide[] = [
     passages: [
       {
         texte:
-          "Each hunt produces a file under Exports. View opens it in full, with all its columns and a filter on any of them. Download gives you the CSV, which opens in a spreadsheet.",
+          "Each scan produces a file under Exports. View opens it in full, with all its columns and a filter on any of them. Download gives you the CSV, which opens in a spreadsheet.",
       },
       {
         titre: "Automatic sending to your tool",
